@@ -251,10 +251,7 @@ section>.inner{width:100%}
     <a href="#about">About</a>
     <a href="#barrier">Problem</a>
     <a href="#solution">Solution</a>
-    <a href="#cases">Cases</a>
-    <a href="#consulting">Consulting</a>
     <a href="#demo">Live Demo</a>
-    <a href="#team">Team</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -275,7 +272,6 @@ section>.inner{width:100%}
     <div class="mono rv" style="transition-delay:.35s;color:#0EA5E9;font-size:12px;letter-spacing:3px;margin-bottom:20px">AssistX &rarr; ExpertX Agent &rarr; Platform Core &rarr; SSOTX</div>
     <div class="btn-row rv" style="transition-delay:.4s">
       <a href="#about" class="btn btn-p">회사 소개</a>
-      <a href="#cases" class="btn btn-g">적용 사례</a>
     </div>
   </div>
   <div class="scroll-ind">
@@ -1194,14 +1190,6 @@ const caseVoice={
   'c3':'이 사례는 3D 스캔과 공차 기준을 결합한 품질 판정입니다.',
   'c4':'이 사례는 다중 카메라 기반의 실시간 안전 감시입니다.'
 };
-document.querySelectorAll('.case-tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    const txt=caseVoice[tab.dataset.tab];
-    if(!txt)return;
-    window.setMeshState('emphasis');
-    showCaption('적용 사례',txt);
-  });
-});
 })();
 </script>
 </body>
