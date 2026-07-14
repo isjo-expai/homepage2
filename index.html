@@ -335,7 +335,7 @@ section>.inner{width:100%}
 .hud-core{flex-direction:column;gap:6px}
 .hud-core .xmark{width:74px;height:74px;filter:drop-shadow(0 0 14px rgba(56,189,248,0.55)) drop-shadow(0 0 34px rgba(124,58,237,0.3))}
 .hud-core .xmark svg{width:100%;height:100%}
-.hud-core .xword{font-family:'Inter',sans-serif;font-size:19px;font-weight:900;letter-spacing:-.4px;color:#F1F5F9;line-height:1}
+.hud-core .xword{font-family:'Inter',sans-serif;font-size:16px;font-weight:800;letter-spacing:3px;color:#F1F5F9;line-height:1;padding-left:3px}
 .hud-core .xword b{background:linear-gradient(135deg,#38BDF8,#8B5CF6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:900}
 .hud-core .xsub{font-family:'JetBrains Mono',monospace;font-size:7.5px;letter-spacing:3.5px;color:#5B7B96;text-transform:uppercase}
 .hud-ev span{display:inline-flex;align-items:center;gap:5px}
@@ -587,21 +587,16 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
         <div class="xmark">
           <svg viewBox="0 0 100 100" fill="none">
             <defs>
-              <linearGradient id="xg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
-              <linearGradient id="xg2" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#0EA5E9"/></linearGradient>
+              <linearGradient id="xga" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7DD3FC"/><stop offset="1" stop-color="#0284C7"/></linearGradient>
+              <linearGradient id="xgb" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A78BFA"/><stop offset="1" stop-color="#6D28D9"/></linearGradient>
             </defs>
-            <circle cx="50" cy="50" r="46" stroke="rgba(56,189,248,0.28)" stroke-width="1.5" stroke-dasharray="4 6"/>
-            <path d="M28 28 L72 72" stroke="url(#xg1)" stroke-width="11" stroke-linecap="round"/>
-            <path d="M72 28 L28 72" stroke="url(#xg2)" stroke-width="11" stroke-linecap="round"/>
-            <circle cx="28" cy="28" r="5.5" fill="#7DD3FC"/>
-            <circle cx="72" cy="72" r="5.5" fill="#8B5CF6"/>
-            <circle cx="72" cy="28" r="5.5" fill="#38BDF8"/>
-            <circle cx="28" cy="72" r="5.5" fill="#0EA5E9"/>
-            <circle cx="50" cy="50" r="8" fill="#0B1220" stroke="#7DD3FC" stroke-width="2"/>
-            <circle cx="50" cy="50" r="3" fill="#E0F2FE"/>
+            <path d="M80.2 28.2 L71.8 19.8 L54.3 37.3 L62.7 45.7 Z" fill="url(#xgb)"/>
+            <path d="M19.8 71.8 L28.2 80.2 L45.7 62.7 L37.3 54.3 Z" fill="url(#xgb)"/>
+            <path d="M28.2 19.8 L80.2 71.8 L71.8 80.2 L19.8 28.2 Z" fill="url(#xga)"/>
+            <path d="M28.2 19.8 L80.2 71.8 L71.8 80.2 L19.8 28.2 Z" fill="none" stroke="rgba(224,242,254,0.35)" stroke-width="0.7"/>
           </svg>
         </div>
-        <div class="xword">Expert<b>X</b></div>
+        <div class="xword">EXPERT<b>X</b></div>
         <div class="xsub">Factory AI Agent</div>
       </div>
       <div class="hud-wave" id="hud-wave"></div>
