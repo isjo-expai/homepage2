@@ -266,6 +266,7 @@ section>.inner{width:100%}
 .recall-tag.l0{color:#7DD3FC;border:1px solid rgba(56,189,248,0.38);box-shadow:0 0 14px rgba(56,189,248,0.18)}
 .recall-tag.l1{color:#C4B5FD;border:1px solid rgba(139,92,246,0.38);box-shadow:0 0 14px rgba(139,92,246,0.18)}
 .recall-tag.l2{color:#86EFAC;border:1px solid rgba(16,185,129,0.38);box-shadow:0 0 14px rgba(16,185,129,0.18)}
+.mem-ghost{position:absolute;left:50%;top:50%;pointer-events:none;opacity:0;will-change:transform,opacity;z-index:3;filter:blur(0.6px)}
 .no-webgl .dive-sticky,.no-webgl .dive-progress{display:none}
 .no-webgl #dive{height:auto;padding:80px 0}
 .no-webgl .dive-step{position:static;opacity:1;pointer-events:auto;margin-bottom:60px}
@@ -376,6 +377,9 @@ section>.inner{width:100%}
 if(new URLSearchParams(location.search).has('noloader'))document.getElementById('loader').style.display='none'
 addEventListener('load',()=>{const g=new URLSearchParams(location.search).get('goto');if(g){document.documentElement.style.scrollBehavior='auto';const el=document.getElementById(g);if(el)setTimeout(()=>{el.scrollIntoView();},400)}})
 if(new URLSearchParams(location.search).has('debugscroll'))setInterval(()=>{document.title='sy:'+Math.round(scrollY)},400)
+if(new URLSearchParams(location.search).has('tagtest'))addEventListener('load',()=>setTimeout(()=>{
+  document.querySelectorAll('.recall-tag').forEach((el,i)=>{el.style.position='fixed';el.style.left='0';el.style.top='0';el.style.opacity='1';el.style.zIndex='99';el.style.transform='translate('+(120+(i%5)*300)+'px,'+(140+Math.floor(i/5)*180)+'px)'})
+},1200))
 addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.search).get('only');if(o){document.querySelectorAll('section,.marquee,#brain-canvas,#voice-guide').forEach(s=>{if(s.id!==o)s.style.display='none'});setTimeout(()=>document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(e=>e.classList.add('v')),200)}})
 </script>
 
@@ -1192,10 +1196,21 @@ else{
   RECALL.forEach((list,L)=>list.forEach((txt,i)=>{
     const el=document.createElement('div');el.className='recall-tag l'+L;el.textContent=txt
     stick.appendChild(el)
-    const tp=diskPoint(L,0.45),bd=randDir(),br=0.85+Math.random()*0.4
-    tags.push({el,L,i,tx:tp[0]*1.15,ty:tp[1],tz:tp[2]*1.15,bx:bd.x*1.3*br,by:bd.y*0.9*br,bz:bd.z*1.1*br,o:0})
+    const ang=(i/list.length)*Math.PI*2+L*0.7+(Math.random()-0.5)*0.5
+    tags.push({el,L,i,ang,rr:0.62+Math.random()*0.38,o:0})
   }))
-  const _v=new THREE.Vector3()
+  /* ---- memory flashes: translucent time-series / human traces sweeping past (기억) ---- */
+  const GH=[
+    {w:'54vw',y:'20%',x0:-0.20,dr:1.6,k:0.34,html:'<svg viewBox="0 0 600 140" width="100%"><polyline fill="none" stroke="#34D399" stroke-width="2.5" points="0,110 40,100 80,105 120,88 160,92 200,70 240,78 280,55 320,62 360,40 400,50 440,28 480,38 520,18 560,26 600,10"/><line x1="0" y1="46" x2="600" y2="46" stroke="#F87171" stroke-width="1.5" stroke-dasharray="6 5"/></svg>'},
+    {w:'46vw',y:'74%',x0:0.25,dr:-1.3,k:0.30,html:'<svg viewBox="0 0 600 46" width="100%"><line x1="0" y1="23" x2="600" y2="23" stroke="#7DD3FC" stroke-width="1.4"/><circle cx="70" cy="23" r="5" fill="#38BDF8"/><circle cx="210" cy="23" r="5" fill="#FBBF24"/><circle cx="360" cy="23" r="5" fill="#F87171"/><circle cx="520" cy="23" r="5" fill="#34D399"/></svg>'},
+    {w:'12vw',y:'52%',x0:-0.34,dr:1.0,k:0.26,html:'<svg viewBox="0 0 100 160" width="100%"><circle cx="50" cy="22" r="13" fill="#86EFAC"/><path d="M50 38 L50 94 M50 54 L22 76 M50 54 L80 64 L94 48 M50 94 L30 146 M50 94 L72 144" stroke="#86EFAC" stroke-width="8" stroke-linecap="round" fill="none"/></svg>'},
+    {w:'auto',y:'34%',x0:0.30,dr:-0.9,k:0.30,html:'<div style="font-family:\'JetBrains Mono\',monospace;font-weight:800;font-size:6.5vw;color:#34D399;letter-spacing:-2px">+38%</div>'}
+  ]
+  const ghosts=GH.map(d=>{
+    const el=document.createElement('div');el.className='mem-ghost';el.style.width=d.w;el.style.top=d.y
+    el.innerHTML=d.html;stick.appendChild(el)
+    return Object.assign({el,o:0},d)
+  })
 
   /* ---- choreography ---- */
   const dive=document.getElementById('dive')
@@ -1220,7 +1235,7 @@ else{
     const t=time/1000;uni.uTime.value=t
     const vh=innerHeight,sy=scrollY
     const afterDive=sy>diveTop+diveH-vh*0.4
-    if(afterDive){if(running){cv.classList.remove('on');running=false;tags.forEach(g=>{if(g.o){g.o=0;g.el.style.opacity=0}})}return}
+    if(afterDive){if(running){cv.classList.remove('on');running=false;tags.forEach(g=>{if(g.o){g.o=0;g.el.style.opacity=0}});ghosts.forEach(g=>{if(g.o){g.o=0;g.el.style.opacity=0}})}return}
     if(!running){cv.classList.add('on');running=true}
     const p=isNaN(forceP)?clamp((sy-diveTop)/(diveH-vh),0,1):forceP
     const heroP=clamp(sy/vh,0,1)
@@ -1262,20 +1277,31 @@ else{
     bars.forEach((b,i)=>b.classList.toggle('on',i<=active&&p>0.01))
     /* network links fade in with the morph */
     lMat.opacity=mix*(0.16+0.09*Math.sin(t*2.2))
-    /* recall tags — scatter out per layer like memories being recalled */
-    const rotY=group.rotation.y,cR=Math.cos(rotY),sR=Math.sin(rotY)
+    /* recall tags — burst outward from center like memories being recalled (screen-space, robust) */
     const showTags=p>0.05&&p<0.96
+    const minWH=Math.min(innerWidth,innerHeight)
     for(const g of tags){
       let a=1-Math.abs(p-RC[g.L])/RW
       a=Math.min(1,a*1.8-g.i*0.03)
       if(!showTags||a<0.03){if(g.o>0.02){g.el.style.opacity=0;g.o=0}continue}
       g.o=a
       const s=1-Math.pow(1-Math.min(1,a*1.2),2) /* ease-out burst */
-      const ex=(g.bx+(g.tx-g.bx)*mix)*s,ey=(g.by+(g.ty-g.by)*mix)*s,ez=(g.bz+(g.tz-g.bz)*mix)*s
-      _v.set(ex*cR+ez*sR,ey,-ex*sR+ez*cR).project(camera)
-      if(_v.z>1){g.el.style.opacity=0;continue}
+      const R=(0.10+0.30*s)*minWH*g.rr
+      const wob=Math.sin(t*0.8+g.i*2.1)*9
+      const X=innerWidth/2+Math.cos(g.ang)*R*1.55+wob
+      const Y=innerHeight/2+Math.sin(g.ang)*R*0.85
       g.el.style.opacity=a
-      g.el.style.transform='translate('+((_v.x*0.5+0.5)*innerWidth)+'px,'+((-_v.y*0.5+0.5)*innerHeight)+'px) translate(-50%,-50%)'
+      g.el.style.transform='translate('+X+'px,'+Y+'px) translate(-50%,-50%)'
+    }
+    /* memory flashes drift past like an opening-credits reel (기억 구간) */
+    const aM=clamp(1-Math.abs(p-0.62)/0.20,0,1)
+    for(const gh of ghosts){
+      const o=aM*gh.k
+      if(o<0.02){if(gh.o>0.01){gh.el.style.opacity=0;gh.o=0}continue}
+      gh.o=o
+      const X=(gh.x0+(p-0.62)*gh.dr*2.5)*innerWidth
+      gh.el.style.opacity=o
+      gh.el.style.transform='translate(calc(-50% + '+X+'px),-50%)'
     }
     renderer.render(scene,camera)
   }
