@@ -769,11 +769,7 @@ function sendEmail(e){
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeEmailModal()
-  if(inFreeScroll()){
-    if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();if(!isAnimating)diveStep(1)}
-    if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();if(!isAnimating)diveStep(-1)}
-    return
-  }
+  if(inFreeScroll()){if(diveAuto)stopDivePlay();return}
   if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();updateIdx();snapTo(curIdx+1)}
   if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();updateIdx();snapTo(curIdx-1)}
 })
@@ -787,37 +783,38 @@ function inFreeScroll(){
   const r=d.getBoundingClientRect()
   return r.top<=10&&r.bottom>=window.innerHeight-10
 }
-/* slow eased auto-scroll between dive checkpoints */
-let tweenId=0
-function tweenScroll(targetY,dur){
-  isAnimating=true
-  const startY=window.scrollY,startT=performance.now(),id=++tweenId
+/* ===== DIVE AUTOPLAY — plays through the brain journey like a video ===== */
+let diveAuto=null,diveArmed=true
+function startDivePlay(){
+  if(diveAuto)return
+  const d=document.getElementById('dive'),s=document.getElementById('stream')
+  const startY=window.scrollY,endY=s.offsetTop
+  const total=endY-startY
+  if(total<10)return
+  const SPEED=165 /* px per second — calm, cinematic */
+  const dur=total/SPEED*1000,t0=performance.now()
   function step(t){
-    if(id!==tweenId){isAnimating=false;return}
-    const k=Math.min(1,(t-startT)/dur)
-    const e=k<0.5?4*k*k*k:1-Math.pow(-2*k+2,3)/2
-    window.scrollTo(0,startY+(targetY-startY)*e)
-    if(k<1)requestAnimationFrame(step)
-    else setTimeout(()=>{isAnimating=false},150)
+    if(!diveAuto)return
+    const k=Math.min(1,(t-t0)/dur)
+    const e=k<0.05?(k*k)/0.05:k /* gentle start, then constant speed */
+    window.scrollTo(0,startY+total*e)
+    if(k<1)diveAuto=requestAnimationFrame(step)
+    else{diveAuto=null;diveArmed=false}
   }
-  requestAnimationFrame(step)
+  diveAuto=requestAnimationFrame(step)
 }
-const DIVE_CENTERS=[0.06,0.23,0.42,0.62,0.85]
-function diveStep(dir){
-  const d=document.getElementById('dive'),vh=window.innerHeight
-  const span=d.offsetHeight-vh,sy=window.scrollY
-  const pts=DIVE_CENTERS.map(c=>Math.round(d.offsetTop+c*span))
-  const dur=y=>Math.min(2300,Math.max(1200,Math.abs(y-sy)*1.1))
-  if(dir>0){
-    const next=pts.find(y=>y>sy+40)
-    if(next!==undefined)tweenScroll(next,dur(next))
-    else{const s=document.getElementById('stream');tweenScroll(s.offsetTop,dur(s.offsetTop))}
-  }else{
-    const prevs=pts.filter(y=>y<sy-40)
-    if(prevs.length)tweenScroll(prevs[prevs.length-1],dur(prevs[prevs.length-1]))
-    else tweenScroll(document.getElementById('hero').offsetTop,1300)
-  }
+function stopDivePlay(){
+  if(diveAuto){cancelAnimationFrame(diveAuto);diveAuto=null;diveArmed=false}
 }
+/* arm/trigger watcher */
+setInterval(()=>{
+  const d=document.getElementById('dive')
+  if(!d||document.documentElement.classList.contains('no-webgl'))return
+  const r=d.getBoundingClientRect()
+  if(diveArmed&&!diveAuto&&!isAnimating&&r.top<=5&&r.bottom>innerHeight+5)startDivePlay()
+  if(window.scrollY<d.offsetTop-innerHeight*0.6)diveArmed=true
+},200)
+window.addEventListener('touchstart',()=>{if(diveAuto)stopDivePlay()},{passive:true})
 function snapTo(idx){
   if(idx<0||idx>=snapSecs.length||isAnimating)return
   isAnimating=true;curIdx=idx
@@ -835,11 +832,8 @@ function updateIdx(){
 }
 window.addEventListener('wheel',(e)=>{
   if(inFreeScroll()){
-    e.preventDefault()
-    if(isAnimating)return
-    if(Math.abs(e.deltaY)<20)return
-    diveStep(e.deltaY>0?1:-1)
-    return
+    if(diveAuto)stopDivePlay()
+    return /* manual free scroll inside the dive */
   }
   if(isAnimating){e.preventDefault();return}
   const delta=e.deltaY
@@ -853,10 +847,9 @@ window.addEventListener('wheel',(e)=>{
 let touchY=0
 window.addEventListener('touchstart',(e)=>{touchY=e.touches[0].clientY},{passive:true})
 window.addEventListener('touchend',(e)=>{
-  if(isAnimating)return
+  if(isAnimating||inFreeScroll())return
   const diff=touchY-e.changedTouches[0].clientY
   if(Math.abs(diff)<50)return
-  if(inFreeScroll()){diveStep(diff>0?1:-1);return}
   updateIdx()
   if(diff>0)snapTo(curIdx+1)
   else snapTo(curIdx-1)
