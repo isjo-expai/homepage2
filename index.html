@@ -1061,7 +1061,6 @@ document.querySelectorAll('section[data-voice]').forEach(s=>voiceSo.observe(s));
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 <script type="module">
 import * as THREE from 'three'
-import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js'
 const cv=document.getElementById('brain-canvas')
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches
 let renderer=null
@@ -1204,9 +1203,8 @@ else{
   }))
   /* ---- memory flashes: translucent time-series / human traces sweeping past (기억) ---- */
   const GH=[
-    {w:'56vw',y:'20%',x0:-0.20,dr:1.6,k:0.38,html:'<svg viewBox="0 0 600 150" width="100%"><defs><linearGradient id="ghl" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#0EA5E9"/><stop offset="1" stop-color="#34D399"/></linearGradient><linearGradient id="gha" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(52,211,153,0.35)"/><stop offset="1" stop-color="rgba(52,211,153,0)"/></linearGradient></defs><path d="M0,110 40,100 80,105 120,88 160,92 200,70 240,78 280,55 320,62 360,40 400,50 440,28 480,38 520,18 560,26 600,10 L600,150 L0,150 Z" fill="url(#gha)"/><polyline fill="none" stroke="url(#ghl)" stroke-width="3.5" stroke-linejoin="round" points="0,110 40,100 80,105 120,88 160,92 200,70 240,78 280,55 320,62 360,40 400,50 440,28 480,38 520,18 560,26 600,10"/><line x1="0" y1="46" x2="600" y2="46" stroke="#F87171" stroke-width="1.6" stroke-dasharray="7 5"/><circle cx="600" cy="10" r="6" fill="#34D399"/></svg>'},
     {w:'48vw',y:'76%',x0:0.25,dr:-1.3,k:0.32,html:'<svg viewBox="0 0 600 60" width="100%"><line x1="0" y1="30" x2="600" y2="30" stroke="#7DD3FC" stroke-width="1.6"/><circle cx="70" cy="30" r="6" fill="#38BDF8"/><circle cx="210" cy="30" r="6" fill="#FBBF24"/><circle cx="360" cy="30" r="8" fill="#F87171"/><circle cx="360" cy="30" r="14" fill="none" stroke="#F87171" stroke-width="1.5" opacity=".5"/><circle cx="520" cy="30" r="6" fill="#34D399"/></svg>'},
-    {w:'auto',y:'32%',x0:0.30,dr:-0.9,k:0.32,html:'<div style="font-family:\'JetBrains Mono\',monospace;font-weight:800;font-size:6.5vw;color:#34D399;letter-spacing:-2px">+38%</div>'}
+    {w:'auto',y:'30%',x0:0.30,dr:-0.9,k:0.32,html:'<div style="font-family:\'JetBrains Mono\',monospace;font-weight:800;font-size:6.5vw;color:#34D399;letter-spacing:-2px">+38%</div>'}
   ]
   const ghosts=GH.map(d=>{
     const el=document.createElement('div');el.className='mem-ghost';el.style.width=d.w;el.style.top=d.y
@@ -1214,30 +1212,29 @@ else{
     return Object.assign({el,o:0},d)
   })
 
-  /* ---- 3D memory human — CC0 factory worker performing a work motion, behaviour-analysis styling ---- */
-  let human=null,humanMixer=null,humanBox=null,lastT=0
-  const humanMats=[]
-  const anaEl=document.createElement('div');anaEl.className='recall-tag l2';anaEl.textContent='행동 분석 · POSE MATCH 98%';stick.appendChild(anaEl)
-  if(!isMobile){
-    scene.add(new THREE.AmbientLight(0xbfd8ff,1.6))
-    const dl=new THREE.DirectionalLight(0x9fd6ff,2.0);dl.position.set(2,3,4);scene.add(dl)
-    new GLTFLoader().load('images_html/worker.glb',g=>{
-      human=g.scene
-      human.traverse(o=>{if(o.isMesh){o.frustumCulled=false;o.material.transparent=true;o.material.opacity=0;humanMats.push(o.material)}})
-      human.scale.setScalar(0.75)
-      human.position.set(-1.35,-1.6,0.6)
-      human.rotation.y=0.7
-      human.visible=false
-      scene.add(human)
-      const bb=new THREE.Box3().setFromObject(human)
-      humanBox=new THREE.Box3Helper(bb,0x34d399)
-      humanBox.material.transparent=true;humanBox.material.opacity=0;humanBox.visible=false
-      scene.add(humanBox)
-      humanMixer=new THREE.AnimationMixer(human)
-      const clip=g.animations.find(a=>/Interact/i.test(a.name))||g.animations.find(a=>/Idle_Neutral/i.test(a.name))||g.animations[0]
-      if(clip)humanMixer.clipAction(clip).play()
-    },undefined,()=>{})
-  }
+  /* ---- 3D live time-series chart — telemetry streaming in world space (기억) ---- */
+  let lastT=0,chartAcc=0
+  const anaEl=document.createElement('div');anaEl.className='recall-tag l2';anaEl.textContent='시계열 패턴 각인 · EEPX-TSI 92%';stick.appendChild(anaEl)
+  const chartG=new THREE.Group()
+  chartG.position.set(-1.55,-0.9,0.35);chartG.rotation.y=0.55;chartG.rotation.x=0.10
+  chartG.visible=false;scene.add(chartG)
+  const grid=new THREE.GridHelper(2.3,10,0x2a527e,0x16283f)
+  grid.position.y=-0.42;grid.material.transparent=true;grid.material.opacity=0
+  chartG.add(grid)
+  const CPTS=64
+  const chartLines=[]
+  ;[[0x34d399,0.0,1.0],[0x38bdf8,-0.30,1.6],[0xfbbf24,0.30,0.7]].forEach((cfg,si)=>{
+    const pos=new Float32Array(CPTS*3)
+    for(let i=0;i<CPTS;i++){pos[i*3]=(i/(CPTS-1)-0.5)*2.3;pos[i*3+2]=cfg[1]}
+    const geo=new THREE.BufferGeometry();geo.setAttribute('position',new THREE.BufferAttribute(pos,3))
+    const mat=new THREE.LineBasicMaterial({color:cfg[0],transparent:true,opacity:0,blending:THREE.AdditiveBlending})
+    chartG.add(new THREE.Line(geo,mat))
+    chartLines.push({geo,mat,pos,z:cfg[1],f:cfg[2],data:new Array(CPTS).fill(0),x:si*7,spike:0})
+  })
+  const thrGeo=new THREE.BufferGeometry()
+  thrGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array([-1.15,0.42,0, 1.15,0.42,0]),3))
+  const thrMat=new THREE.LineBasicMaterial({color:0xef4444,transparent:true,opacity:0})
+  chartG.add(new THREE.Line(thrGeo,thrMat))
 
   /* ---- choreography ---- */
   const dive=document.getElementById('dive')
@@ -1327,18 +1324,29 @@ else{
     /* memory flashes drift past like an opening-credits reel (기억 구간) */
     const aM=clamp(1-Math.abs(p-0.62)/0.20,0,1)
     const dt=Math.min(0.05,(time-lastT)/1000);lastT=time
-    if(human){
-      const on=aM>0.03
-      human.visible=on
-      if(humanBox)humanBox.visible=on
-      if(on){
-        humanMats.forEach(m=>m.opacity=0.95*aM)
-        if(humanBox)humanBox.material.opacity=0.4*aM*(0.7+0.3*Math.sin(t*3))
-        humanMixer.update(dt)
-      }
+    /* 3D telemetry chart streams while the memory layer is active */
+    const chartOn=aM>0.03
+    chartG.visible=chartOn
+    if(chartOn){
+      grid.material.opacity=0.45*aM
+      thrMat.opacity=0.6*aM
+      chartAcc+=dt
+      const step=chartAcc>0.05
+      if(step)chartAcc=0
+      chartLines.forEach((s,si)=>{
+        s.mat.opacity=(si===0?0.95:0.7)*aM
+        if(!step)return
+        s.x+=0.16
+        if(si===0&&Math.random()<0.02)s.spike=1
+        s.spike=Math.max(0,s.spike-0.04)
+        const v=0.22*Math.sin(s.x*s.f)+0.10*Math.sin(s.x*2.3*s.f+si*2)+(Math.random()-0.5)*0.04+(si===0?s.spike*0.55:0)
+        s.data.push(v);s.data.shift()
+        for(let i=0;i<CPTS;i++)s.pos[i*3+1]=s.data[i]
+        s.geo.attributes.position.needsUpdate=true
+      })
       anaEl.style.opacity=aM
-      anaEl.style.transform='translate('+(innerWidth*0.26)+'px,'+(innerHeight*0.36)+'px) translate(-50%,-50%)'
-    }
+      anaEl.style.transform='translate('+(innerWidth*0.25)+'px,'+(innerHeight*0.34)+'px) translate(-50%,-50%)'
+    }else if(anaEl.style.opacity!=='0'){anaEl.style.opacity=0}
     for(const gh of ghosts){
       const o=aM*gh.k
       if(o<0.02){if(gh.o>0.01){gh.el.style.opacity=0;gh.o=0}continue}
