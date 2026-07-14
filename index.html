@@ -1129,14 +1129,14 @@ else{
 const logEl=document.getElementById('sim-log');if(!logEl)return
 const kEv=document.getElementById('kpi-ev'),kAl=document.getElementById('kpi-alert'),kBr=document.getElementById('kpi-brain')
 let nEv=0,nAl=0,nBr=0,clock=new Date(2026,5,28,21,25,0)
-const PROCS=['두께 가공','외경 가공 1차','홀 가공','키홀 가공','곡면가공(황삭)','곡면가공(정삭)','폴리싱(황삭)','폴리싱(정삭)','에칭','세정 2차','사상','3차원 측정','저항 측정','마킹','진공포장']
-const EQ=['VM#1','VM#2','CNC-07','CNC-12','ETC-3','CLN-1','MEA-2','PKG-1']
+const PROCS=['자재 입고 검사','프레스 성형','사출 성형','CNC 가공','열처리','용접','표면 처리','도장','조립 1라인','조립 2라인','기능 검사','외관 검사','포장','출하 대기']
+const EQ=['PRESS-02','MOLD-4','CNC-07','HT-1','WELD-05','PAINT-1','ASSY-3','INSP-2','PKG-1']
 let lotSeq=4821
 function lot(){if(Math.random()<0.6)lotSeq++;return 'LOT-'+lotSeq}
 const ALERTS=[
- {tag:'tag-alert',proc:'홀 가공',log:'리드타임 표준 대비 +38% 초과',msg:'홀 가공 공정 리드타임이 표준 대비 <b style="color:#F87171">+38%</b> 초과되고 있습니다. 유사 이력 3건 — 병목 전환 위험. <b style="color:#7DD3FC">라우팅 조정안</b>을 준비했습니다.',conf:87},
- {tag:'tag-warn',proc:'폴리싱(정삭)',log:'재작업률 급증 2.5% → 4.1%',msg:'재작업률 급증이 감지됐습니다(2.5%→<b style="color:#FBBF24">4.1%</b>). 과거 도포 편차 패턴과 <b style="color:#7DD3FC">92%</b> 일치 — 보정 절차를 제안합니다.',conf:92},
- {tag:'tag-alert',proc:'곡면가공(정삭)',log:'부적합(불량) 위험 — 심각',msg:'곡면가공(정삭)에서 <b style="color:#F87171">부적합 위험</b>이 감지됐습니다. 표준시간 편차 패턴 매칭 — 설비 점검과 LOT 홀드를 제안합니다.',conf:84}]
+ {tag:'tag-alert',proc:'용접',log:'불량률 상승 1.2% → 3.4%',msg:'용접 공정 불량률이 상승했습니다(1.2%→<b style="color:#F87171">3.4%</b>). 전류 파형이 과거 노즐 마모 사례와 <b style="color:#7DD3FC">89%</b> 일치 — 노즐 교체·조건 보정을 제안합니다.',conf:89},
+ {tag:'tag-warn',proc:'사출 성형',log:'사이클타임 표준 대비 +22% 지연',msg:'사출 성형 사이클타임이 표준 대비 <b style="color:#FBBF24">+22%</b> 지연 중입니다. 유사 이력 5건의 원인은 금형 온도 편차 — <b style="color:#7DD3FC">온도 프로파일 점검</b>을 제안합니다.',conf:91},
+ {tag:'tag-alert',proc:'조립 1라인',log:'구동부 진동 이상 — 베어링 마모 징후',msg:'컨베이어 구동부 진동 이상이 감지됐습니다. 베어링 마모 초기 패턴과 <b style="color:#7DD3FC">87%</b> 일치 — <b style="color:#F87171">3일 내 예방 정비</b>를 권장합니다.',conf:87}]
 let ai=0,typing=null
 function ts(){clock=new Date(clock.getTime()+45000);return clock.toTimeString().slice(0,8)}
 function addRow(tag,proc,msg){
@@ -1192,9 +1192,9 @@ const bars=[...waveEl.children]
 let speaking=false
 setInterval(()=>{bars.forEach((b,i)=>{b.style.height=(speaking?4+Math.random()*22*Math.abs(Math.sin(Date.now()/300+i)):3+Math.random()*4)+'px'})},110)
 const SC=[
- {q:'3번 라인, 오늘 왜 느려졌어?',a:'홀 가공 공정 리드타임이 표준 대비 +38% 초과 중입니다. 지난달 유사 사례 3건은 병목 설비 전환으로 해결됐습니다. 라우팅 조정안을 준비했어요 — 승인하시면 바로 적용합니다.',ev:['📄 작업표준 WI-12','🧠 유사 사례 91%','📈 리드타임 패턴','⏱ 분석 2.4s']},
+ {q:'3번 라인, 오늘 왜 느려졌어?',a:'용접 공정 리드타임이 표준 대비 +38% 초과 중입니다. 지난달 유사 사례 3건은 병목 설비 전환으로 해결됐습니다. 라우팅 조정안을 준비했어요 — 승인하시면 바로 적용합니다.',ev:['📄 작업표준 WI-12','🧠 유사 사례 91%','📈 리드타임 패턴','⏱ 분석 2.4s']},
  {q:'엔진 시동이 안 걸린대. 배터리는 갈았고.',a:'배터리 교체 후에도 재발했다면 크랭크 센서 불량 확률이 가장 높습니다. 유사 클레임 154건 중 다빈도 원인 1위 — DTC 확인 → 센서 점검 순서로 조치 가이드를 드릴게요.',ev:['🔧 조치 보고서 4건','🧠 유사도 91%','📚 매뉴얼 p.47','⏱ 분석 1.8s']},
- {q:'이번 주 품질 리스크 요약해줘.',a:'재작업률이 2.5%→4.1%로 상승했고, 도포 편차 패턴과 92% 일치합니다. 원인 후보 2건과 보정 절차, 주간 품질 리포트(Word)를 생성해 두었습니다.',ev:['📊 주간 리포트 생성','🧠 편차 패턴 92%','📄 QC 기준 Q-TOL-07','⏱ 분석 3.1s']}]
+ {q:'이번 주 품질 리스크 요약해줘.',a:'재작업률이 2.5%→4.1%로 상승했고, 공정 온도 편차 패턴과 92% 일치합니다. 원인 후보 2건과 보정 절차, 주간 품질 리포트(Word)를 생성해 두었습니다.',ev:['📊 주간 리포트 생성','🧠 편차 패턴 92%','📄 QC 기준 Q-TOL-07','⏱ 분석 3.1s']}]
 let si=0,run=false,timer=null
 function type(el,txt,speed,cb){let i=0;el.textContent=''
   const iv=setInterval(()=>{el.textContent=txt.slice(0,++i);if(i>=txt.length){clearInterval(iv);cb&&cb()}},speed)
