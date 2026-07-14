@@ -688,10 +688,13 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
 window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('hidden'),700))
 
 /* PROGRESS */
+let _pgH=1
+function _pgMeasure(){_pgH=Math.max(1,document.documentElement.scrollHeight-window.innerHeight)}
+window.addEventListener('load',()=>{_pgMeasure();setTimeout(_pgMeasure,1500)})
+window.addEventListener('resize',_pgMeasure)
 window.addEventListener('scroll',()=>{
-  const h=document.documentElement.scrollHeight-window.innerHeight
-  document.getElementById('progress').style.width=(window.scrollY/h*100)+'%'
-})
+  document.getElementById('progress').style.width=(window.scrollY/_pgH*100)+'%'
+},{passive:true})
 
 /* NAV */
 const nav=document.getElementById('nav')
@@ -803,7 +806,7 @@ function startDivePlay(targetY){
   if(!isFinite(total)||Math.abs(total)<10)return
   divePlayDir=total>0?1:-1
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
-  diveAuto=1
+  diveAuto=1;window.__divePlaying=true
   const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s, works forward or reverse */
   function step(t){
     if(!diveAuto)return
@@ -811,12 +814,12 @@ function startDivePlay(targetY){
     const e=0.5-0.5*Math.cos(Math.PI*k) /* easeInOutSine */
     window.scrollTo(0,Math.round(startY+total*e))
     if(k<1)requestAnimationFrame(step)
-    else{diveAuto=null;document.documentElement.style.scrollBehavior=''}
+    else{diveAuto=null;window.__divePlaying=false;document.documentElement.style.scrollBehavior=''}
   }
   requestAnimationFrame(step)
 }
 function stopDivePlay(){
-  if(diveAuto){diveAuto=null;document.documentElement.style.scrollBehavior=''}
+  if(diveAuto){diveAuto=null;window.__divePlaying=false;document.documentElement.style.scrollBehavior=''}
 }
 window.addEventListener('touchstart',()=>{if(diveAuto)stopDivePlay()},{passive:true})
 function snapTo(idx){
@@ -829,10 +832,13 @@ function snapTo(idx){
   sec.scrollIntoView({behavior:'smooth'})
   setTimeout(()=>isAnimating=false,700)
 }
+let secTops=snapSecs.map(s=>s.offsetTop)
+function cacheTops(){secTops=snapSecs.map(s=>s.offsetTop)}
+addEventListener('resize',cacheTops);addEventListener('load',()=>{cacheTops();setTimeout(cacheTops,1500)})
 function updateIdx(){
-  const sy=window.scrollY,vh=window.innerHeight
+  const sy=window.scrollY
   let best=0,bestDist=Infinity
-  snapSecs.forEach((s,i)=>{const d=Math.abs(s.offsetTop-sy);if(d<bestDist){bestDist=d;best=i}})
+  secTops.forEach((t,i)=>{const d=Math.abs(t-sy);if(d<bestDist){bestDist=d;best=i}})
   curIdx=best
 }
 window.addEventListener('wheel',(e)=>{
@@ -882,7 +888,7 @@ window.addEventListener('touchend',(e)=>{
   else snapTo(curIdx-1)
 },{passive:true})
 /* Sync index on manual scroll (nav clicks) */
-window.addEventListener('scroll',()=>{if(!isAnimating)updateIdx()},{passive:true})
+window.addEventListener('scroll',()=>{if(!isAnimating&&!window.__divePlaying)updateIdx()},{passive:true})
 
 /* IMAGE LAZY LOAD EFFECT */
 document.querySelectorAll('.img-frame img').forEach(img=>{
@@ -950,8 +956,11 @@ function lerpPt(ri,pi,t,e,cx,cy,R){
   return{x:p0.x+(p1.x-p0.x)*f,y:p0.y+(p1.y-p0.y)*f};
 }
 
+let vmFrame=0;
 function animate(time){
   requestAnimationFrame(animate);
+  vmFrame++;
+  if(window.__divePlaying||vmFrame%2)return; /* pause during dive playback, half rate otherwise */
   const lerpRate=targetBoost>stateBoost?0.10:0.04;
   stateBoost+=(targetBoost-stateBoost)*lerpRate;
   const minEnvRate=targetMinEnv>curMinEnv?0.10:0.09;
@@ -1066,7 +1075,7 @@ if(!renderer||reduced){document.documentElement.classList.add('no-webgl')}
 else{
   const isMobile=matchMedia('(max-width:768px)').matches
   const N=isMobile?9000:26000
-  renderer.setPixelRatio(Math.min(devicePixelRatio,2))
+  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5))
   renderer.setSize(innerWidth,innerHeight)
   const scene=new THREE.Scene()
   scene.fog=new THREE.FogExp2(0x060810,0.16)
@@ -1212,9 +1221,12 @@ else{
     steps.forEach((el,i)=>{if(!el)return
       const d=Math.abs(p-CENTERS[i])
       const o=Math.pow(clamp(1-d/WIDTH,0,1),1.1)
+      if(d<best){best=d;active=i}
+      const prev=el.__o||0
+      if(o<0.004&&prev<0.004)return /* skip style writes on fully hidden overlays */
+      el.__o=o
       el.style.opacity=o
-      el.style.transform=`translateY(${(p-CENTERS[i])*-140}px)`
-      if(d<best){best=d;active=i}})
+      el.style.transform=`translateY(${(p-CENTERS[i])*-140}px)`})
     bars.forEach((b,i)=>b.classList.toggle('on',i<=active&&p>0.01))
     renderer.render(scene,camera)
   }
