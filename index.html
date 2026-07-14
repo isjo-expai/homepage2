@@ -262,7 +262,7 @@ section>.inner{width:100%}
 .dive-progress{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);display:flex;gap:8px;z-index:5}
 .dive-progress i{width:26px;height:3px;border-radius:2px;background:rgba(100,116,139,0.25);transition:background .3s}
 .dive-progress i.on{background:#0EA5E9;box-shadow:0 0 10px rgba(14,165,233,0.6)}
-.recall-tag{position:absolute;left:0;top:0;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5px;padding:5px 12px;border-radius:6px;background:rgba(6,10,20,0.72);backdrop-filter:blur(4px);white-space:nowrap;pointer-events:none;opacity:0;will-change:transform,opacity;z-index:4}
+.recall-tag{position:absolute;left:0;top:0;font-family:'JetBrains Mono',monospace;font-size:12.5px;font-weight:600;letter-spacing:.5px;padding:6px 14px;border-radius:7px;background:rgba(6,10,20,0.8);backdrop-filter:blur(4px);white-space:nowrap;pointer-events:none;opacity:0;will-change:transform,opacity;z-index:4}
 .recall-tag.l0{color:#7DD3FC;border:1px solid rgba(56,189,248,0.38);box-shadow:0 0 14px rgba(56,189,248,0.18)}
 .recall-tag.l1{color:#C4B5FD;border:1px solid rgba(139,92,246,0.38);box-shadow:0 0 14px rgba(139,92,246,0.18)}
 .recall-tag.l2{color:#86EFAC;border:1px solid rgba(16,185,129,0.38);box-shadow:0 0 14px rgba(16,185,129,0.18)}
@@ -797,7 +797,7 @@ function startDivePlay(targetY){
   divePlayDir=total>0?1:-1
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
   diveAuto=1;window.__divePlaying=true
-  const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s, works forward or reverse */
+  const dur=7500,t0=performance.now() /* one cinematic pass ~7.5s, works forward or reverse */
   function step(t){
     if(!diveAuto)return
     const k=Math.min(1,(t-t0)/dur)
@@ -1186,7 +1186,7 @@ else{
     ['SOP · 표준작업 WI-12','설비 매뉴얼 p.47','품질 기준 Q-TOL-07','도면 DWG-2201','점검 체크리스트 CL-09','안전 규정 S-114'],
     ['조치 이력 #4821 · 베어링 교체','유사 사례 매칭 91%','플레이북 PB-07 · 윤활 보정','판단 근거 · 라우팅 변경','고장 → 원인 → 조치','재발 방지 이력 누적'],
     ['진동 패턴 상승 각인','리드타임 편차 +38%','온도 드리프트 패턴','이벤트 E-2201 기록','사전 경고 · 28분 전','패턴 매칭 92%']]
-  const RC=[0.23,0.42,0.62],RW=0.13
+  const RC=[0.23,0.42,0.62],RW=0.18
   const stick=document.querySelector('#dive .dive-sticky')
   const tags=[]
   RECALL.forEach((list,L)=>list.forEach((txt,i)=>{
@@ -1267,7 +1267,7 @@ else{
     const showTags=p>0.05&&p<0.96
     for(const g of tags){
       let a=1-Math.abs(p-RC[g.L])/RW
-      a=Math.min(1,a*1.45-g.i*0.055)
+      a=Math.min(1,a*1.8-g.i*0.03)
       if(!showTags||a<0.03){if(g.o>0.02){g.el.style.opacity=0;g.o=0}continue}
       g.o=a
       const s=1-Math.pow(1-Math.min(1,a*1.2),2) /* ease-out burst */
