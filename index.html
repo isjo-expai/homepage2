@@ -770,7 +770,12 @@ function sendEmail(e){
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeEmailModal()
-  if(diveAuto){stopDivePlay();return}
+  if(diveAuto){
+    const dir=(e.key==='ArrowDown'||e.key==='PageDown')?1:(e.key==='ArrowUp'||e.key==='PageUp')?-1:0
+    if(dir===divePlayDir){e.preventDefault();return}
+    if(dir!==0){e.preventDefault();stopDivePlay()}
+    return
+  }
   if(inFreeScroll()){
     const d=document.getElementById('dive')
     if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();startDivePlay(document.getElementById('stream').offsetTop)}
@@ -791,11 +796,12 @@ function inFreeScroll(){
   return r.top<=10&&r.bottom>=window.innerHeight-10
 }
 /* ===== DIVE AUTOPLAY — plays through the brain journey like a video ===== */
-let diveAuto=null
+let diveAuto=null,divePlayDir=0
 function startDivePlay(targetY){
   if(diveAuto)return
   const startY=window.scrollY,total=targetY-startY
   if(!isFinite(total)||Math.abs(total)<10)return
+  divePlayDir=total>0?1:-1
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
   diveAuto=1
   const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s, works forward or reverse */
@@ -830,7 +836,12 @@ function updateIdx(){
   curIdx=best
 }
 window.addEventListener('wheel',(e)=>{
-  if(diveAuto){stopDivePlay();return} /* any input hands control back */
+  if(diveAuto){
+    e.preventDefault()
+    const dir=e.deltaY>0?1:-1
+    if(dir===divePlayDir)return /* wheel momentum in the playback direction — keep playing */
+    stopDivePlay();return /* opposite input hands control back */
+  }
   if(inFreeScroll()){
     e.preventDefault()
     if(Math.abs(e.deltaY)<20)return
