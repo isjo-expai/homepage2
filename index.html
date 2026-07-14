@@ -248,7 +248,7 @@ section>.inner{width:100%}
   .hud-chat{min-height:auto}
   .dive-step h3{font-size:24px}
   .dive-step p{font-size:13px}
-  .recall-tag{font-size:10px;padding:4px 9px}
+  .recall-tag{font-size:10px;padding:4px 9px;backdrop-filter:none;background:rgba(6,10,20,0.92)}
   #hero .hero-sub{font-size:9px!important;letter-spacing:.5px!important;white-space:normal;word-break:keep-all}
   #hero .content div.mono:not(.hero-kicker){font-size:9px!important;letter-spacing:.5px!important;white-space:normal;word-break:keep-all}
   #hero .hero-desc{font-size:12px}
@@ -274,7 +274,7 @@ section>.inner{width:100%}
 .dive-sticky{position:absolute;top:0;left:0;right:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
 #dive.pinned .dive-sticky{position:fixed} /* JS pinning — position:sticky is broken by overflow-x:hidden on html/body */
 #dive.ended .dive-sticky{position:absolute;top:auto;bottom:0}
-.dive-step{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none}
+.dive-step{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;z-index:6}
 .dive-step .ds-box{max-width:680px;text-align:center;padding:0 32px}
 .dive-tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:5px;margin-bottom:14px;display:inline-block}
 .dive-step h3{font-size:clamp(26px,3.6vw,46px);font-weight:900;letter-spacing:-1.5px;color:#F1F5F9;line-height:1.2;margin-bottom:14px;text-shadow:0 4px 40px rgba(6,8,16,0.95)}
@@ -893,6 +893,8 @@ window.addEventListener('touchend',(e)=>{
   const diff=touchY-e.changedTouches[0].clientY
   if(Math.abs(diff)<50)return
   if(inFreeScroll()){
+    /* touch: scrub the dive naturally with the finger — no gesture hijack */
+    if(matchMedia('(pointer:coarse)').matches)return
     const d=document.getElementById('dive')
     if(diff>0)startDivePlay(document.getElementById('stream').offsetTop)
     else if(window.scrollY<=d.offsetTop+window.innerHeight*0.35){document.getElementById('hero').scrollIntoView({behavior:'smooth'})}
@@ -975,10 +977,11 @@ function lerpPt(ri,pi,t,e,cx,cy,R){
 }
 
 let vmFrame=0;
+const vmSkip=matchMedia('(max-width:768px)').matches?3:2;
 function animate(time){
   requestAnimationFrame(animate);
   vmFrame++;
-  if(window.__divePlaying||vmFrame%2)return; /* pause during dive playback, half rate otherwise */
+  if(window.__divePlaying||vmFrame%vmSkip)return; /* pause during dive playback, reduced rate otherwise */
   const lerpRate=targetBoost>stateBoost?0.10:0.04;
   stateBoost+=(targetBoost-stateBoost)*lerpRate;
   const minEnvRate=targetMinEnv>curMinEnv?0.10:0.09;
@@ -1092,8 +1095,8 @@ try{
 if(!renderer||reduced){document.documentElement.classList.add('no-webgl')}
 else{
   const isMobile=matchMedia('(max-width:768px)').matches
-  const N=isMobile?9000:26000
-  renderer.setPixelRatio(Math.min(devicePixelRatio,1.5))
+  const N=isMobile?6500:26000
+  renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.2:1.5))
   renderer.setSize(innerWidth,innerHeight)
   const scene=new THREE.Scene()
   scene.fog=new THREE.FogExp2(0x060810,0.16)
@@ -1171,7 +1174,7 @@ else{
   group.add(new THREE.Points(geo,mat))
 
   /* ---- synapse pulse particles ---- */
-  const NP=isMobile?90:240
+  const NP=isMobile?55:240
   const pGeo=new THREE.BufferGeometry()
   const pPos=new Float32Array(NP*3);pGeo.setAttribute('position',new THREE.BufferAttribute(pPos,3))
   const spriteCv=document.createElement('canvas');spriteCv.width=spriteCv.height=64
@@ -1194,7 +1197,7 @@ else{
     return[Math.cos(ang)*rad,lvl+(Math.random()-0.5)*0.1,Math.sin(ang)*rad]
   }
   const LCOL=[[0.28,0.75,0.98],[0.65,0.55,0.98],[0.35,0.85,0.62]]
-  const NLK=isMobile?60:120
+  const NLK=isMobile?36:120
   const lPos=new Float32Array(NLK*6),lCol=new Float32Array(NLK*6)
   for(let i=0;i<NLK;i++){
     const la=Math.floor(Math.random()*3)
@@ -1477,7 +1480,8 @@ setInterval(()=>{
   else{
     const p=PROCS[Math.floor(Math.random()*PROCS.length)],e=EQ[Math.floor(Math.random()*EQ.length)]
     const isIn=Math.random()<0.5
-    addRow(isIn?'tag-in':'tag-ok',p,(isIn?'작업 시작':'작업 완료')+' · '+e+' · 작업 '+(120+Math.floor(Math.random()*900))+'건')
+    const narrow=matchMedia('(max-width:640px)').matches
+    addRow(isIn?'tag-in':'tag-ok',p,narrow?(isIn?'시작':'완료')+' · '+e:(isIn?'작업 시작':'작업 완료')+' · '+e+' · 작업 '+(120+Math.floor(Math.random()*900))+'건')
   }
 },780)
 new IntersectionObserver(es=>es.forEach(e=>visible=e.isIntersecting),{threshold:0.15}).observe(document.getElementById('stream'))
