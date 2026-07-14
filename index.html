@@ -791,6 +791,7 @@ function startDivePlay(){
   const startY=window.scrollY,endY=s.offsetTop
   const total=endY-startY
   if(total<10)return
+  document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
   const SPEED=165 /* px per second — calm, cinematic */
   const dur=total/SPEED*1000,t0=performance.now()
   function step(t){
@@ -799,12 +800,13 @@ function startDivePlay(){
     const e=k<0.05?(k*k)/0.05:k /* gentle start, then constant speed */
     window.scrollTo(0,startY+total*e)
     if(k<1)diveAuto=requestAnimationFrame(step)
-    else{diveAuto=null;diveArmed=false}
+    else{diveAuto=null;diveArmed=false;document.documentElement.style.scrollBehavior=''}
   }
   diveAuto=requestAnimationFrame(step)
 }
 function stopDivePlay(){
-  if(diveAuto){cancelAnimationFrame(diveAuto);diveAuto=null;diveArmed=false}
+  if(diveAuto){cancelAnimationFrame(diveAuto);diveAuto=null;diveArmed=false
+    document.documentElement.style.scrollBehavior=''}
 }
 /* arm/trigger watcher */
 setInterval(()=>{
