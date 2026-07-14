@@ -1252,6 +1252,16 @@ else{
     chartG.add(new THREE.Points(tGeo,tMat))
     chartLines.push({geo,mat,pos,rGeo,rPos,rMat,tGeo,tMat,z:cfg[1],f:cfg[2],data:new Array(CPTS).fill(0),x:si*7,spike:0})
   })
+  /* pre-fill with simulated history so the left side shows a real waveform, not flat zeros */
+  chartLines.forEach((s,si)=>{
+    for(let i=0;i<CPTS;i++){
+      s.x+=0.10
+      if(si===0&&Math.random()<0.03)s.spike=1
+      s.spike=Math.max(0,s.spike-0.06)
+      const v=0.22*Math.sin(s.x*s.f)+0.10*Math.sin(s.x*2.3*s.f+si*2)+(Math.random()-0.5)*0.04+(si===0?s.spike*0.55:0)
+      s.data[i]=v;s.pos[i*3+1]=v;s.rPos[i*6+1]=v
+    }
+  })
   const thrGeo=new THREE.BufferGeometry()
   thrGeo.setAttribute('position',new THREE.BufferAttribute(new Float32Array([-1.15,0.42,0, 1.15,0.42,0]),3))
   const thrMat=new THREE.LineBasicMaterial({color:0xef4444,transparent:true,opacity:0})
