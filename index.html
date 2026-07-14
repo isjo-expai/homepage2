@@ -771,7 +771,12 @@ function sendEmail(e){
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeEmailModal()
   if(diveAuto){stopDivePlay();return}
-  if(inFreeScroll())return
+  if(inFreeScroll()){
+    const d=document.getElementById('dive')
+    if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();startDivePlay(document.getElementById('stream').offsetTop)}
+    if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();if(window.scrollY<=d.offsetTop+window.innerHeight*0.35){document.getElementById('hero').scrollIntoView({behavior:'smooth'})}else{startDivePlay(d.offsetTop)}}
+    return
+  }
   if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();updateIdx();snapTo(curIdx+1)}
   if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();updateIdx();snapTo(curIdx-1)}
 })
@@ -786,48 +791,36 @@ function inFreeScroll(){
   return r.top<=10&&r.bottom>=window.innerHeight-10
 }
 /* ===== DIVE AUTOPLAY — plays through the brain journey like a video ===== */
-let diveAuto=null,diveArmed=true
-function startDivePlay(){
+let diveAuto=null
+function startDivePlay(targetY){
   if(diveAuto)return
-  const s=document.getElementById('stream')
-  const startY=window.scrollY,endY=s.offsetTop,total=endY-startY
-  if(total<10)return
+  const startY=window.scrollY,total=targetY-startY
+  if(!isFinite(total)||Math.abs(total)<10)return
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
   diveAuto=1
-  const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s */
+  const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s, works forward or reverse */
   function step(t){
     if(!diveAuto)return
     const k=Math.min(1,(t-t0)/dur)
     const e=0.5-0.5*Math.cos(Math.PI*k) /* easeInOutSine */
     window.scrollTo(0,Math.round(startY+total*e))
     if(k<1)requestAnimationFrame(step)
-    else{diveAuto=null;diveArmed=false;document.documentElement.style.scrollBehavior=''}
+    else{diveAuto=null;document.documentElement.style.scrollBehavior=''}
   }
   requestAnimationFrame(step)
 }
 function stopDivePlay(){
-  if(diveAuto){diveAuto=null;diveArmed=false
-    document.documentElement.style.scrollBehavior=''}
+  if(diveAuto){diveAuto=null;document.documentElement.style.scrollBehavior=''}
 }
-/* arm/trigger watcher */
-setInterval(()=>{
-  const d=document.getElementById('dive')
-  if(!d||document.documentElement.classList.contains('no-webgl'))return
-  const r=d.getBoundingClientRect()
-  if(diveArmed&&!diveAuto&&!isAnimating&&r.top<=5&&r.bottom>innerHeight+5)startDivePlay()
-  if(window.scrollY<d.offsetTop-innerHeight*0.6)diveArmed=true
-},200)
 window.addEventListener('touchstart',()=>{if(diveAuto)stopDivePlay()},{passive:true})
 function snapTo(idx){
   if(idx<0||idx>=snapSecs.length||isAnimating)return
   const sec=snapSecs[idx]
-  if(sec.id==='dive'&&window.scrollY<sec.offsetTop+10&&!document.documentElement.classList.contains('no-webgl')){
-    curIdx=idx;startDivePlay();return /* entering the brain from above → play the journey */
+  if(sec.id==='dive'&&window.scrollY>sec.offsetTop+10&&!document.documentElement.classList.contains('no-webgl')){
+    curIdx=idx;startDivePlay(sec.offsetTop);return /* coming up from below → play the journey in reverse */
   }
   isAnimating=true;curIdx=idx
-  if(sec.id==='dive'&&window.scrollY>sec.offsetTop+10){
-    window.scrollTo({top:sec.offsetTop+sec.offsetHeight-window.innerHeight,behavior:'smooth'})
-  }else{sec.scrollIntoView({behavior:'smooth'})}
+  sec.scrollIntoView({behavior:'smooth'})
   setTimeout(()=>isAnimating=false,700)
 }
 function updateIdx(){
@@ -838,7 +831,19 @@ function updateIdx(){
 }
 window.addEventListener('wheel',(e)=>{
   if(diveAuto){stopDivePlay();return} /* any input hands control back */
-  if(inFreeScroll())return /* manual free scroll inside the dive */
+  if(inFreeScroll()){
+    e.preventDefault()
+    if(Math.abs(e.deltaY)<20)return
+    const d=document.getElementById('dive')
+    if(e.deltaY>0){startDivePlay(document.getElementById('stream').offsetTop)}
+    else{
+      if(window.scrollY<=d.offsetTop+window.innerHeight*0.35){
+        isAnimating=true;document.getElementById('hero').scrollIntoView({behavior:'smooth'})
+        setTimeout(()=>isAnimating=false,700)
+      }else{startDivePlay(d.offsetTop)}
+    }
+    return
+  }
   if(isAnimating){e.preventDefault();return}
   const delta=e.deltaY
   if(Math.abs(delta)<30)return
@@ -851,9 +856,16 @@ window.addEventListener('wheel',(e)=>{
 let touchY=0
 window.addEventListener('touchstart',(e)=>{touchY=e.touches[0].clientY},{passive:true})
 window.addEventListener('touchend',(e)=>{
-  if(isAnimating||inFreeScroll())return
+  if(isAnimating)return
   const diff=touchY-e.changedTouches[0].clientY
   if(Math.abs(diff)<50)return
+  if(inFreeScroll()){
+    const d=document.getElementById('dive')
+    if(diff>0)startDivePlay(document.getElementById('stream').offsetTop)
+    else if(window.scrollY<=d.offsetTop+window.innerHeight*0.35){document.getElementById('hero').scrollIntoView({behavior:'smooth'})}
+    else startDivePlay(d.offsetTop)
+    return
+  }
   updateIdx()
   if(diff>0)snapTo(curIdx+1)
   else snapTo(curIdx-1)
@@ -1161,16 +1173,17 @@ else{
     const p=clamp((sy-diveTop)/(diveH-vh),0,1)
     const heroP=clamp(sy/vh,0,1)
     /* mix & camera path */
-    const mix=smooth(0.30,0.50,p);uni.uMix.value=mix
+    const mix=smooth(0.26,0.58,p);uni.uMix.value=mix
     let cz,cy
-    if(p<0.30){cz=lerp((3.3-0.25*heroP)*zScale,1.25,smooth(0,0.30,p));cy=0.1}
-    else if(p<0.50){cz=lerp(1.25,2.75*zScale,smooth(0.30,0.50,p));cy=lerp(0.1,-0.55,smooth(0.30,0.50,p))}
-    else if(p<0.74){cz=2.75*zScale;cy=lerp(-0.55,0.85,smooth(0.50,0.74,p))}
-    else{cz=lerp(2.75*zScale,3.6*zScale,smooth(0.74,0.95,p));cy=lerp(0.85,0.25,smooth(0.74,0.95,p))}
+    if(p<0.26){cz=lerp((3.3-0.25*heroP)*zScale,1.25,smooth(0,0.26,p));cy=0.1}
+    else if(p<0.58){cz=lerp(1.25,2.75*zScale,smooth(0.26,0.58,p));cy=lerp(0.1,-0.55,smooth(0.26,0.58,p))}
+    else if(p<0.76){cz=2.75*zScale;cy=lerp(-0.55,0.85,smooth(0.58,0.76,p))}
+    else{cz=lerp(2.75*zScale,3.6*zScale,smooth(0.76,0.95,p));cy=lerp(0.85,0.25,smooth(0.76,0.95,p))}
     camera.position.z=cz
     camera.position.y=cy-my*0.12
     camera.position.x=lerp(0.55/(zScale*zScale),0.05,p)+mx*0.18
-    camera.lookAt(0,mix*((p>0.5&&p<0.74)?cy*0.7:0),0)
+    const lw=smooth(0.58,0.66,p)*(1-smooth(0.70,0.78,p)) /* continuous look-target window (no snapping) */
+    camera.lookAt(0,mix*cy*0.7*lw,0)
     group.rotation.y=t*0.06+p*2.4
     /* fade near dive end */
     cv.style.opacity=p>0.90?String(clamp(1-(p-0.90)/0.10,0,1)):''
