@@ -251,7 +251,9 @@ section>.inner{width:100%}
 
 /* ===== DIVE (pinned brain journey) ===== */
 #dive{display:block;overflow:visible;min-height:auto;height:520vh;position:relative}
-.dive-sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.dive-sticky{position:absolute;top:0;left:0;right:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+#dive.pinned .dive-sticky{position:fixed} /* JS pinning — position:sticky is broken by overflow-x:hidden on html/body */
+#dive.ended .dive-sticky{position:absolute;top:auto;bottom:0}
 .dive-step{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none}
 .dive-step .ds-box{max-width:680px;text-align:center;padding:0 32px}
 .dive-tag{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:5px;margin-bottom:14px;display:inline-block}
@@ -1234,6 +1236,10 @@ else{
     requestAnimationFrame(frame)
     const t=time/1000;uni.uTime.value=t
     const vh=innerHeight,sy=scrollY
+    /* JS pin: keep the dive stage fixed while scrolling through the section */
+    const pinEnd=diveTop+diveH-vh
+    dive.classList.toggle('pinned',sy>=diveTop&&sy<pinEnd)
+    dive.classList.toggle('ended',sy>=pinEnd)
     const afterDive=sy>diveTop+diveH-vh*0.4
     if(afterDive){if(running){cv.classList.remove('on');running=false;tags.forEach(g=>{if(g.o){g.o=0;g.el.style.opacity=0}});ghosts.forEach(g=>{if(g.o){g.o=0;g.el.style.opacity=0}})}return}
     if(!running){cv.classList.add('on');running=true}
