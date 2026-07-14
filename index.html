@@ -444,7 +444,7 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
     <div class="dive-step" id="dstep-knowledge">
       <div class="ds-box">
         <div class="dive-tag" style="color:#38BDF8">LAYER 01 // 지식 — KNOWLEDGE</div>
-        <h3>문서가 검색 가능한<br><span class="accent">지식</span>이 됩니다</h3>
+        <h3>회사의 정보가<br><span class="accent">지식</span>으로 축적됩니다</h3>
         <p>SOP · 매뉴얼 · 도면 · 품질 기준 — 서류함에 잠자던 명시지가<br>RAGX로 연결되어 질문 한 번에 근거로 돌아옵니다.</p>
         <div class="ds-chips"><span class="ds-chip">SOP</span><span class="ds-chip">작업표준</span><span class="ds-chip">설비 매뉴얼</span><span class="ds-chip">품질 기준</span></div>
       </div>
@@ -1214,19 +1214,27 @@ else{
     return Object.assign({el,o:0},d)
   })
 
-  /* ---- 3D memory human — rigged walk cycle rendered as a translucent hologram ---- */
-  let human=null,humanMixer=null,lastT=0
-  const humanMat=new THREE.MeshBasicMaterial({color:0x4ade80,transparent:true,opacity:0,depthWrite:false,blending:THREE.AdditiveBlending})
+  /* ---- 3D memory human — CC0 factory worker performing a work motion, behaviour-analysis styling ---- */
+  let human=null,humanMixer=null,humanBox=null,lastT=0
+  const humanMats=[]
+  const anaEl=document.createElement('div');anaEl.className='recall-tag l2';anaEl.textContent='행동 분석 · POSE MATCH 98%';stick.appendChild(anaEl)
   if(!isMobile){
-    new GLTFLoader().load('images_html/xbot.glb',g=>{
+    scene.add(new THREE.AmbientLight(0xbfd8ff,1.6))
+    const dl=new THREE.DirectionalLight(0x9fd6ff,2.0);dl.position.set(2,3,4);scene.add(dl)
+    new GLTFLoader().load('images_html/worker.glb',g=>{
       human=g.scene
-      human.traverse(o=>{if(o.isMesh||o.isSkinnedMesh){o.material=humanMat;o.frustumCulled=false}})
-      human.scale.setScalar(0.95)
-      human.rotation.y=Math.PI/2
+      human.traverse(o=>{if(o.isMesh){o.frustumCulled=false;o.material.transparent=true;o.material.opacity=0;humanMats.push(o.material)}})
+      human.scale.setScalar(0.75)
+      human.position.set(-1.35,-1.6,0.6)
+      human.rotation.y=0.7
       human.visible=false
       scene.add(human)
+      const bb=new THREE.Box3().setFromObject(human)
+      humanBox=new THREE.Box3Helper(bb,0x34d399)
+      humanBox.material.transparent=true;humanBox.material.opacity=0;humanBox.visible=false
+      scene.add(humanBox)
       humanMixer=new THREE.AnimationMixer(human)
-      const clip=g.animations.find(a=>/walk/i.test(a.name))||g.animations[0]
+      const clip=g.animations.find(a=>/Interact/i.test(a.name))||g.animations.find(a=>/Idle_Neutral/i.test(a.name))||g.animations[0]
       if(clip)humanMixer.clipAction(clip).play()
     },undefined,()=>{})
   }
@@ -1320,13 +1328,16 @@ else{
     const aM=clamp(1-Math.abs(p-0.62)/0.20,0,1)
     const dt=Math.min(0.05,(time-lastT)/1000);lastT=time
     if(human){
-      const on=aM>0.03&&!afterDive
+      const on=aM>0.03
       human.visible=on
+      if(humanBox)humanBox.visible=on
       if(on){
-        humanMat.opacity=0.36*aM
+        humanMats.forEach(m=>m.opacity=0.95*aM)
+        if(humanBox)humanBox.material.opacity=0.4*aM*(0.7+0.3*Math.sin(t*3))
         humanMixer.update(dt)
-        human.position.set(((p-0.62)/0.20)*3.0+0.85,-1.72,0.55)
       }
+      anaEl.style.opacity=aM
+      anaEl.style.transform='translate('+(innerWidth*0.26)+'px,'+(innerHeight*0.36)+'px) translate(-50%,-50%)'
     }
     for(const gh of ghosts){
       const o=aM*gh.k
