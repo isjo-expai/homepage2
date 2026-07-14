@@ -371,6 +371,7 @@ section>.inner{width:100%}
 <script>
 if(new URLSearchParams(location.search).has('noloader'))document.getElementById('loader').style.display='none'
 addEventListener('load',()=>{const g=new URLSearchParams(location.search).get('goto');if(g){document.documentElement.style.scrollBehavior='auto';const el=document.getElementById(g);if(el)setTimeout(()=>{el.scrollIntoView();},400)}})
+if(new URLSearchParams(location.search).has('debugscroll'))setInterval(()=>{document.title='sy:'+Math.round(scrollY)},400)
 addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.search).get('only');if(o){document.querySelectorAll('section,.marquee,#brain-canvas,#voice-guide').forEach(s=>{if(s.id!==o)s.style.display='none'});setTimeout(()=>document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(e=>e.classList.add('v')),200)}})
 </script>
 
@@ -769,7 +770,8 @@ function sendEmail(e){
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')closeEmailModal()
-  if(inFreeScroll()){if(diveAuto)stopDivePlay();return}
+  if(diveAuto){stopDivePlay();return}
+  if(inFreeScroll())return
   if(e.key==='ArrowDown'||e.key==='PageDown'){e.preventDefault();updateIdx();snapTo(curIdx+1)}
   if(e.key==='ArrowUp'||e.key==='PageUp'){e.preventDefault();updateIdx();snapTo(curIdx-1)}
 })
@@ -787,25 +789,24 @@ function inFreeScroll(){
 let diveAuto=null,diveArmed=true
 function startDivePlay(){
   if(diveAuto)return
-  const d=document.getElementById('dive'),s=document.getElementById('stream')
-  const startY=window.scrollY,endY=s.offsetTop
-  const total=endY-startY
+  const s=document.getElementById('stream')
+  const startY=window.scrollY,endY=s.offsetTop,total=endY-startY
   if(total<10)return
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
-  const SPEED=165 /* px per second — calm, cinematic */
-  const dur=total/SPEED*1000,t0=performance.now()
+  diveAuto=1
+  const dur=5600,t0=performance.now() /* one cinematic pass ~5.6s */
   function step(t){
     if(!diveAuto)return
     const k=Math.min(1,(t-t0)/dur)
-    const e=k<0.05?(k*k)/0.05:k /* gentle start, then constant speed */
-    window.scrollTo(0,startY+total*e)
-    if(k<1)diveAuto=requestAnimationFrame(step)
+    const e=0.5-0.5*Math.cos(Math.PI*k) /* easeInOutSine */
+    window.scrollTo(0,Math.round(startY+total*e))
+    if(k<1)requestAnimationFrame(step)
     else{diveAuto=null;diveArmed=false;document.documentElement.style.scrollBehavior=''}
   }
-  diveAuto=requestAnimationFrame(step)
+  requestAnimationFrame(step)
 }
 function stopDivePlay(){
-  if(diveAuto){cancelAnimationFrame(diveAuto);diveAuto=null;diveArmed=false
+  if(diveAuto){diveAuto=null;diveArmed=false
     document.documentElement.style.scrollBehavior=''}
 }
 /* arm/trigger watcher */
@@ -819,8 +820,11 @@ setInterval(()=>{
 window.addEventListener('touchstart',()=>{if(diveAuto)stopDivePlay()},{passive:true})
 function snapTo(idx){
   if(idx<0||idx>=snapSecs.length||isAnimating)return
-  isAnimating=true;curIdx=idx
   const sec=snapSecs[idx]
+  if(sec.id==='dive'&&window.scrollY<sec.offsetTop+10&&!document.documentElement.classList.contains('no-webgl')){
+    curIdx=idx;startDivePlay();return /* entering the brain from above → play the journey */
+  }
+  isAnimating=true;curIdx=idx
   if(sec.id==='dive'&&window.scrollY>sec.offsetTop+10){
     window.scrollTo({top:sec.offsetTop+sec.offsetHeight-window.innerHeight,behavior:'smooth'})
   }else{sec.scrollIntoView({behavior:'smooth'})}
@@ -833,10 +837,8 @@ function updateIdx(){
   curIdx=best
 }
 window.addEventListener('wheel',(e)=>{
-  if(inFreeScroll()){
-    if(diveAuto)stopDivePlay()
-    return /* manual free scroll inside the dive */
-  }
+  if(diveAuto){stopDivePlay();return} /* any input hands control back */
+  if(inFreeScroll())return /* manual free scroll inside the dive */
   if(isAnimating){e.preventDefault();return}
   const delta=e.deltaY
   if(Math.abs(delta)<30)return
