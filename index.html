@@ -229,6 +229,26 @@ section>.inner{width:100%}
   #nav{padding:12px 20px}
   #hero .content{padding:60px 20px 0}
   #hero h1{font-size:25px!important;letter-spacing:-.8px}
+  /* MES live feed — compact columns that fit a phone */
+  .mes-head span:nth-child(3){display:none}
+  .mes-head{font-size:8px;gap:8px}
+  .mes-head span:nth-child(1){width:52px!important}
+  .mes-head span:nth-child(4){width:88px!important}
+  .sim-log{font-size:10px;min-height:300px}
+  .sim-log .row{gap:8px;padding:5px 8px}
+  .sim-log .t{width:52px}
+  .sim-log .lot{display:none}
+  .sim-log .proc{width:88px}
+  .sim-left{padding:12px}
+  .sim-right{padding:12px}
+  .sim-kpi b{font-size:13px}
+  .sim-head .sim-title{font-size:9px;letter-spacing:1px}
+  /* HUD scales down without clipping */
+  .hud-stage{transform:scale(.6);height:290px}
+  .hud-chat{min-height:auto}
+  .dive-step h3{font-size:24px}
+  .dive-step p{font-size:13px}
+  .recall-tag{font-size:10px;padding:4px 9px}
   #hero .hero-sub{font-size:9px!important;letter-spacing:.5px!important;white-space:normal;word-break:keep-all}
   #hero .content div.mono:not(.hero-kicker){font-size:9px!important;letter-spacing:.5px!important;white-space:normal;word-break:keep-all}
   #hero .hero-desc{font-size:12px}
@@ -295,7 +315,7 @@ section>.inner{width:100%}
 .tag-ok{background:rgba(16,185,129,0.12);color:#34D399;border:1px solid rgba(16,185,129,0.25)}
 .tag-warn{background:rgba(245,158,11,0.12);color:#FBBF24;border:1px solid rgba(245,158,11,0.3)}
 .tag-alert{background:rgba(239,68,68,0.14);color:#F87171;border:1px solid rgba(239,68,68,0.35)}
-.sim-log .m{color:#94A3B8;overflow:hidden;text-overflow:ellipsis}
+.sim-log .m{color:#94A3B8;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
 .sim-right{padding:16px 18px;display:flex;flex-direction:column;gap:10px}
 .agent-card{background:rgba(15,23,42,0.65);border:1px solid rgba(14,165,233,0.18);border-left:3px solid #0EA5E9;border-radius:10px;padding:12px 14px;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s}
 .agent-card.on{opacity:1;transform:translateY(0)}
@@ -879,6 +899,8 @@ window.addEventListener('touchend',(e)=>{
     else startDivePlay(d.offsetTop)
     return
   }
+  /* touch devices scroll naturally outside the dive — snapping would cut off tall sections */
+  if(matchMedia('(pointer:coarse)').matches)return
   updateIdx()
   if(diff>0)snapTo(curIdx+1)
   else snapTo(curIdx-1)
