@@ -234,12 +234,23 @@ section>.inner{width:100%}
   .mes-head{font-size:8px;gap:8px}
   .mes-head span:nth-child(1){width:52px!important}
   .mes-head span:nth-child(4){width:88px!important}
-  .sim-log{font-size:10px;min-height:190px}
+  .sim-log{font-size:10px;min-height:140px}
   #agent-card2{display:none}
   .sim-body{min-height:auto}
-  #stream .inner{padding-top:40px;padding-bottom:40px}
-  #stream .stitle{font-size:20px}
-  #stream .sdesc{font-size:12px}
+  #stream .inner{padding-top:24px;padding-bottom:20px}
+  #stream .inner>div:first-child{margin-bottom:10px!important}
+  #stream .badge{margin-bottom:6px;font-size:10px}
+  #stream .stitle{font-size:19px}
+  #stream .sdesc{display:none}
+  .sim-left{padding:10px}
+  .sim-right{padding:10px;gap:8px}
+  #stream>.inner>p{display:none}
+  .sim-head{padding:8px 12px}
+  .sim-head .sim-title{font-size:7.5px!important;letter-spacing:.5px!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+  .sim-log .row{padding:4px 8px}
+  .agent-card{padding:10px 12px}
+  .agent-card .ac-body{min-height:auto;font-size:11.5px}
+  .sim-kpi{padding:6px 8px}
   .sim-log .row{gap:8px;padding:5px 8px}
   .sim-log .t{width:52px}
   .sim-log .lot{display:none}
@@ -1462,7 +1473,7 @@ function ts(){clock=new Date(clock.getTime()+45000);return clock.toTimeString().
 function addRow(tag,proc,msg){
   const r=document.createElement('div');r.className='row'
   r.innerHTML='<span class="t">'+ts()+'</span><span class="tag '+tag+'">'+(tag==='tag-in'?'투입':tag==='tag-ok'?'완료':tag==='tag-warn'?'경고':'감지')+'</span><span class="lot">'+lot()+'</span><span class="proc">'+proc+'</span><span class="m">'+msg+'</span>'
-  logEl.prepend(r);while(logEl.children.length>(matchMedia('(max-width:640px)').matches?6:11))logEl.lastChild.remove()
+  logEl.prepend(r);while(logEl.children.length>(matchMedia('(max-width:640px)').matches?5:11))logEl.lastChild.remove()
   nEv++;kEv.textContent=nEv
   nBr+=Math.random()<0.5?1:2;kBr.textContent=nBr
 }
