@@ -234,7 +234,12 @@ section>.inner{width:100%}
   .mes-head{font-size:8px;gap:8px}
   .mes-head span:nth-child(1){width:52px!important}
   .mes-head span:nth-child(4){width:88px!important}
-  .sim-log{font-size:10px;min-height:300px}
+  .sim-log{font-size:10px;min-height:190px}
+  #agent-card2{display:none}
+  .sim-body{min-height:auto}
+  #stream .inner{padding-top:40px;padding-bottom:40px}
+  #stream .stitle{font-size:20px}
+  #stream .sdesc{font-size:12px}
   .sim-log .row{gap:8px;padding:5px 8px}
   .sim-log .t{width:52px}
   .sim-log .lot{display:none}
@@ -815,13 +820,17 @@ function inFreeScroll(){
   return r.top<=10&&r.bottom>=window.innerHeight-10
 }
 /* ===== DIVE AUTOPLAY — plays through the brain journey like a video ===== */
-let diveAuto=null,divePlayDir=0
+let diveAuto=null,divePlayDir=0,divePlayT0=0
 function startDivePlay(targetY){
   if(diveAuto)return
   const startY=window.scrollY,total=targetY-startY
   if(!isFinite(total)||Math.abs(total)<10)return
   divePlayDir=total>0?1:-1
+  divePlayT0=performance.now()
   document.documentElement.style.scrollBehavior='auto' /* CSS smooth would swallow per-frame scrollTo */
+  if(matchMedia('(pointer:coarse)').matches){ /* kill native fling so the tween runs unopposed */
+    const de=document.documentElement;de.style.overflow='hidden';setTimeout(()=>{de.style.overflow=''},60)
+  }
   diveAuto=1;window.__divePlaying=true
   const dur=12000,t0=performance.now() /* one cinematic pass ~12s, works forward or reverse */
   function step(t){
@@ -837,7 +846,7 @@ function startDivePlay(targetY){
 function stopDivePlay(){
   if(diveAuto){diveAuto=null;window.__divePlaying=false;document.documentElement.style.scrollBehavior=''}
 }
-window.addEventListener('touchstart',()=>{if(diveAuto)stopDivePlay()},{passive:true})
+window.addEventListener('touchstart',()=>{if(diveAuto&&performance.now()-divePlayT0>450)stopDivePlay()},{passive:true})
 function snapTo(idx){
   if(idx<0||idx>=snapSecs.length||isAnimating)return
   const sec=snapSecs[idx]
@@ -893,8 +902,7 @@ window.addEventListener('touchend',(e)=>{
   const diff=touchY-e.changedTouches[0].clientY
   if(Math.abs(diff)<50)return
   if(inFreeScroll()){
-    /* touch: scrub the dive naturally with the finger — no gesture hijack */
-    if(matchMedia('(pointer:coarse)').matches)return
+    /* one swipe carries the whole journey — same as desktop wheel */
     const d=document.getElementById('dive')
     if(diff>0)startDivePlay(document.getElementById('stream').offsetTop)
     else if(window.scrollY<=d.offsetTop+window.innerHeight*0.35){document.getElementById('hero').scrollIntoView({behavior:'smooth'})}
@@ -1450,7 +1458,7 @@ function ts(){clock=new Date(clock.getTime()+45000);return clock.toTimeString().
 function addRow(tag,proc,msg){
   const r=document.createElement('div');r.className='row'
   r.innerHTML='<span class="t">'+ts()+'</span><span class="tag '+tag+'">'+(tag==='tag-in'?'투입':tag==='tag-ok'?'완료':tag==='tag-warn'?'경고':'감지')+'</span><span class="lot">'+lot()+'</span><span class="proc">'+proc+'</span><span class="m">'+msg+'</span>'
-  logEl.prepend(r);while(logEl.children.length>11)logEl.lastChild.remove()
+  logEl.prepend(r);while(logEl.children.length>(matchMedia('(max-width:640px)').matches?6:11))logEl.lastChild.remove()
   nEv++;kEv.textContent=nEv
   nBr+=Math.random()<0.5?1:2;kBr.textContent=nBr
 }
@@ -1481,7 +1489,7 @@ setInterval(()=>{
     const p=PROCS[Math.floor(Math.random()*PROCS.length)],e=EQ[Math.floor(Math.random()*EQ.length)]
     const isIn=Math.random()<0.5
     const narrow=matchMedia('(max-width:640px)').matches
-    addRow(isIn?'tag-in':'tag-ok',p,narrow?(isIn?'시작':'완료')+' · '+e:(isIn?'작업 시작':'작업 완료')+' · '+e+' · 작업 '+(120+Math.floor(Math.random()*900))+'건')
+    addRow(isIn?'tag-in':'tag-ok',p,narrow?e:(isIn?'작업 시작':'작업 완료')+' · '+e+' · 작업 '+(120+Math.floor(Math.random()*900))+'건')
   }
 },780)
 new IntersectionObserver(es=>es.forEach(e=>visible=e.isIntersecting),{threshold:0.15}).observe(document.getElementById('stream'))
