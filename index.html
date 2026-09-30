@@ -97,15 +97,14 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .hero .proof b{display:block;font:700 30px/1 var(--mono);letter-spacing:-.04em;color:var(--ink)}
 .hero .proof span{display:block;font-size:13px;color:var(--mute);margin-top:8px}
 .hv{position:relative}
-.hv .frame{position:relative;border-radius:22px;overflow:hidden;background:#0B1220;box-shadow:0 40px 90px -30px rgba(15,23,42,.55),0 0 0 1px rgba(15,23,42,.08);aspect-ratio:4/3.1}
-.hv .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5}
+.hv .stage{position:relative;aspect-ratio:1/0.92;width:100%}
 .hv canvas{position:absolute;inset:0;width:100%;height:100%}
-.hv .hud{position:absolute;left:18px;top:16px;display:flex;gap:8px;z-index:3;flex-wrap:wrap}
-.hv .hud span{font:600 10.5px var(--mono);letter-spacing:1.5px;padding:6px 10px;border-radius:8px;background:rgba(11,18,32,.7);color:#CBD5E1;border:1px solid rgba(255,255,255,.12);backdrop-filter:blur(8px)}
-.hv .hud span.live{color:#FCA5A5}.hv .hud span.live::before{content:'●';margin-right:6px;color:#EF4444;animation:blink 1.2s infinite}
+.hv .hud{position:absolute;left:8px;top:0;display:flex;gap:8px;z-index:3;flex-wrap:wrap}
+.hv .hud span{font:600 10.5px var(--mono);letter-spacing:1.5px;padding:6px 10px;border-radius:8px;background:rgba(255,255,255,.75);color:var(--ink2);border:1px solid var(--line);backdrop-filter:blur(8px)}
+.hv .hud span.live{color:var(--deep)}.hv .hud span.live::before{content:'●';margin-right:6px;color:var(--sky);animation:blink 1.2s infinite}
 @keyframes blink{50%{opacity:.2}}
-.hv .float{position:absolute;z-index:3;background:#fff;border-radius:14px;box-shadow:var(--sh);padding:12px 14px;display:flex;gap:12px;align-items:center;animation:floaty 5s ease-in-out infinite}
-.hv .float.a{left:-26px;bottom:52px}.hv .float.b{right:-22px;top:64px;animation-delay:-2.5s}
+.hv .float{position:absolute;z-index:3;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-radius:14px;box-shadow:var(--sh);padding:11px 14px;display:flex;gap:12px;align-items:center;left:0;top:0;transform:translate(-50%,-50%);transition:opacity .3s;will-change:transform}
+.hv .float{opacity:0}.hv .float.a{border-left:3px solid var(--rf)}.hv .float.b{border-left:3px solid var(--cx)}
 .hv .float .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex:none}
 .hv .float small{display:block;font:600 10px var(--mono);letter-spacing:1.5px;color:var(--mute)}
 .hv .float b{font-size:13.5px;color:var(--ink)}
@@ -138,6 +137,12 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .layer .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .layer .chips span{font:600 11px var(--mono);padding:4px 9px;border-radius:7px;background:rgba(255,255,255,.06);color:#CBD5E1}
 .layer.on{background:rgba(255,255,255,.07);border-color:rgba(56,189,248,.5);transform:translateX(6px)}
+.bstage{position:relative;aspect-ratio:1/0.9;width:100%}
+.bstage canvas{position:absolute;inset:0;width:100%;height:100%}
+.blab{position:absolute;display:inline-flex;align-items:center;gap:7px;font:600 10.5px var(--mono);letter-spacing:1.5px;color:#CBD5E1;background:rgba(11,18,32,.7);border:1px solid rgba(255,255,255,.12);padding:5px 9px;border-radius:7px;backdrop-filter:blur(6px);transition:opacity .3s,border-color .3s}
+.blab i{width:7px;height:7px;border-radius:50%}
+.blab.on{border-color:rgba(255,255,255,.45);color:#fff}
+.blab.ag{transform:translate(-50%,-50%);will-change:transform}
 .diagram svg{width:100%;height:auto;display:block}
 .diagram .lab{font:600 11px var(--mono);letter-spacing:1.5px;fill:#94A3B8}
 .diagram .t{font:800 16px var(--sans);fill:#fff}
@@ -240,8 +245,8 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .tabs button.on{background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.2)}
 .tabs .note{margin-left:auto;font:500 10.5px var(--mono);color:#64748B}
 .view{display:none}.view.on{display:flex;flex-direction:column;gap:14px;flex:1}
-.vid{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:1280/586;border:1px solid rgba(255,255,255,.08)}
-.vid video{width:100%;height:100%;object-fit:cover}
+.vid{position:relative;border-radius:12px;overflow:hidden;background:#F3F6FA;aspect-ratio:1800/790;border:1px solid rgba(255,255,255,.08)}
+.vid video{width:100%;height:100%;object-fit:contain}
 .vid .bdg{position:absolute;left:12px;top:10px;font:700 10px var(--mono);letter-spacing:1.5px;padding:5px 9px;border-radius:7px;background:rgba(11,18,32,.75);color:#fff;border:1px solid rgba(255,255,255,.15);backdrop-filter:blur(6px)}
 .vid .bdg i{color:#EF4444;font-style:normal;margin-right:5px;animation:blink 1.2s infinite}
 /* reflex */
@@ -517,13 +522,11 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
       </div>
     </div>
     <div class="hv rv" style="transition-delay:.2s">
-      <div class="frame">
-        <img src="images_html/v/cover_hero.jpg" alt=""/>
-        <canvas id="miner"></canvas>
-        <div class="hud"><span class="live">EPISODE MINING</span><span>RAW → EVENT → CHUNK → EPISODE</span></div>
+      <div class="stage"><canvas id="brain-hero"></canvas>
+        <div class="hud"><span class="live">DIGITAL BRAIN · ONLINE</span><span>지식 · 경험 · 기억 → 판단</span></div>
       </div>
-      <div class="float a"><div class="ic" style="background:#FFF7ED"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><div><small>REFLEX</small><b>이상 감지 → 즉시 조치 가이드</b></div></div>
-      <div class="float b"><div class="ic" style="background:#EFF6FF"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V3z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V3z"/></svg></div><div><small>CORTEX</small><b>오늘 확인할 생산 위험 3건</b></div></div>
+      <div class="float a" id="ag-rf"><div class="ic" style="background:#FFF7ED"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><div><small>REFLEX AGENT</small><b>이상 감지 → 즉시 조치</b></div></div>
+      <div class="float b" id="ag-cx"><div class="ic" style="background:#EFF6FF"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#0369A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V3z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V3z"/></svg></div><div><small>CORTEX AGENT</small><b>근거와 함께 판단</b></div></div>
     </div>
   </div>
 </section>
@@ -557,29 +560,12 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
         <div class="layer"><div class="ic" style="background:rgba(139,92,246,.18);color:#C4B5FD">02</div><div><b>경험 — Experience</b><p>고장 → 원인 → 조치 → 결과. 전문가의 행동이 에피소드로 구조화되어 "예전에 어떻게 판단했는지"를 몇 초 만에 불러옵니다.</p><div class="chips"><span>조치 이력</span><span>유사 사례</span><span>판단 근거</span><span>에피소드</span></div></div></div>
         <div class="layer"><div class="ic" style="background:rgba(16,185,129,.16);color:#6EE7B7">03</div><div><b>기억 — Memory</b><p>센서 · MES · 영상의 시계열 흐름을 이벤트 패턴으로 각인하고, 같은 징후가 다시 나타나면 사람보다 먼저 알아챕니다.</p><div class="chips"><span>이상 패턴</span><span>정상 범주</span><span>이벤트 네트워크</span><span>사전 경고</span></div></div></div>
       </div>
-      <div class="diagram rv" style="transition-delay:.1s">
-        <svg viewBox="0 0 560 480" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="g1" cx="50%" cy="50%"><stop offset="0" stop-color="#38BDF8" stop-opacity=".55"/><stop offset="1" stop-color="#38BDF8" stop-opacity="0"/></radialGradient>
-            <linearGradient id="gl" x1="0" x2="1"><stop offset="0" stop-color="#38BDF8"/><stop offset="1" stop-color="#6366F1"/></linearGradient>
-          </defs>
-          <g class="L on" id="L0"><rect x="20" y="52" width="150" height="58" rx="14" fill="rgba(56,189,248,.1)" stroke="rgba(56,189,248,.5)"/><text x="36" y="76" class="lab">LAYER 01</text><text x="36" y="97" class="t">지식</text></g>
-          <g class="L" id="L1"><rect x="20" y="211" width="150" height="58" rx="14" fill="rgba(139,92,246,.1)" stroke="rgba(139,92,246,.5)"/><text x="36" y="235" class="lab">LAYER 02</text><text x="36" y="256" class="t">경험</text></g>
-          <g class="L" id="L2"><rect x="20" y="370" width="150" height="58" rx="14" fill="rgba(16,185,129,.1)" stroke="rgba(16,185,129,.5)"/><text x="36" y="394" class="lab">LAYER 03</text><text x="36" y="415" class="t">기억</text></g>
-          <path class="flowline" d="M170 81 C 230 81, 230 240, 280 240"/><path class="flowdot" stroke="#38BDF8" d="M170 81 C 230 81, 230 240, 280 240"/>
-          <path class="flowline" d="M170 240 L 280 240"/><path class="flowdot" stroke="#A78BFA" style="animation-delay:-1s" d="M170 240 L 280 240"/>
-          <path class="flowline" d="M170 399 C 230 399, 230 240, 280 240"/><path class="flowdot" stroke="#34D399" style="animation-delay:-2s" d="M170 399 C 230 399, 230 240, 280 240"/>
-          <circle cx="320" cy="240" r="92" fill="url(#g1)" class="core"/>
-          <circle cx="320" cy="240" r="56" fill="#0E1729" stroke="url(#gl)" stroke-width="2"/>
-          <text x="320" y="233" text-anchor="middle" class="lab" style="fill:#7DD3FC">DIGITAL</text><text x="320" y="254" text-anchor="middle" class="t">BRAIN</text>
-          <path class="flowline" d="M376 240 C 420 240, 420 130, 440 130"/><path class="flowdot" stroke="#FDBA74" style="animation-delay:-.5s" d="M376 240 C 420 240, 420 130, 440 130"/>
-          <path class="flowline" d="M376 240 C 420 240, 420 350, 440 350"/><path class="flowdot" stroke="#7DD3FC" style="animation-delay:-1.5s" d="M376 240 C 420 240, 420 350, 440 350"/>
-          <g><rect x="440" y="100" width="108" height="60" rx="14" fill="rgba(249,115,22,.12)" stroke="rgba(249,115,22,.6)"/><text x="456" y="124" class="lab" style="fill:#FDBA74">AGENT</text><text x="456" y="146" class="t">Reflex</text></g>
-          <g><rect x="440" y="320" width="108" height="60" rx="14" fill="rgba(3,105,161,.25)" stroke="rgba(56,189,248,.6)"/><text x="456" y="344" class="lab" style="fill:#7DD3FC">AGENT</text><text x="456" y="366" class="t">Cortex</text></g>
-          <path class="flowline" stroke-dasharray="4 5" d="M494 380 C 494 450, 320 460, 320 336"/>
-          <path class="flowdot" stroke="#34D399" style="animation-delay:-2.4s" d="M494 380 C 494 450, 320 460, 320 336"/>
-          <text x="330" y="470" class="s">판단 결과를 다시 두뇌에 축적</text>
-        </svg>
+      <div class="bstage rv" style="transition-delay:.1s"><canvas id="brain-dark"></canvas>
+        <div class="blab l0" style="left:2%;top:14%"><i style="background:#38BDF8"></i>지식 · KNOWLEDGE</div>
+        <div class="blab l1" style="left:2%;top:47%"><i style="background:#A78BFA"></i>경험 · EXPERIENCE</div>
+        <div class="blab l2" style="left:2%;top:80%"><i style="background:#34D399"></i>기억 · MEMORY</div>
+        <div class="blab ag" id="bd-rf"><i style="background:#F97316"></i>REFLEX AGENT</div>
+        <div class="blab ag" id="bd-cx"><i style="background:#38BDF8"></i>CORTEX AGENT</div>
       </div>
     </div>
   </div>
@@ -949,6 +935,92 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
     if(['ArrowUp','PageUp'].includes(e.key)&&y-top<=6){e.preventDefault();go(cur-1)}})
 }
 
+/* ===== 0b. 3D PARTICLE DIGITAL BRAIN + AGENTS ===== */
+function brain3d(cv,o){
+  const ctx=cv.getContext('2d');let W=0,H=0,S=1,last=0,run=false,yaw=0,mx=0,my=0,active=-1,t=0
+  const dark=o.theme==='dark',mobile=matchMedia('(max-width:768px)').matches
+  const N=o.n||(mobile?1400:2600)
+  function rs(){const d=Math.min(devicePixelRatio||1,1.5);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);S=Math.min(W,H)*(o.scale||.27)}
+  rs();addEventListener('resize',rs)
+  const rnd=Math.random
+  function dir(){let x,y,z,l;do{x=rnd()*2-1;y=rnd()*2-1;z=rnd()*2-1;l=x*x+y*y+z*z}while(l>1||l<1e-4);l=Math.sqrt(l);return[x/l,y/l,z/l]}
+  function bp(){const r=rnd()
+    if(r<.87){const[vx,vy,vz]=dir();const th=Math.atan2(vz,vx),ph=Math.asin(vy)
+      let rad=1+.06*Math.sin(th*7+Math.sin(ph*4)*2)+.045*Math.sin(th*13+ph*9)+.03*Math.sin(th*3-ph*5);rad*=.82+.18*Math.pow(rnd(),.3)
+      let x=vx*1.32*rad,y=vy*.98*rad,z=vz*1.12*rad;if(y<-.6)y=-.6-rnd()*.05;const sg=x>=0?1:-1;x=sg*(Math.abs(x)*.94+.05);return[x,y,z,x>=0?0:1]}
+    if(r<.965){const[vx,vy,vz]=dir();return[vx*.5,-.55+vy*.28,-.7+vz*.4,2]}
+    const tt=rnd(),a=rnd()*6.283,rr=.09+rnd()*.05;return[Math.cos(a)*rr,-.5-tt*.55,-.3-tt*.3+Math.sin(a)*rr,2]}
+  const P=Array.from({length:N},bp)
+  const links=[];for(let k=0;k<(mobile?120:260);k++){const a=P[Math.floor(rnd()*N)];let best=null,bd=1e9;for(let j=0;j<40;j++){const b=P[Math.floor(rnd()*N)];const d=(a[0]-b[0])**2+(a[1]-b[1])**2+(a[2]-b[2])**2;if(d<bd&&d>.02){bd=d;best=b}}if(best)links.push([a,best])}
+  const pulses=Array.from({length:mobile?40:90},()=>({a:P[Math.floor(rnd()*N)],b:P[Math.floor(rnd()*N)],t:rnd(),s:.25+rnd()*.5}))
+  const rings=[];let ringT=0
+  // agents: two orbs on a tilted orbit
+  const agents=[{name:'REFLEX',c:[249,115,22],a0:0,fire:0},{name:'CORTEX',c:[56,189,248],a0:Math.PI,fire:0}]
+  let fireT=1.2,fireI=0
+  // data streams (left → brain)
+  const SC=[[56,189,248],[167,139,250],[52,211,153]]
+  const streams=SC.map((c,i)=>({c,parts:Array.from({length:mobile?18:34},()=>({t:rnd(),s:.16+rnd()*.14})),k:i}))
+  const rot=(x,y,z)=>{const cy=Math.cos(yaw),sy=Math.sin(yaw);let X=x*cy+z*sy,Z=-x*sy+z*cy;const px=.22+my*.18,cx=Math.cos(px),sx=Math.sin(px);let Y=y*cx-Z*sx;Z=y*sx+Z*cx;return[X,Y,Z]}
+  const proj=(x,y,z)=>{const f=3.4/(3.4-z);return[W*(o.cx||.5)+x*S*f+mx*8,H*(o.cy||.5)-y*S*f,f,z]}
+  const api={setActive:k=>active=k,agentPos:[[0,0],[0,0]]}
+  function frame(now){
+    requestAnimationFrame(frame);if(!run||reduced||!W)return
+    const dt=last?Math.min(.05,(now-last)/1000):0;last=now;t+=dt;yaw+=dt*.28
+    ctx.clearRect(0,0,W,H)
+    const CX=W*(o.cx||.5),CY=H*(o.cy||.5)
+    // halo
+    const g=ctx.createRadialGradient(CX,CY,S*.2,CX,CY,S*1.9);g.addColorStop(0,dark?'rgba(56,189,248,.22)':'rgba(56,189,248,.24)');g.addColorStop(1,'rgba(56,189,248,0)');ctx.fillStyle=g;ctx.fillRect(0,0,W,H)
+    // streams
+    const surf=[[-1.25,.35,.2],[-1.3,-.05,.35],[-1.15,-.5,.1]]
+    streams.forEach((st,i)=>{const boost=active===i?1:.45;const [c0,c1,c2]=st.c
+      const sx=-W*.02,sy=H*(.16+i*.33);const[ex,ey]=proj(...rot(...surf[i]));const c1x=sx+(ex-sx)*.45,c1y=sy,c2x=sx+(ex-sx)*.7,c2y=ey
+      ctx.strokeStyle=`rgba(${c0},${c1},${c2},${.12*boost})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(sx,sy);ctx.bezierCurveTo(c1x,c1y,c2x,c2y,ex,ey);ctx.stroke()
+      for(const p of st.parts){p.t+=dt*p.s*(active===i?1.8:1);if(p.t>1)p.t-=1;const u=p.t,v=1-u
+        const x=v*v*v*sx+3*v*v*u*c1x+3*v*u*u*c2x+u*u*u*ex,y=v*v*v*sy+3*v*v*u*c1y+3*v*u*u*c2y+u*u*u*ey
+        const a=(.25+.75*u)*boost;ctx.fillStyle=`rgba(${c0},${c1},${c2},${a})`;ctx.beginPath();ctx.arc(x,y,1.4+u*1.6*boost,0,6.3);ctx.fill()}})
+    // links
+    ctx.lineWidth=.7
+    for(const[a,b]of links){const A=rot(a[0],a[1],a[2]),B=rot(b[0],b[1],b[2]);const pa=proj(...A),pb=proj(...B);const dep=(A[2]+B[2])*.25+.5
+      ctx.strokeStyle=dark?`rgba(125,211,252,${.08+.2*dep})`:`rgba(14,165,233,${.08+.22*dep})`;ctx.beginPath();ctx.moveTo(pa[0],pa[1]);ctx.lineTo(pb[0],pb[1]);ctx.stroke()}
+    // points
+    for(let i=0;i<N;i++){const p=P[i];const R=rot(p[0],p[1],p[2]);const[x,y,f,z]=proj(...R);const dep=(z+1.4)/2.8
+      const sz=(p[3]===2?1.2:1.5)*f*(dark?1:1.3);const a=dark?.18+.75*dep:.12+.85*dep
+      const col=p[3]===1?(dark?`rgba(167,139,250,${a})`:`rgba(99,102,241,${a})`):p[3]===2?(dark?`rgba(52,211,153,${a})`:`rgba(5,150,105,${a})`):(dark?`rgba(125,211,252,${a})`:`rgba(2,132,199,${a})`)
+      ctx.fillStyle=col;ctx.fillRect(x-sz*.5,y-sz*.5,sz,sz)}
+    // synapse pulses
+    for(const u of pulses){u.t+=dt*u.s;if(u.t>=1){u.t=0;u.a=P[Math.floor(rnd()*N)];u.b=P[Math.floor(rnd()*N)]}const e=u.t*u.t*(3-2*u.t)
+      const R=rot(u.a[0]+(u.b[0]-u.a[0])*e,u.a[1]+(u.b[1]-u.a[1])*e,u.a[2]+(u.b[2]-u.a[2])*e);const[x,y,f]=proj(...R)
+      const gg=ctx.createRadialGradient(x,y,0,x,y,5*f);gg.addColorStop(0,'rgba(255,255,255,.95)');gg.addColorStop(.4,dark?'rgba(125,211,252,.7)':'rgba(56,189,248,.8)');gg.addColorStop(1,'rgba(56,189,248,0)');ctx.fillStyle=gg;ctx.fillRect(x-5*f,y-5*f,10*f,10*f)}
+    // activation rings
+    ringT+=dt;if(ringT>2.6){ringT=0;rings.push({t:0})}
+    for(const r of rings){r.t+=dt*.55;const rr=S*(.6+r.t*1.6);ctx.strokeStyle=dark?`rgba(125,211,252,${.35*(1-r.t)})`:`rgba(14,165,233,${.35*(1-r.t)})`;ctx.lineWidth=1.5;ctx.beginPath();ctx.ellipse(CX,CY+S*.1,rr,rr*.42,0,0,6.3);ctx.stroke()}
+    for(let i=rings.length-1;i>=0;i--)if(rings[i].t>=1)rings.splice(i,1)
+    // agents orbit
+    fireT-=dt;if(fireT<0){fireT=2.4;agents[fireI].fire=1;fireI=1-fireI}
+    agents.forEach((ag,i)=>{const a=ag.a0+t*.35;const ox=Math.cos(a)*1.95,oz=Math.sin(a)*1.95,oy=.35+Math.sin(a*2)*.1
+      const R=rot(ox,oy,oz);const[x,y,f,z]=proj(...R);const front=z>0;ag.fire=Math.max(0,ag.fire-dt*.9)
+      const[c0,c1,c2]=ag.c
+      // beam brain→agent
+      if(ag.fire>0){const k=1-ag.fire;const bx=CX+(x-CX)*k,by=CY+(y-CY)*k;ctx.strokeStyle=`rgba(${c0},${c1},${c2},${.55*ag.fire})`;ctx.lineWidth=1.5;ctx.setLineDash([6,6]);ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([])
+        const gb=ctx.createRadialGradient(bx,by,0,bx,by,10);gb.addColorStop(0,`rgba(255,255,255,.95)`);gb.addColorStop(.5,`rgba(${c0},${c1},${c2},.8)`);gb.addColorStop(1,`rgba(${c0},${c1},${c2},0)`);ctx.fillStyle=gb;ctx.fillRect(bx-10,by-10,20,20)}
+      // orbit trail
+      ctx.strokeStyle=`rgba(${c0},${c1},${c2},${front?.22:.1})`;ctx.lineWidth=1;ctx.beginPath();for(let k=0;k<=24;k++){const aa=a-k*.05;const Rr=rot(Math.cos(aa)*1.95,.35+Math.sin(aa*2)*.1,Math.sin(aa)*1.95);const pp=proj(...Rr);k?ctx.lineTo(pp[0],pp[1]):ctx.moveTo(pp[0],pp[1])}ctx.stroke()
+      const r=(7+ag.fire*5)*f;const go=ctx.createRadialGradient(x,y,0,x,y,r*3.2);go.addColorStop(0,`rgba(${c0},${c1},${c2},${front?.55:.3})`);go.addColorStop(1,`rgba(${c0},${c1},${c2},0)`);ctx.fillStyle=go;ctx.fillRect(x-r*3.2,y-r*3.2,r*6.4,r*6.4)
+      ctx.fillStyle=`rgba(${c0},${c1},${c2},${front?1:.6})`;ctx.beginPath();ctx.arc(x,y,r*.55,0,6.3);ctx.fill();ctx.fillStyle='rgba(255,255,255,.9)';ctx.beginPath();ctx.arc(x,y,r*.22,0,6.3);ctx.fill()
+      api.agentPos[i]=[x,y,front,f]})
+    o.onFrame&&o.onFrame(api)
+  }
+  requestAnimationFrame(frame)
+  addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect();mx=((e.clientX-r.left)/r.width-.5);my=((e.clientY-r.top)/r.height-.5)},{passive:true})
+  onVisible(cv,v=>{run=v;if(!v)last=0;else rs()},.05)
+  return api
+}
+{ // hero instance: DOM agent cards follow the orbs
+  const rf=$('#ag-rf'),cx=$('#ag-cx'),st=$('#brain-hero')
+  if(st)window.__brainHero=brain3d(st,{theme:'light',cx:.52,cy:.5,scale:.31,onFrame:api=>{[rf,cx].forEach((el,i)=>{const[x,y,front,f]=api.agentPos[i];const dx=i?1:-1;el.style.transform=`translate(calc(-50% + ${x+dx*62}px),calc(-50% + ${y-6}px)) scale(${front?1:.86})`;el.style.opacity=front?1:.55;el.style.zIndex=front?4:2})}})
+  const bd=$('#brain-dark');if(bd)window.__brainDark=brain3d(bd,{theme:'dark',cx:.52,cy:.5,scale:.3,onFrame:api=>{[$('#bd-rf'),$('#bd-cx')].forEach((el,i)=>{const[x,y,front]=api.agentPos[i];el.style.left=x+'px';el.style.top=(y-26)+'px';el.style.opacity=front?1:.5})}})
+}
+
 /* ===== 1. EPISODE MINER canvas ===== */
 function miner(cv,opts={}){
   const ctx=cv.getContext('2d');let W=0,H=0
@@ -993,11 +1065,11 @@ function miner(cv,opts={}){
   requestAnimationFrame(frame)
   onVisible(cv,v=>{running=v&&!reduced;if(!v)last=0;else rs()})
 }
-miner($('#miner'));miner($('#miner2'),{speed:60,mid:.56})
+miner($('#miner2'),{speed:60,mid:.56})
 
 /* ===== brain layers auto-cycle ===== */
-{const ls=$$('#layers .layer'),gs=['L0','L1','L2'].map(id=>document.getElementById(id));let i=0,run=false
-  const set=k=>{ls.forEach((l,j)=>l.classList.toggle('on',j===k));gs.forEach((g,j)=>g.classList.toggle('on',j===k))}
+{const ls=$$('#layers .layer'),gs=['l0','l1','l2'].map(c=>$('.blab.'+c));let i=0,run=false
+  const set=k=>{ls.forEach((l,j)=>l.classList.toggle('on',j===k));gs.forEach((g,j)=>g.classList.toggle('on',j===k));window.__brainDark&&window.__brainDark.setActive(k)}
   setInterval(()=>{if(!run)return;i=(i+1)%3;set(i)},2600)
   ls.forEach((l,j)=>l.addEventListener('mouseenter',()=>{i=j;set(j)}))
   onVisible($('#brain'),v=>run=v)}
