@@ -165,9 +165,16 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .pipe .st i{font:600 11px var(--mono);letter-spacing:1.5px;color:var(--mute);font-style:normal}
 .pipe .st.on{border-color:var(--sky);box-shadow:0 12px 30px -16px rgba(14,165,233,.5);transform:translateX(6px)}
 .pipe .st.on .n{background:var(--sky);color:#fff}
-.mine-vis{position:relative;border-radius:18px;overflow:hidden;background:#0B1220;aspect-ratio:1/0.44;box-shadow:var(--sh)}
+.mine-vis{position:relative;border-radius:18px;overflow:hidden;background:#0B1220;aspect-ratio:1/0.58;box-shadow:var(--sh)}
 .mine-r{display:flex;flex-direction:column;gap:12px}
-.acts{display:grid;grid-template-columns:1fr 1fr 1fr 1.1fr;gap:10px}
+.acts{display:grid;grid-template-columns:230px 1fr;gap:14px;align-items:center}
+.mv{position:absolute;left:0;top:14px;width:136px;border-radius:12px;overflow:hidden;background:#0B1220;border:2px solid rgba(167,139,250,.35);box-shadow:0 14px 30px -12px rgba(0,0,0,.8);opacity:0;transform:translate(-50%,0) scale(.9);transition:opacity .35s,transform .35s,border-color .3s;will-change:left;pointer-events:none}
+.mv video{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.mv .al{padding:6px 9px 7px;background:#101a30;color:#fff}
+.mv small{display:block;font:700 9px var(--mono);letter-spacing:1.2px;color:#C4B5FD}
+.mv b{font-size:11px;line-height:1.3}
+.mv.show{opacity:1;transform:translate(-50%,0) scale(1)}
+.mv.on{border-color:#A78BFA;box-shadow:0 0 0 4px rgba(167,139,250,.2),0 14px 30px -12px rgba(0,0,0,.8)}
 .act{position:relative;border-radius:14px;overflow:hidden;background:#0B1220;aspect-ratio:16/11;border:2px solid transparent;transition:border-color .3s,transform .3s,box-shadow .3s}
 .act video{width:100%;height:100%;object-fit:cover;opacity:.75;transition:opacity .3s}
 .act .al{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 10px;background:linear-gradient(0deg,rgba(11,18,32,.95),rgba(11,18,32,0));color:#fff}
@@ -182,7 +189,7 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .ep-card b{font:800 20px var(--mono);letter-spacing:-.03em}
 .ep-card span{font-size:11.5px;color:var(--ink2);line-height:1.4}
 .ep-card.on{opacity:1;transform:scale(1);border-color:var(--violet);box-shadow:0 16px 36px -18px rgba(99,102,241,.6)}
-.mine-note{font-size:13.5px;color:var(--ink2);line-height:1.6}.mine-note b{color:var(--ink)}
+.mine-note{font-size:13.5px;color:var(--ink2);line-height:1.6;margin:0}.mine-note b{color:var(--ink)}
 .mine-vis canvas{position:absolute;inset:0;width:100%;height:100%}
 .mine-vis .cap{position:absolute;left:18px;top:16px;font:600 10.5px var(--mono);letter-spacing:1.5px;color:#94A3B8}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
@@ -490,7 +497,7 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
   .hero h1{font-size:38px}
   .hero .proof{gap:20px}.hero .proof b{font-size:24px}
   .rf-meta,.cx-kpi,.rf-cap{grid-template-columns:1fr 1fr}
-  .acts{grid-template-columns:1fr 1fr}
+  .acts{grid-template-columns:1fr}.mv{width:112px}.mv b{font-size:10px}
   .flds{grid-template-columns:1fr}.fld{aspect-ratio:16/10}
   .creds,.two,.grow .big{grid-template-columns:1fr}
   .loop{grid-template-columns:1fr}
@@ -610,14 +617,15 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
         <div class="st card"><div class="n">04</div><div><b>에피소드</b><p>다시 꺼내 쓰는 판단의 경험 — 처음부터 풀지 않습니다</p></div><i>EPISODE</i></div>
       </div>
       <div class="mine-r rv" style="transition-delay:.1s">
-        <div class="mine-vis"><canvas id="miner2"></canvas><div class="cap">RAW SIGNAL · NORMAL BAND · EVENT</div></div>
-        <div class="acts" id="acts">
-          <div class="act" data-i="0"><video src="media/act_hmi.mp4" poster="media/act_hmi_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>CHUNK · 조작</small><b>HMI 조작 · 설정 변경</b></div><span class="dot"></span></div>
-          <div class="act" data-i="1"><video src="media/judge_tablet.mp4" poster="media/judge_tablet_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>CHUNK · 판단</small><b>데이터 확인 · 원인 판단</b></div><span class="dot"></span></div>
-          <div class="act" data-i="2"><video src="media/act_valve.mp4" poster="media/act_valve_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>CHUNK · 조치</small><b>설비 조치 · 부품 교체</b></div><span class="dot"></span></div>
-          <div class="ep-card" id="ep-card"><small>EPISODE</small><b id="ep-id">#1,284</b><span>조작 → 판단 → 조치 · 결과 저장</span></div>
+        <div class="mine-vis"><canvas id="miner2"></canvas><div class="cap">RAW SIGNAL · NORMAL BAND · EVENT → 전문가 행동 시점</div>
+          <div class="mv" data-i="0"><video src="media/act_hmi.mp4" poster="media/act_hmi_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>T+0.4s · 조작</small><b>HMI 조작 · 설정 변경</b></div></div>
+          <div class="mv" data-i="1"><video src="media/judge_tablet.mp4" poster="media/judge_tablet_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>T+2.1s · 판단</small><b>데이터 확인 · 원인 판단</b></div></div>
+          <div class="mv" data-i="2"><video src="media/act_valve.mp4" poster="media/act_valve_poster.jpg" muted loop playsinline preload="metadata"></video><div class="al"><small>T+4.8s · 조치</small><b>설비 조치 · 부품 교체</b></div></div>
         </div>
-        <p class="mine-note">이벤트가 발생하면 그 순간 <b>전문가가 무엇을 보고, 어떻게 판단하고, 어떤 조치를 했는지</b>가 하나의 에피소드로 묶입니다.</p>
+        <div class="acts">
+          <div class="ep-card" id="ep-card"><small>EPISODE</small><b id="ep-id">#1,284</b><span>이벤트 T+0 → 조작 → 판단 → 조치 · 결과 저장</span></div>
+          <p class="mine-note">이벤트가 발생한 순간을 기준으로, 그때 <b>전문가가 무엇을 조작하고, 어떻게 판단하고, 어떤 조치를 했는지</b>가 시간축 위에 기록되어 하나의 에피소드로 묶입니다.</p>
+        </div>
       </div>
     </div>
     <div class="two">
@@ -1070,7 +1078,7 @@ function miner(cv,opts={}){
     const dt=last?Math.min(.05,(now-last)/1000):0;last=now;t+=dt
     const off=t*SP;gen(off)
     if(t>nextEv){nextEv=t+(opts.every||4.5)+Math.random()*2.5;spike=1.05;n++;evs.push({x:xGen,id:n,st:0})}
-    const mid=H*(opts.mid||.62),amp=H*(opts.amp||.16),band=.36*amp
+    const mid=H*(opts.mid||.62),amp=H*(opts.amp||.16),band=.36*amp;ctx.lineWidth=1
     ctx.clearRect(0,0,W,H)
     ctx.fillStyle='rgba(56,189,248,.10)';ctx.fillRect(0,mid-band,W,band*2)
     ctx.strokeStyle='rgba(56,189,248,.35)';ctx.lineWidth=1;ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(0,mid-band);ctx.lineTo(W,mid-band);ctx.moveTo(0,mid+band);ctx.lineTo(W,mid+band);ctx.stroke();ctx.setLineDash([])
@@ -1078,26 +1086,29 @@ function miner(cv,opts={}){
     ctx.lineWidth=2;ctx.lineJoin='round'
     for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];const bad=Math.abs(b.y)>.36
       ctx.strokeStyle=bad?'#EF4444':'#38BDF8';ctx.beginPath();ctx.moveTo(a.x-off,mid-a.y*amp);ctx.lineTo(b.x-off,mid-b.y*amp);ctx.stroke()}
-    for(const e of evs){const x=e.x-off;const age=W-x
-      if(x<-260)continue
-      ctx.fillStyle='#EF4444';ctx.beginPath();ctx.arc(x,mid-1.02*amp,4,0,6.3);ctx.fill()
-      ctx.strokeStyle='rgba(239,68,68,.6)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,mid-1.02*amp);ctx.lineTo(x,mid+band+14);ctx.stroke()
-      ctx.font='700 10px JetBrains Mono';ctx.fillStyle='#FCA5A5';ctx.fillText('EVENT',x+6,mid-1.02*amp-8)
-      if(age>30){const k=clamp((age-30)/110,0,1);const y0=mid-1.02*amp+4
-        // chunk chips stacked beside the moving event marker: 조작 → 판단 → 조치
-        for(let i=0;i<3;i++){if(k<(i+1)/3)break;const cy=y0+16+i*24;const tx=x+16
-          ctx.strokeStyle='rgba(167,139,250,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,cy);ctx.lineTo(tx-4,cy);ctx.stroke()
-          ctx.font='700 11px Pretendard Variable, sans-serif';const tw=ctx.measureText(labels[i]).width+34
-          ctx.fillStyle='rgba(30,27,75,.92)';ctx.beginPath();ctx.roundRect(tx,cy-10,tw,20,10);ctx.fill()
-          ctx.strokeStyle='rgba(167,139,250,.9)';ctx.beginPath();ctx.roundRect(tx,cy-10,tw,20,10);ctx.stroke()
-          ctx.fillStyle='#A78BFA';ctx.beginPath();ctx.arc(tx+11,cy,3.5,0,6.3);ctx.fill()
-          ctx.fillStyle='#EDE9FE';ctx.fillText(labels[i],tx+21,cy+4)
-          if(!e['c'+i]){e['c'+i]=1;opts.onChunk&&opts.onChunk(i)}}
-        if(k>=1){ctx.font='700 9.5px JetBrains Mono';ctx.fillStyle='#C4B5FD';ctx.fillText('CHUNK → EPISODE',x+16,y0+16+3*24)}
-        if(k>=1&&e.st===0){e.st=1;eps.unshift({id:e.id,t0:t});if(eps.length>3)eps.pop();opts.onEpisode&&opts.onEpisode(e.id)}}
-      ctx.lineWidth=2}
+    const D=opts.moments||[40,150,280],ML=labels
+    const yAt=gx=>{const i=Math.round((gx-pts[0].x)/STEP);const q=pts[Math.max(0,Math.min(pts.length-1,i))];return q?mid-q.y*amp:mid}
+    for(const e of evs){const x=e.x-off;if(x<-360)continue
+      const yTop=mid-band-16
+      // event marker + T+0 label
+      ctx.strokeStyle='rgba(239,68,68,.55)';ctx.lineWidth=1;ctx.setLineDash([3,4]);ctx.beginPath();ctx.moveTo(x,yTop-10);ctx.lineTo(x,H-26);ctx.stroke();ctx.setLineDash([])
+      ctx.fillStyle='#EF4444';ctx.beginPath();ctx.arc(x,yAt(e.x),5,0,6.3);ctx.fill();ctx.strokeStyle='rgba(239,68,68,.45)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,yAt(e.x),10+4*Math.sin(t*4),0,6.3);ctx.stroke()
+      ctx.font='700 10px JetBrains Mono';ctx.fillStyle='#FCA5A5';ctx.fillText('EVENT · T+0',x+8,H-30)
+      // timeline bar from event through the action moments
+      const lastX=x+D[2],reach=Math.min(lastX,W-8)
+      if(reach>x){ctx.strokeStyle='rgba(167,139,250,.6)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(x,H-18);ctx.lineTo(reach,H-18);ctx.stroke()}
+      for(let i=0;i<3;i++){const mx=x+D[i];if(mx>W-4)break
+        const my=yAt(e.x+D[i])
+        ctx.strokeStyle='rgba(167,139,250,.55)';ctx.lineWidth=1;ctx.setLineDash([2,4]);ctx.beginPath();ctx.moveTo(mx,(opts.cardBottom||0)+i*10);ctx.lineTo(mx,H-18);ctx.stroke();ctx.setLineDash([])
+        ctx.fillStyle='#A78BFA';ctx.beginPath();ctx.arc(mx,my,4,0,6.3);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(mx,my,1.6,0,6.3);ctx.fill()
+        ctx.fillStyle='#A78BFA';ctx.beginPath();ctx.arc(mx,H-18,4.5,0,6.3);ctx.fill()
+        ctx.font='700 10px Pretendard Variable, sans-serif';ctx.fillStyle='#DDD6FE';ctx.fillText(ML[i],mx-9,H-4)
+        if(!e['c'+i]){e['c'+i]=1;opts.onChunk&&opts.onChunk(i,e)}}
+      if(!e.st&&lastX<W*.55){e.st=1;eps.unshift({id:e.id,t0:t});if(eps.length>3)eps.pop();opts.onEpisode&&opts.onEpisode(e.id)}
+      if(e.st){ctx.font='700 9.5px JetBrains Mono';ctx.fillStyle='#C4B5FD';ctx.fillText('CHUNK → EPISODE #'+e.id.toLocaleString(),x+D[2]+12,H-30)}}
+    opts.onFrame&&opts.onFrame(evs,off,W,D)
     while(evs.length&&evs[0].x-off<-260)evs.shift()
-    eps.forEach((p,i)=>{const k=clamp((t-p.t0)/.5,0,1);const y=44+i*46,w=196,x=W-w-14+(1-k)*30
+    eps.forEach((p,i)=>{if(opts.noStack)return;const k=clamp((t-p.t0)/.5,0,1);const y=44+i*46,w=196,x=W-w-14+(1-k)*30
       ctx.globalAlpha=k*(1-i*.22);ctx.fillStyle='rgba(255,255,255,.96)';ctx.beginPath();ctx.roundRect(x,y,w,38,9);ctx.fill()
       ctx.fillStyle='#6366F1';ctx.beginPath();ctx.roundRect(x,y,4,38,2);ctx.fill()
       ctx.font='700 10px JetBrains Mono';ctx.fillStyle='#6366F1';ctx.fillText('EPISODE #'+p.id.toLocaleString(),x+14,y+15)
@@ -1106,11 +1117,13 @@ function miner(cv,opts={}){
   requestAnimationFrame(frame)
   onVisible(cv,v=>{running=v&&!reduced;if(!v)last=0;else rs()})
 }
-{const acts=$$('#acts .act'),ep=$('#ep-card'),epId=$('#ep-id');let tm=[]
-  miner($('#miner2'),{speed:26,mid:.62,labels:['조작','판단','조치'],every:9,amp:.13,
-    onChunk:i=>{acts.forEach((a,j)=>a.classList.toggle('on',j===i));const v=acts[i].querySelector('video');v.currentTime=0;v.play().catch(()=>{})},
-    onEpisode:id=>{acts.forEach(a=>a.classList.remove('on'));epId.textContent='#'+id.toLocaleString();ep.classList.add('on');clearTimeout(tm[0]);tm[0]=setTimeout(()=>ep.classList.remove('on'),2600)}})
-  onVisible($('#mining'),v=>{acts.forEach(a=>{const vd=a.querySelector('video');if(v)vd.play().catch(()=>{});else vd.pause()})},.2)}
+{const mvs=$$('#mining .mv'),ep=$('#ep-card'),epId=$('#ep-id');let tm=0
+  miner($('#miner2'),{speed:34,mid:.76,amp:.1,labels:['조작','판단','조치'],every:13,moments:[40,170,300],noStack:true,cardBottom:126,
+    onChunk:(i,e)=>{const m=mvs[i];m.classList.add('show','on');const v=m.querySelector('video');v.currentTime=0;v.play().catch(()=>{});setTimeout(()=>m.classList.remove('on'),2200)},
+    onEpisode:id=>{epId.textContent='#'+id.toLocaleString();ep.classList.add('on');clearTimeout(tm);tm=setTimeout(()=>ep.classList.remove('on'),3200)},
+    onFrame:(evs,off,W,D)=>{const e=evs[evs.length-1];if(!e){mvs.forEach(m=>m.classList.remove('show'));return}
+      const x=e.x-off;mvs.forEach((m,i)=>{const mx=x+D[i];if(mx>W-4||mx<-90){m.classList.remove('show');return}m.style.left=mx+'px';m.style.top=(8+i*10)+'px'})}})
+  onVisible($('#mining'),v=>{mvs.forEach(m=>{const vd=m.querySelector('video');if(v)vd.play().catch(()=>{});else vd.pause()})},.2)}
 
 /* ===== brain layers auto-cycle ===== */
 {const ls=$$('#layers .layer'),gs=['l0','l1','l2'].map(c=>$('.blab.'+c));let i=0,run=false
