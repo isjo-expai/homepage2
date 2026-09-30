@@ -892,6 +892,10 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
 </div>
 
 <script>
+/* always start at the top (no browser scroll restoration on reload / back) */
+if('scrollRestoration' in history)history.scrollRestoration='manual'
+if(!location.hash){document.documentElement.style.scrollBehavior='auto';scrollTo(0,0);addEventListener('load',()=>{scrollTo(0,0);setTimeout(()=>document.documentElement.style.scrollBehavior='',50)})}
+
 /* ===== utilities ===== */
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)]
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v))
