@@ -3,7 +3,15 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>EXPAI — Factory ExpertX</title>
+<title>EXPAI — 공장의 판단을 디지털 브레인으로 | Factory ExpertX</title>
+<meta name="description" content="EXPAI는 베테랑의 판단을 에피소드로 축적하는 제조 AI 에이전트 플랫폼 ExpertX를 만듭니다. 담당자별 AMI에 Reflex·Cortex 에이전트가 함께 현장을 지킵니다."/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://exp-ai.io/"/>
+<meta property="og:title" content="EXPAI — 공장의 판단을 디지털 브레인으로"/>
+<meta property="og:description" content="제조 AI 에이전트 플랫폼 ExpertX · AMI(Artificial My Intelligence) · Reflex × Cortex"/>
+<meta property="og:image" content="https://exp-ai.io/media/expai_intro_poster.jpg"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="theme-color" content="#060810"/>
 <link rel="icon" type="image/png" sizes="32x32" href="images_html/favicon_32.png"/>
 <link rel="icon" type="image/png" sizes="180x180" href="images_html/favicon_circle.png"/>
 <link rel="apple-touch-icon" href="images_html/favicon_circle.png"/>
@@ -402,6 +410,211 @@ section>.inner{width:100%}
 @keyframes approve-pulse2{0%,100%{box-shadow:0 0 0 0 rgba(16,185,129,0.5)}70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}}
 .hud-daip p{font-size:11px;color:#86EFAC;line-height:1.5}
 @media(max-width:1024px){.hud-grid{grid-template-columns:1fr}.hud-stage{height:380px;transform:scale(.8)}}
+
+/* =========================================================
+   STORY SECTIONS — company film narrative (Film · Why · AMI · Reflex×Cortex · Fields · Difference)
+   ========================================================= */
+.kick{display:inline-flex;align-items:center;gap:10px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:#38BDF8;margin-bottom:14px}
+.kick::before{content:'';width:26px;height:1px;background:linear-gradient(90deg,transparent,#38BDF8)}
+.h-xl{font-size:clamp(26px,3.3vw,48px);font-weight:900;letter-spacing:-1.6px;line-height:1.14;color:#F8FAFC}
+.h-xl em{font-style:normal;background:linear-gradient(120deg,#38BDF8,#818CF8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lead{font-size:clamp(14px,1.05vw,16px);color:#A5AFC0;line-height:1.75;margin-top:14px;max-width:620px}
+.glass{background:linear-gradient(180deg,rgba(17,24,39,.72),rgba(10,14,26,.72));border:1px solid rgba(148,163,184,.12);border-radius:18px;backdrop-filter:blur(14px);box-shadow:0 30px 80px -40px rgba(0,0,0,.8)}
+.story{background:#060810}
+.story::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(900px 420px at 85% 0%,rgba(56,189,248,.07),transparent 70%),radial-gradient(700px 380px at 0% 100%,rgba(129,140,248,.06),transparent 70%)}
+
+/* hero film button */
+.btn-film{display:inline-flex;align-items:center;gap:10px;padding:8px 18px 8px 8px;border-radius:999px;background:rgba(14,165,233,.1);border:1px solid rgba(56,189,248,.35);color:#E2E8F0;font-size:12.5px;font-weight:600;text-decoration:none;cursor:pointer;transition:all .3s}
+.btn-film:hover{background:rgba(14,165,233,.2);border-color:#38BDF8;transform:translateY(-1px)}
+.btn-film .pl{width:28px;height:28px;border-radius:50%;background:#0EA5E9;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(14,165,233,.6);animation:plPulse 2.2s infinite}
+.btn-film .pl svg{width:11px;height:11px;margin-left:2px}
+.btn-film small{color:#7DD3FC;font-family:'JetBrains Mono',monospace;font-size:11px}
+@keyframes plPulse{0%{box-shadow:0 0 0 0 rgba(14,165,233,.55)}70%{box-shadow:0 0 0 12px rgba(14,165,233,0)}100%{box-shadow:0 0 0 0 rgba(14,165,233,0)}}
+
+/* FILM */
+#film .inner{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:34px;align-items:center}
+.film-head{grid-column:1/-1;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.player{position:relative;aspect-ratio:16/9;width:100%;max-height:64vh;border-radius:18px;overflow:hidden;background:#000;box-shadow:0 40px 120px -40px rgba(14,165,233,.35),0 0 0 1px rgba(56,189,248,.18);cursor:pointer}
+.player img,.player video,.player iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
+.player .play{position:absolute;right:auto;top:auto;left:6.4%;bottom:11%;width:84px;height:84px;border-radius:50%;background:rgba(14,165,233,.92);display:flex;align-items:center;justify-content:center;transition:transform .35s cubic-bezier(.16,1,.3,1);animation:plPulse 2.4s infinite}
+.player .play svg{width:30px;height:30px;margin-left:6px}
+.player:hover .play{transform:scale(1.08)}
+.player .dur{position:absolute;right:16px;bottom:14px;font:600 12px 'JetBrains Mono',monospace;color:#E2E8F0;background:rgba(6,8,16,.75);padding:5px 10px;border-radius:6px}
+.player.on .play,.player.on .dur,.player.on>img{display:none}
+.film-side{display:flex;flex-direction:column;gap:10px;max-height:64vh;min-height:0}
+.film-side>.ch-t{font:600 11px 'JetBrains Mono',monospace;letter-spacing:2.5px;color:#64748B;padding:0 4px}
+.films{display:flex;flex-direction:column;gap:8px}
+.films button{all:unset;display:flex;gap:12px;align-items:center;padding:7px;border-radius:12px;cursor:pointer;border:1px solid rgba(148,163,184,.1);background:rgba(15,23,42,.5);transition:border-color .25s,background .25s}
+.films button:hover{border-color:rgba(56,189,248,.35)}
+.films button.cur{border-color:#38BDF8;background:rgba(14,165,233,.1)}
+.films .th{position:relative;flex:none;width:104px;aspect-ratio:16/9;border-radius:7px;overflow:hidden;background:#0B1222}
+.films .th img{width:100%;height:100%;object-fit:cover}
+.films .th i{position:absolute;right:4px;bottom:4px;font:600 9.5px 'JetBrains Mono',monospace;font-style:normal;color:#fff;background:rgba(0,0,0,.75);padding:1px 5px;border-radius:4px}
+.films b{display:block;font-size:13px;color:#F1F5F9;line-height:1.35}
+.films small{display:block;font:600 10px 'JetBrains Mono',monospace;letter-spacing:1px;color:#38BDF8;margin-bottom:3px}
+.yt-link{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:#94A3B8;text-decoration:none;padding:4px}
+.yt-link:hover{color:#F1F5F9}.yt-link svg{width:20px;height:20px}
+.chapters{display:flex;flex-direction:column;gap:2px;overflow:auto;padding-right:4px;min-height:0;flex:1;border-top:1px solid rgba(148,163,184,.1);padding-top:6px}
+.chapters.off{display:none}
+.chapters button{all:unset;display:flex;gap:12px;align-items:baseline;padding:5px 12px;border-radius:9px;cursor:pointer;color:#A5AFC0;font-size:13px;transition:background .25s,color .25s}
+.chapters button b{font:600 11.5px 'JetBrains Mono',monospace;color:#38BDF8;min-width:36px}
+.chapters button:hover,.chapters button.cur{background:rgba(56,189,248,.08);color:#F1F5F9}
+.chapters .ch-t{font:600 11px 'JetBrains Mono',monospace;letter-spacing:2.5px;color:#64748B;padding:0 12px 8px}
+
+/* WHY */
+#why .inner{display:grid;grid-template-columns:1.02fr 1fr;gap:56px;align-items:center}
+.why-img{position:relative;border-radius:20px;overflow:hidden;aspect-ratio:4/3.3;box-shadow:0 40px 100px -40px rgba(0,0,0,.9)}
+.why-img img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+.why-img::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,8,16,.96) 0%,rgba(6,8,16,.2) 55%,rgba(6,8,16,0) 100%)}
+.why-img blockquote{position:absolute;left:30px;right:30px;bottom:26px;z-index:2;font-size:clamp(19px,1.7vw,26px);font-weight:800;line-height:1.4;letter-spacing:-.6px;color:#F8FAFC}
+.why-img blockquote small{display:block;margin-top:10px;font-size:13px;font-weight:500;color:#94A3B8;letter-spacing:0}
+.pipe{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:26px;position:relative}
+.pipe .st{position:relative;padding:14px 12px 14px 14px;border-radius:14px;margin-right:12px;background:rgba(15,23,42,.7);border:1px solid rgba(148,163,184,.12)}
+.pipe .st:last-child{margin-right:0;border-color:rgba(56,189,248,.45);background:linear-gradient(160deg,rgba(14,165,233,.2),rgba(15,23,42,.8))}
+.pipe .st:not(:last-child)::after{content:'';position:absolute;right:-11px;top:50%;width:10px;height:10px;border-top:2px solid #38BDF8;border-right:2px solid #38BDF8;transform:translateY(-50%) rotate(45deg);opacity:.7}
+.pipe small{display:block;font:600 10.5px 'JetBrains Mono',monospace;color:#64748B;letter-spacing:1.5px;margin-bottom:6px}
+.pipe b{display:block;font-size:15px;color:#F1F5F9;font-weight:800;margin-bottom:4px}
+.pipe span{font-size:12px;color:#94A3B8;line-height:1.5}
+.epi{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+.epi div{padding:14px 16px;border-radius:14px;border:1px solid rgba(148,163,184,.12);background:rgba(15,23,42,.55)}
+.epi b{font-size:14px;color:#F1F5F9}
+.epi p{font-size:12.5px;color:#94A3B8;margin-top:4px;line-height:1.55}
+.epi i{font-style:normal;font:700 11px 'JetBrains Mono',monospace;padding:2px 8px;border-radius:5px;margin-left:6px}
+
+/* AMI */
+#ami{background:#060810}
+#ami .ami-bg{position:absolute;inset:0;z-index:0}
+#ami .ami-bg img{position:absolute;right:0;top:0;width:62%;height:100%;object-fit:cover;opacity:.55;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 45%);mask-image:linear-gradient(90deg,transparent 0%,#000 45%)}
+#ami .ami-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,#060810 0%,transparent 30%,transparent 80%,#060810 100%)}
+#ami .inner{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+.ami-word{font:900 clamp(56px,7vw,104px)/1 'Inter',sans-serif;letter-spacing:-4px;background:linear-gradient(120deg,#F8FAFC 10%,#38BDF8 55%,#818CF8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.ami-full{font:600 13px 'JetBrains Mono',monospace;letter-spacing:4px;color:#7DD3FC;margin:10px 0 18px}
+.ami-full u{text-decoration:none;color:#F8FAFC;border-bottom:2px solid #38BDF8}
+.eq{display:flex;align-items:stretch;gap:10px;margin-top:24px;flex-wrap:wrap}
+.eq .tk{flex:1;min-width:150px;padding:14px 16px;border-radius:14px;background:rgba(15,23,42,.7);border:1px solid rgba(148,163,184,.14)}
+.eq .tk small{display:block;font:600 10.5px 'JetBrains Mono',monospace;letter-spacing:1.5px;color:#64748B;margin-bottom:6px}
+.eq .tk b{font-size:15px;color:#F1F5F9;line-height:1.35}
+.eq .op{display:flex;align-items:center;font-size:22px;font-weight:300;color:#38BDF8}
+.eq .tk.res{border-color:rgba(56,189,248,.5);background:linear-gradient(160deg,rgba(14,165,233,.22),rgba(15,23,42,.8))}
+.flow{padding:26px 26px 22px}
+.flow h4{font:600 11px 'JetBrains Mono',monospace;letter-spacing:3px;color:#64748B;margin-bottom:16px}
+.flow ol{list-style:none;display:flex;flex-direction:column;gap:0;position:relative}
+.flow ol::before{content:'';position:absolute;left:17px;top:18px;bottom:18px;width:2px;background:linear-gradient(180deg,#38BDF8,#818CF8,#F97316)}
+.flow li{display:flex;gap:16px;align-items:flex-start;padding:10px 0;position:relative}
+.flow li .n{flex:none;width:36px;height:36px;border-radius:50%;background:#0B1222;border:2px solid #38BDF8;display:flex;align-items:center;justify-content:center;font:700 13px 'JetBrains Mono',monospace;color:#7DD3FC;z-index:1}
+.flow li b{display:block;font-size:15px;color:#F1F5F9;margin-top:2px}
+.flow li span{font-size:12.5px;color:#94A3B8;line-height:1.55}
+.flow .pair{display:flex;gap:8px;margin-top:8px}
+.flow .pair i{font-style:normal;font:700 11.5px 'JetBrains Mono',monospace;padding:5px 10px;border-radius:7px}
+
+/* REFLEX × CORTEX */
+#rc .inner{max-width:1360px}
+.rc-head{text-align:center;margin-bottom:26px}
+.rc-grid{display:grid;grid-template-columns:1fr 64px 1fr;align-items:stretch}
+.rc-card{border-radius:20px;overflow:hidden;display:flex;flex-direction:column;background:rgba(12,17,30,.82);border:1px solid rgba(148,163,184,.12);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+.rc-card:hover{transform:translateY(-4px)}
+.rc-card.r:hover{box-shadow:0 30px 80px -30px rgba(249,115,22,.45)}
+.rc-card.c:hover{box-shadow:0 30px 80px -30px rgba(56,189,248,.45)}
+.rc-media{position:relative;aspect-ratio:16/7.2;overflow:hidden;background:#0B1222}
+.rc-media img,.rc-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity 1s}
+.rc-media video{opacity:0}
+.rc-media.demo video{opacity:1}.rc-media.demo img{opacity:0}
+.rc-media::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,12,22,.95) 0%,rgba(8,12,22,0) 55%);pointer-events:none}
+.rc-media .nm{position:absolute;left:24px;bottom:16px;z-index:2}
+.rc-media .nm b{display:block;font-size:34px;font-weight:900;letter-spacing:-1px;color:#fff;line-height:1}
+.rc-media .nm span{font-size:13px;font-weight:600;color:#CBD5E1}
+.rc-media .tg{position:absolute;right:16px;top:14px;z-index:2;font:700 11px 'JetBrains Mono',monospace;letter-spacing:1px;padding:6px 11px;border-radius:8px;color:#fff}
+.rc-media .sw{position:absolute;left:16px;top:14px;z-index:2;display:flex;gap:4px;background:rgba(6,8,16,.7);border-radius:8px;padding:3px}
+.rc-media .sw button{all:unset;cursor:pointer;font:600 10.5px 'JetBrains Mono',monospace;color:#94A3B8;padding:4px 9px;border-radius:6px}
+.rc-media .sw button.on{background:rgba(255,255,255,.14);color:#fff}
+.rc-body{padding:18px 22px 20px;display:flex;flex-direction:column;gap:12px;flex:1}
+.ana{display:flex;gap:14px;align-items:center;padding:12px 14px;border-radius:14px}
+.ana .ic{flex:none;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center}
+.ana .ic svg{width:24px;height:24px}
+.ana small{display:block;font:700 10.5px 'JetBrains Mono',monospace;letter-spacing:1.5px;margin-bottom:2px}
+.ana b{font-size:15px;color:#F1F5F9;font-weight:700}
+.rc-role{font-size:14px;color:#CBD5E1;line-height:1.65;padding:0 2px}
+.rc-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:auto}
+.rc-chips div{padding:9px 11px;border-radius:10px;background:rgba(30,41,59,.45);border:1px solid rgba(148,163,184,.1)}
+.rc-chips small{display:block;font:600 10px 'JetBrains Mono',monospace;color:#64748B;letter-spacing:1px}
+.rc-chips b{font-size:12.5px;color:#E2E8F0}
+.rc-vs{display:flex;align-items:center;justify-content:center;position:relative}
+.rc-vs::before{content:'';position:absolute;top:10%;bottom:10%;left:50%;width:1px;background:linear-gradient(180deg,transparent,rgba(148,163,184,.35),transparent)}
+.rc-vs span{position:relative;width:46px;height:46px;border-radius:50%;background:#0B1222;border:1px solid rgba(148,163,184,.3);display:flex;align-items:center;justify-content:center;font:800 13px 'JetBrains Mono',monospace;color:#E2E8F0}
+.rc-bar{margin-top:18px;text-align:center;padding:14px 20px;border-radius:14px;font-size:clamp(15px,1.3vw,19px);font-weight:800;color:#F1F5F9;background:linear-gradient(90deg,rgba(249,115,22,.14),rgba(15,23,42,.6) 50%,rgba(56,189,248,.14));border:1px solid rgba(148,163,184,.12)}
+.rc-bar .r{color:#FDBA74}.rc-bar .c{color:#7DD3FC}
+.rc-note{font-size:11px;color:#475569;text-align:center;margin-top:8px;font-family:'JetBrains Mono',monospace}
+
+/* FIELDS */
+.fld-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:28px}
+.fld{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/3.7;border:1px solid rgba(148,163,184,.12)}
+.fld img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.fld:hover img{transform:scale(1.06)}
+.fld::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(6,8,16,.95) 0%,rgba(6,8,16,.15) 60%)}
+.fld div{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.fld small{font:600 10.5px 'JetBrains Mono',monospace;letter-spacing:2px;color:#7DD3FC}
+.fld b{display:block;font-size:19px;font-weight:800;color:#fff;margin:4px 0 4px}
+.fld span{font-size:12px;color:#A5AFC0;line-height:1.5}
+.cred{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.cred>div{display:flex;gap:14px;align-items:center;padding:14px 18px}
+.cred .ic{flex:none;width:42px;height:42px;border-radius:12px;background:rgba(56,189,248,.12);display:flex;align-items:center;justify-content:center}
+.cred .ic svg{width:22px;height:22px}
+.cred b{display:block;font-size:14.5px;color:#F1F5F9}
+.cred span{font-size:12px;color:#94A3B8}
+
+/* DIFFERENCE */
+#diff .inner{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.dlist{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.dlist>div{display:flex;gap:16px;padding:15px 18px;border-radius:14px;background:rgba(15,23,42,.55);border:1px solid rgba(148,163,184,.1);transition:border-color .3s,background .3s}
+.dlist>div:hover{border-color:rgba(56,189,248,.4);background:rgba(15,23,42,.85)}
+.dlist .no{font:800 22px 'JetBrains Mono',monospace;color:#38BDF8;opacity:.9;min-width:34px}
+.dlist b{display:block;font-size:15.5px;color:#F1F5F9;margin-bottom:3px}
+.dlist span{font-size:12.5px;color:#94A3B8;line-height:1.55}
+.grow{padding:28px}
+.grow h4{font:600 11px 'JetBrains Mono',monospace;letter-spacing:3px;color:#64748B}
+.grow .big{display:flex;gap:18px;margin:16px 0 18px}
+.grow .big div{flex:1;padding:16px 18px;border-radius:14px;background:rgba(14,165,233,.08);border:1px solid rgba(56,189,248,.22)}
+.grow .big b{display:block;font:800 clamp(28px,2.8vw,40px)/1 'JetBrains Mono',monospace;color:#F8FAFC;letter-spacing:-1.5px}
+.grow .big span{font-size:12.5px;color:#94A3B8;display:block;margin-top:8px;line-height:1.5}
+.loop{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px}
+.loop .nd{padding:14px;border-radius:14px;background:rgba(15,23,42,.8);border:1px solid rgba(148,163,184,.14);text-align:center}
+.loop .nd b{display:block;font-size:14px;color:#F1F5F9}
+.loop .nd span{font-size:11.5px;color:#94A3B8;line-height:1.5}
+.loop .ar{display:flex;flex-direction:column;gap:6px;font:600 10.5px 'JetBrains Mono',monospace;color:#64748B;text-align:center}
+.loop .ar i{font-style:normal;color:#38BDF8;font-size:15px}
+.lock{display:flex;gap:10px;align-items:center;margin-top:14px;padding:11px 14px;border-radius:12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.25);font-size:12.5px;color:#A7F3D0}
+.lock svg{flex:none;width:18px;height:18px}
+
+/* FILM MODAL */
+#film-modal{position:fixed;inset:0;z-index:9997;background:rgba(3,5,10,.92);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
+#film-modal.open{display:flex}
+#film-modal .box{position:relative;width:min(1280px,100%,calc(88vh*16/9));aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 40px 140px rgba(0,0,0,.8)}
+#film-modal .box video,#film-modal .box iframe{width:100%;height:100%;border:0;display:block}
+#film-modal .x{position:absolute;top:18px;right:22px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(148,163,184,.3);background:rgba(15,23,42,.8);color:#E2E8F0;font-size:22px;cursor:pointer}
+
+@media(max-width:1024px){
+  #film .inner,#why .inner,#ami .inner,#diff .inner{grid-template-columns:1fr}
+  .film-side{max-height:none}.chapters{max-height:none;display:grid;grid-template-columns:1fr 1fr}
+  .chapters .ch-t{grid-column:1/-1}
+  .rc-grid{grid-template-columns:1fr;gap:16px}.rc-vs{display:none}
+  .fld-grid{grid-template-columns:1fr 1fr}
+  #ami .ami-bg img{width:100%;opacity:.25}
+}
+@media(max-height:820px) and (min-width:1025px){
+  .rc-head{margin-bottom:14px}.rc-media{aspect-ratio:16/6.2}.rc-body{padding:14px 20px 16px;gap:10px}.rc-bar{margin-top:12px;padding:11px 20px}
+  .fld{aspect-ratio:3/3.2}.dlist>div{padding:12px 16px}.flow li{padding:7px 0}
+}
+@media(max-width:640px){
+  .pipe{grid-template-columns:1fr 1fr;gap:10px}.pipe .st{margin-right:0}.pipe .st::after{display:none}
+  .epi,.cred{grid-template-columns:1fr}
+  .chapters{grid-template-columns:1fr}
+  .eq .op{display:none}
+  .grow .big{flex-direction:column}
+  .loop{grid-template-columns:1fr}.loop .ar{flex-direction:row;justify-content:center}
+  .player .play{width:56px;height:56px}.player .play svg{width:20px;height:20px}
+  .rc-media .tg{top:auto;bottom:16px;right:14px;font-size:10px}
+  .fld-grid{grid-template-columns:1fr}.fld{aspect-ratio:16/10}
+}
 </style>
 </head>
 <body>
@@ -435,9 +648,11 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
   <img src="images_html/expai_logo_large.png" alt="EXPAI" class="logo" onclick="document.getElementById('hero').scrollIntoView({behavior:'smooth'})"/>
   <div class="nav-links">
     <a href="#dive">Digital Brain</a>
-    <a href="#stream">Live MES</a>
+    <a href="#film">Film</a>
+    <a href="#ami">AMI</a>
+    <a href="#rc">Reflex × Cortex</a>
     <a href="#shots">Screens</a>
-    <a href="#jarvis">ExpertX Core</a>
+    <a href="#diff">Why EXPAI</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
@@ -452,14 +667,15 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
   </div>
   <div class="content">
     <div class="hero-kicker rv"><span class="pulse-dot"></span>DIGITAL BRAIN · ONLINE</div>
-    <h1 class="rv" style="transition-delay:.1s;font-size:clamp(30px,4.4vw,60px)">공장의 경험이 살아있는<br><span>디지털 두뇌</span>를 만듭니다</h1>
+    <h1 class="rv" style="transition-delay:.1s;font-size:clamp(30px,4.4vw,60px)">공장의 판단을<br><span>디지털 브레인</span>으로</h1>
     <div class="hero-sub rv mono" style="transition-delay:.2s">FACTORY EXPERTX — THINKING FACTORY MANAGER</div>
-    <p class="hero-desc rv" style="transition-delay:.3s">베테랑의 지식·경험·기억을 하나의 두뇌로 연결하고,<br>AI Agent가 근거를 제시하면 사람이 승인합니다.</p>
+    <p class="hero-desc rv" style="transition-delay:.3s">베테랑의 판단을 에피소드로 축적하는 제조 AI 에이전트 플랫폼.<br>담당자별 <b style="color:#E2E8F0">AMI</b>에 <b style="color:#FDBA74">Reflex</b>와 <b style="color:#7DD3FC">Cortex</b>가 함께 현장을 지킵니다.</p>
     <div class="mono rv" style="transition-delay:.35s;color:#0EA5E9;font-size:12px;letter-spacing:3px;margin-bottom:20px">지식(RAGX) + 경험(Episode) + 기억(Pattern) &rarr; ExpertX Agent</div>
     <div class="btn-row rv" style="transition-delay:.4s">
       <a href="#dive" class="btn btn-p">두뇌 속으로 들어가기</a>
       <a href="#shots" class="btn btn-g">실제 화면 보기</a>
     </div>
+    <div class="rv" style="transition-delay:.5s;margin-top:18px"><a class="btn-film" onclick="openFilm(0);return false" href="#film"><span class="pl"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span>소개 영상 보기 <small>4:53</small></a></div>
   </div>
   <div class="scroll-ind">
     <div class="line"></div>
@@ -562,6 +778,135 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
 </div>
 </section>
 
+<!-- ======== FILM : COMPANY INTRO VIDEO ======== -->
+<section id="film" class="story" data-name="Company Film" data-voice-title="Company Film" data-voice="엑스파이 소개 영상입니다. 5분 안에 디지털 두뇌, 에이 엠 아이, 리플렉스와 코텍스를 확인하세요.">
+<div class="inner">
+  <div class="film-head">
+    <div>
+      <div class="kick rv">COMPANY FILM · 4:53</div>
+      <h2 class="h-xl rv" style="transition-delay:.08s">5분으로 보는 <em>EXPAI</em></h2>
+    </div>
+    <p class="lead rv" style="transition-delay:.14s;margin-top:0;max-width:460px">베테랑의 판단이 사라지는 문제부터, 디지털 두뇌와 AMI, 그리고 현장에서 일하는 Reflex · Cortex 에이전트까지.</p>
+  </div>
+  <div class="player rv" id="film-player" style="transition-delay:.18s" onclick="playFilm()">
+    <img src="media/expai_intro_poster.jpg" alt="EXPAI 소개 영상" loading="lazy" id="film-poster"/>
+    <div class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></div>
+    <div class="dur" id="film-dur">04:53</div>
+  </div>
+  <div class="film-side rv" style="transition-delay:.24s">
+    <div class="ch-t">FILMS · YOUTUBE</div>
+    <div class="films" id="films"></div>
+    <div class="chapters" id="chapters"><div class="ch-t">CHAPTERS</div></div>
+    <a class="yt-link" href="https://www.youtube.com/channel/UCAP8V1QcDY1DszA2Ba4RI8Q" target="_blank" rel="noopener" id="yt-link"><svg viewBox="0 0 24 24" fill="#FF0033"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1c.4-1.6.5-4.8.5-4.8s0-3.2-.5-4.8z"/><path d="M9.8 15.1 15.5 12 9.8 8.9z" fill="#fff"/></svg>YouTube 채널에서 보기</a>
+  </div>
+</div>
+</section>
+
+<!-- ======== WHY : THE PROBLEM & THE ANSWER ======== -->
+<section id="why" class="story" data-name="Why EXPAI" data-voice-title="Why EXPAI" data-voice="베테랑이 떠나면 공장의 판단력도 함께 떠납니다. 엑스파이는 전문가의 행동을 에피소드로 채굴해, 판단을 자산으로 남깁니다.">
+<div class="inner">
+  <div class="why-img rv-l">
+    <img src="images_html/v/veteran_v2.jpg" alt="현장 베테랑" loading="lazy"/>
+    <blockquote>“베테랑이 떠나면,<br>공장의 판단력도 함께 떠납니다.”<small>무엇을 보고 어떻게 판단했는지는 여전히 사람의 머릿속에만 남아 있습니다.</small></blockquote>
+  </div>
+  <div>
+    <div class="kick rv">THE PROBLEM → OUR ANSWER</div>
+    <h2 class="h-xl rv" style="transition-delay:.08s;font-size:clamp(24px,2.6vw,40px)">문제는 데이터 부족이 아니라,<br><em>판단이 자산으로 남지 않는 구조</em></h2>
+    <p class="lead rv" style="transition-delay:.14s">엑스파이는 원시 제조 데이터를 이벤트로 정의하고, 전문가의 행동을 청크 단위로 묶어 <b style="color:#E2E8F0">에피소드</b>로 만듭니다. 한 번 해결한 문제를 다시 처음부터 풀지 않는 구조입니다.</p>
+    <div class="pipe rv" style="transition-delay:.2s">
+      <div class="st"><small>01 · RAW</small><b>원시 데이터</b><span>설비 · MES · 알람 · 작업 기록</span></div>
+      <div class="st"><small>02 · EVENT</small><b>이벤트</b><span>정상 범주를 벗어난 순간</span></div>
+      <div class="st"><small>03 · CHUNK</small><b>행동 청크</b><span>전문가가 확인하고 조치한 흐름</span></div>
+      <div class="st"><small>04 · EPISODE</small><b>에피소드</b><span>다시 꺼내 쓰는 판단의 경험</span></div>
+    </div>
+    <div class="epi rv" style="transition-delay:.26s">
+      <div><b>루틴 에피소드<i style="background:rgba(56,189,248,.15);color:#7DD3FC">→ CORTEX</i></b><p>정상 범주 안에서 반복되는 판단 — 깊은 판단의 재료</p></div>
+      <div><b>이벤트 에피소드<i style="background:rgba(249,115,22,.15);color:#FDBA74">→ REFLEX</i></b><p>범주를 벗어난 순간의 대응 — 빠른 대응의 재료</p></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ======== AMI : ARTIFICIAL MY INTELLIGENCE ======== -->
+<section id="ami" data-name="AMI" data-voice-title="AMI" data-voice="에이 엠 아이, 아티피셜 마이 인텔리전스. 엑스퍼트엑스의 제조 전문성에 담당자의 역할과 루틴, 판단 방식을 더한, 나를 가장 잘 아는 AI 동료입니다.">
+  <div class="ami-bg"><img src="images_html/v/ami_hero.jpg" alt="" loading="lazy"/></div>
+<div class="inner">
+  <div>
+    <div class="kick rv">ONE PERSON, ONE INTELLIGENCE</div>
+    <div class="ami-word rv" style="transition-delay:.06s">AMI</div>
+    <div class="ami-full rv" style="transition-delay:.1s"><u>A</u>RTIFICIAL <u>M</u>Y <u>I</u>NTELLIGENCE</div>
+    <h2 class="h-xl rv" style="transition-delay:.14s;font-size:clamp(22px,2.4vw,34px)">나를 가장 잘 아는 <em>AI 동료</em></h2>
+    <p class="lead rv" style="transition-delay:.18s">엑스파이는 현장의 경험을 한 사람 한 사람의 지능으로 만듭니다. 같은 공장, 같은 데이터라도 담당자마다 보는 것과 판단하는 방식은 다르기 때문입니다.</p>
+    <div class="eq rv" style="transition-delay:.24s">
+      <div class="tk"><small>EXPERTX</small><b>제조 전문성</b></div>
+      <div class="op">+</div>
+      <div class="tk"><small>MY CONTEXT</small><b>담당자의 역할 · 루틴 · 판단 방식</b></div>
+      <div class="op">=</div>
+      <div class="tk res"><small>AMI</small><b>나만의 AI 동료</b></div>
+    </div>
+  </div>
+  <div class="glass flow rv-r" style="transition-delay:.2s">
+    <h4>HOW AMI IS BUILT</h4>
+    <ol>
+      <li><div class="n">01</div><div><b>프로젝트 시작</b><span>현장의 데이터와 시스템, 담당자별 업무를 정의합니다.</span></div></li>
+      <li><div class="n">02</div><div><b>ExpertX가 데이터를 이해</b><span>고객 데이터의 구조와 정상 범주, 현장 관행을 학습합니다.</span></div></li>
+      <li><div class="n">03</div><div><b>담당자별 AMI 자동 구성</b><span>각자의 AMI에 두 에이전트가 함께 배치됩니다.</span>
+        <div class="pair"><i style="background:rgba(249,115,22,.15);color:#FDBA74">REFLEX · 즉시 대응</i><i style="background:rgba(56,189,248,.15);color:#7DD3FC">CORTEX · 깊은 판단</i></div></div></li>
+      <li><div class="n" style="border-color:#34D399;color:#6EE7B7">04</div><div><b>쓸수록 성장</b><span>담당자의 의견과 조치 결과로 매일 학습합니다.</span></div></li>
+    </ol>
+  </div>
+</div>
+</section>
+
+<!-- ======== REFLEX × CORTEX ======== -->
+<section id="rc" class="story" data-name="Reflex × Cortex" data-voice-title="Reflex × Cortex" data-voice="리플렉스는 반사 신경처럼 이상이 생기는 순간 바로 감지하고 대응 방법을 알려줍니다. 코텍스는 대뇌 피질처럼 생산 데이터를 종합해 무엇을 먼저 해야 할지 판단을 돕습니다.">
+<div class="inner">
+  <div class="rc-head">
+    <div class="kick rv">TWO AGENTS, ONE BRAIN</div>
+    <h2 class="h-xl rv" style="transition-delay:.08s">사람의 몸에 비유하면 쉽습니다 — <em>Reflex × Cortex</em></h2>
+  </div>
+  <div class="rc-grid">
+    <div class="rc-card r rv-l" style="transition-delay:.12s">
+      <div class="rc-media" data-rc>
+        <img src="images_html/v/rc_reflex.jpg" alt="Reflex Agent" loading="lazy"/>
+        <video src="media/reflex_loop.mp4" muted loop playsinline preload="none"></video>
+        <div class="sw"><button class="on" data-m="0">CONCEPT</button><button data-m="1">LIVE DEMO</button></div>
+        <div class="tg" style="background:#EA580C">초 단위 · 즉시</div>
+        <div class="nm"><b>Reflex</b><span>반사 신경처럼 — 즉시 감지하고 대응</span></div>
+      </div>
+      <div class="rc-body">
+        <div class="ana" style="background:rgba(234,88,12,.1)">
+          <div class="ic" style="background:#EA580C"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+          <div><small style="color:#FB923C">사람으로 치면</small><b>뜨거운 것에 닿으면 생각보다 먼저 손을 뗀다</b></div>
+        </div>
+        <p class="rc-role">현장에서 이상이 생기는 <b style="color:#FDBA74">순간 바로 감지</b>하고, 핵심 원인과 우선 조치, 점검 · 복구 절차를 바로 알려줍니다. 분석 결과는 현장 대응 보고서로 자동 정리됩니다.</p>
+        <div class="rc-chips"><div><small>보는 것</small><b>설비 · 로봇 · 알람</b></div><div><small>속도</small><b>이상 발생 즉시</b></div><div><small>결과</small><b>조치 가이드</b></div></div>
+      </div>
+    </div>
+    <div class="rc-vs"><span>VS</span></div>
+    <div class="rc-card c rv-r" style="transition-delay:.2s">
+      <div class="rc-media" data-rc>
+        <img src="images_html/v/rc_cortex.jpg" alt="Cortex Agent" loading="lazy"/>
+        <video src="media/cortex_loop.mp4" muted loop playsinline preload="none"></video>
+        <div class="sw"><button class="on" data-m="0">CONCEPT</button><button data-m="1">LIVE DEMO</button></div>
+        <div class="tg" style="background:#0369A1">시간 · 일 단위 · 숙고</div>
+        <div class="nm"><b>Cortex</b><span>대뇌 피질처럼 — 종합하고 판단</span></div>
+      </div>
+      <div class="rc-body">
+        <div class="ana" style="background:rgba(3,105,161,.16)">
+          <div class="ic" style="background:#0369A1"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 3 3h1V3z"/><path d="M15 3a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-3 3h-1V3z"/></svg></div>
+          <div><small style="color:#38BDF8">사람으로 치면</small><b>여러 정보를 종합해 계획을 세운다</b></div>
+        </div>
+        <p class="rc-role">생산 데이터를 분석해 <b style="color:#7DD3FC">무엇을 먼저 해야 할지</b> 판단을 돕습니다. 원본 데이터에서 계산한 값으로만 답하고, 데이터가 없으면 추정하지 않고 먼저 요청합니다.</p>
+        <div class="rc-chips"><div><small>보는 것</small><b>계획 · 재공 · 품질</b></div><div><small>속도</small><b>매일 · 매주 분석</b></div><div><small>결과</small><b>판단 · 보고서</b></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="rc-bar rv" style="transition-delay:.28s"><span class="r">빠른 반사</span> + <span class="c">깊은 판단</span> — 두 에이전트가 함께 현장을 지킵니다</div>
+  <p class="rc-note">* LIVE DEMO는 실제 구동 화면이며, 고객 데이터는 흐림 처리되었습니다</p>
+</div>
+</section>
+
 <!-- ======== SHOTS : REAL SCREENS ======== -->
 <section id="shots" class="sec-glow" data-name="Real Screens" data-voice-title="Real Screens" data-voice="상상이 아니라 실제 화면입니다. 현장에서 운영 중인 진단 어시스턴트와 생산관리 Agent의 실화면을 확인하세요.">
 <div class="inner">
@@ -589,6 +934,57 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
 </div>
 </section>
 
+<!-- ======== FIELDS : VALIDATED IN THE FIELD ======== -->
+<section id="fields" class="story" data-name="Fields" data-voice-title="Validated in the Field" data-voice="엑스퍼트엑스는 전력기기와 조선, 반도체 부품, 농기계까지, 서로 다른 제조 현장에서 실제 데이터로 검증을 이어가고 있습니다.">
+<div class="inner">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+    <div>
+      <div class="kick rv">VALIDATED IN THE FIELD</div>
+      <h2 class="h-xl rv" style="transition-delay:.08s">서로 다른 제조 현장,<br><em>실제 데이터</em>로 검증합니다</h2>
+    </div>
+    <p class="lead rv" style="transition-delay:.14s;margin-top:0;max-width:440px">현장마다 설비도, 데이터도, 판단 방식도 다릅니다. ExpertX는 각 현장의 정상 범주와 관행을 이해하는 방식으로 확장됩니다.</p>
+  </div>
+  <div class="fld-grid">
+    <div class="fld rv" style="transition-delay:.1s"><img src="images_html/v/ind_power.jpg" alt="" loading="lazy"/><div><small>POWER EQUIPMENT</small><b>전력기기</b><span>로봇 사이클 판정 · 이상 원인 분석</span></div></div>
+    <div class="fld rv" style="transition-delay:.16s"><img src="images_html/v/ind_ship.jpg" alt="" loading="lazy"/><div><small>SHIPBUILDING</small><b>조선</b><span>공정 관리 · 계획 대비 실적 판단</span></div></div>
+    <div class="fld rv" style="transition-delay:.22s"><img src="images_html/v/ind_semi.jpg" alt="" loading="lazy"/><div><small>SEMICONDUCTOR PARTS</small><b>반도체 부품</b><span>정밀 가공 생산 위험 · 근거 기반 답변</span></div></div>
+    <div class="fld rv" style="transition-delay:.28s"><img src="images_html/v/ind_agri.jpg" alt="" loading="lazy"/><div><small>AGRICULTURAL MACHINERY</small><b>농기계</b><span>A/S 진단 · 유사 사례 기반 조치</span></div></div>
+  </div>
+  <div class="cred">
+    <div class="glass rv" style="transition-delay:.3s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div><div><b>창조경제혁신센터 보육 · 오픈이노베이션 협력</b><span>대기업 현장과의 실증 협력으로 기술을 검증하고 있습니다</span></div></div>
+    <div class="glass rv" style="transition-delay:.36s"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#38BDF8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg></div><div><b>2026 K-Startup AI리그 통합본선 진출</b><span>제조 AI 에이전트 기술력을 인정받았습니다</span></div></div>
+  </div>
+</div>
+</section>
+
+<!-- ======== DIFFERENCE : WHY ONLY EXPAI ======== -->
+<section id="diff" class="story" data-name="Difference" data-voice-title="Why only EXPAI" data-voice="엑스파이만의 차별점은 네 가지입니다. 판단의 경험을 에피소드로 축적하고, 오탐 없이 판단하며, 모든 판단은 근거와 함께 사람이 승인하고, 고객의 데이터는 공장 안에 남습니다.">
+<div class="inner">
+  <div>
+    <div class="kick rv">WHY ONLY EXPAI</div>
+    <h2 class="h-xl rv" style="transition-delay:.08s">쓸수록 똑똑해지는,<br><em>현장의 전문가</em>를 만듭니다</h2>
+    <div class="dlist">
+      <div class="rv" style="transition-delay:.12s"><span class="no">01</span><div><b>데이터가 아닌 판단의 경험을 축적</b><span>전문가의 행동을 에피소드로 채굴해, 한 번 푼 문제는 다시 처음부터 풀지 않습니다.</span></div></div>
+      <div class="rv" style="transition-delay:.18s"><span class="no">02</span><div><b>정상 범주와 현장 관행을 이해</b><span>현장의 “평소”를 먼저 학습하기 때문에, 오탐 없이 판단합니다.</span></div></div>
+      <div class="rv" style="transition-delay:.24s"><span class="no">03</span><div><b>근거와 함께 제시, 실행은 사람이 승인</b><span>모든 판단은 계산 근거와 함께 제시되고, 최종 실행은 담당자가 결정합니다.</span></div></div>
+      <div class="rv" style="transition-delay:.3s"><span class="no">04</span><div><b>데이터는 공장 안에, 지능은 계속 성장</b><span>고객의 원천 데이터는 공장 밖으로 나가지 않고, 쓸수록 더 똑똑해집니다.</span></div></div>
+    </div>
+  </div>
+  <div class="glass grow rv-r" style="transition-delay:.2s">
+    <h4>GROWING INTELLIGENCE</h4>
+    <div class="big">
+      <div><b class="stat-num" data-target="10000" data-suffix="+" style="font-size:inherit;color:#F8FAFC;margin:0">0</b><span>검증된 경험 Episode<br>ExpertX에 축적</span></div>
+      <div><b class="stat-num" data-target="100" data-suffix="+" style="font-size:inherit;color:#F8FAFC;margin:0">0</b><span>제조 분석 지식<br>규칙 · 레시피 · 문법</span></div>
+    </div>
+    <div class="loop">
+      <div class="nd"><b>ExpertX</b><span>엑스파이 개발자들의 AMI<br>제조 분석 지식이 계속 성장</span></div>
+      <div class="ar"><i>⇄</i>검증된<br>방법론만</div>
+      <div class="nd"><b>공장 안의 에이전트</b><span>담당자의 의견과 조치 결과로<br>매일 학습하며 성장</span></div>
+    </div>
+    <div class="lock"><svg viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>고객의 원천 데이터는 공장 안에 남고, 프로젝트가 끝나면 검증된 방법론만 추상화되어 ExpertX를 키웁니다.</div>
+  </div>
+</div>
+</section>
 
 <!-- <div class="g2" style="gap:8px">
   <div class="card card-amber rv" style="transition-delay:.25s;padding:12px">
@@ -659,14 +1055,14 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
 <!-- ======== CONTACT ======== -->
 <section id="contact" data-name="Contact" data-voice-title="Contact" data-voice="적용 가능성 진단, 시연 요청, 도입 상담을 바로 시작할 수 있습니다." style="min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;position:relative">
 <div class="hero-bg" style="opacity:1">
-  <img src="images_html/why_expai_1.png" alt="" style="opacity:.1;filter:brightness(0.5) blur(1px)"/>
+  <img src="images_html/v/closing_bg.jpg" alt="" style="opacity:.28;filter:brightness(0.7)"/>
   <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,8,16,0.7),rgba(6,8,16,0.95))"></div>
 </div>
 <div style="position:relative;z-index:2;padding:60px">
   <img src="images_html/expai_logo_large.png" alt="EXPAI" class="rv" style="height:60px;margin-bottom:28px"/>
   <div class="mono rv" style="font-size:12px;color:#0EA5E9;letter-spacing:5px;margin-bottom:18px;transition-delay:.1s">FACTORY EXPERTX</div>
-  <div class="rv" style="font-size:13px;color:#94A3B8;margin-bottom:14px;transition-delay:.12s">Factory ExpertX — 제조 특화 LLM 챗봇 플랫폼</div>
-  <h2 class="stitle rv" style="transition-delay:.15s;text-align:center"><span class="accent">"손안의 제조업 AI 전문가"</span></h2>
+  <div class="rv" style="font-size:13px;color:#94A3B8;margin-bottom:14px;transition-delay:.12s">제조 현장을 이해하는 연구개발 · 현장 엔지니어링 조직</div>
+  <h2 class="h-xl rv" style="transition-delay:.15s;text-align:center">공장의 판단을<br><em>자산으로 만드는 회사</em></h2>
   <div class="divider rv" style="max-width:180px;margin:28px auto;transition-delay:.2s"></div>
   <div class="rv" style="transition-delay:.25s">
     <p style="font-size:18px;font-weight:700;color:#F1F5F9;margin-bottom:4px;letter-spacing:-.5px">EXPAI (엑스파이)</p>
@@ -678,10 +1074,14 @@ addEventListener('DOMContentLoaded',()=>{const o=new URLSearchParams(location.se
   </div>
   <div style="display:flex;gap:10px;margin-top:20px;justify-content:center" class="rv" style="transition-delay:.3s">
     <a href="#hero" class="btn btn-g">Top</a>
+    <a href="#film" onclick="openFilm(0);return false" class="btn btn-g">소개 영상</a>
     <a href="#" onclick="openEmailModal();return false" class="btn btn-p">문의하기</a>
   </div>
 </div>
 </section>
+
+<!-- FILM MODAL -->
+<div id="film-modal" onclick="if(event.target===this)closeFilm()"><button class="x" onclick="closeFilm()" aria-label="닫기">&times;</button><div class="box" id="film-box"></div></div>
 
 <!-- EMAIL MODAL -->
 <div id="email-modal" style="display:none;position:fixed;inset:0;z-index:9998;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);align-items:center;justify-content:center" onclick="if(event.target===this)closeEmailModal()">
@@ -728,6 +1128,60 @@ window.addEventListener('scroll',()=>{
   document.getElementById('progress').style.width=(window.scrollY/_pgH*100)+'%'
 },{passive:true})
 
+/* ===== COMPANY FILM =====
+   FILM_YT: YouTube 영상 ID를 넣으면 유튜브 플레이어로, 비워두면 자체 호스팅 mp4로 재생 */
+const FILMS=[
+  {id:'k3R9LSfCK3s',tag:'COMPANY FILM',title:'EXPAI 소개 영상 — AMI · Reflex × Cortex',dur:'4:53',poster:'media/expai_intro_poster.jpg',chapters:true},
+  {id:'6nwvR5Ltu_o',tag:'CONCEPT FILM',title:'공장의 판단을 Digital Brain으로',dur:'1:16'},
+  {id:'yXDZXKTTtik',tag:'BRAND FILM',title:'함께 배우는 하루 — 나만의 제조 AI 에이전트',dur:'1:16'}]
+let FILM=FILMS[0],FILM_YT=FILM.id
+const FILM_SRC=''
+const CHAPTERS=[[0,'인트로 — EXPAI'],[11,'베테랑이 떠나면'],[30,'디지털 두뇌'],[49,'에피소드 채굴'],[63,'정상 범주와 두 가지 에피소드'],[81,'AMI — Artificial My Intelligence'],[109,'Reflex와 Cortex, 쉽게 이해하기'],[141,'Reflex Agent 현장 데모'],[169,'Cortex Agent 현장 데모'],[200,'현장 검증과 인정'],[221,'엑스파이만의 차별점'],[246,'성장하는 AMI'],[280,'클로징']]
+function filmEl(t,autoplay){
+  if(FILM_YT){const f=document.createElement('iframe');f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true
+    f.src='https://www.youtube-nocookie.com/embed/'+FILM_YT+'?rel=0&modestbranding=1&playsinline=1&start='+Math.floor(t)+(autoplay?'&autoplay=1':'');return f}
+  const v=document.createElement('video');v.src=FILM_SRC;v.controls=true;v.playsInline=true;v.preload='metadata';v.poster='media/expai_intro_poster.jpg'
+  v.addEventListener('loadedmetadata',()=>{v.currentTime=t;if(autoplay)v.play().catch(()=>{})},{once:true})
+  v.addEventListener('timeupdate',()=>markChapter(v.currentTime));return v
+}
+function selectFilm(k){
+  FILM=FILMS[k];FILM_YT=FILM.id
+  const p=document.getElementById('film-player');p.querySelector('iframe,video')?.remove();p.classList.remove('on');p.style.cursor='pointer';p.onclick=()=>playFilm()
+  document.getElementById('film-poster').src=FILM.poster||'https://i.ytimg.com/vi/'+FILM.id+'/maxresdefault.jpg'
+  document.getElementById('film-dur').textContent=FILM.dur
+  document.getElementById('chapters').classList.toggle('off',!FILM.chapters)
+  document.querySelectorAll('#films button').forEach((b,i)=>b.classList.toggle('cur',i===k))
+  playFilm()
+}
+function markChapter(t){let k=0;CHAPTERS.forEach((c,i)=>{if(t>=c[0])k=i});document.querySelectorAll('#chapters button').forEach((b,i)=>b.classList.toggle('cur',i===k))}
+function playFilm(t){
+  const p=document.getElementById('film-player')
+  if(p.classList.contains('on')){const v=p.querySelector('video');if(v&&t!=null){v.currentTime=t;v.play().catch(()=>{})}else if(!v&&t!=null){p.querySelector('iframe')?.remove();p.appendChild(filmEl(t,true));markChapter(t)}return}
+  p.classList.add('on');p.onclick=null;p.style.cursor='default';p.appendChild(filmEl(t||0,true));markChapter(t||0)
+}
+function openFilm(t){
+  const pv=document.querySelector('#film-player video');if(pv)pv.pause()
+  document.querySelector('#film-player iframe')?.remove();document.getElementById('film-player').classList.remove('on')
+  FILM=FILMS[0];FILM_YT=FILM.id
+  const m=document.getElementById('film-modal'),b=document.getElementById('film-box');b.innerHTML='';b.appendChild(filmEl(t||0,true));m.classList.add('open')
+}
+function closeFilm(){const m=document.getElementById('film-modal');m.classList.remove('open');document.getElementById('film-box').innerHTML=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeFilm()})
+;(()=>{const f=document.getElementById('films');FILMS.forEach((m,k)=>{const b=document.createElement('button');if(!k)b.className='cur'
+  b.innerHTML='<span class="th"><img loading="lazy" src="'+(m.poster||'https://i.ytimg.com/vi/'+m.id+'/mqdefault.jpg')+'" alt=""/><i>'+m.dur+'</i></span><span><small>'+m.tag+'</small><b>'+m.title+'</b></span>';b.onclick=()=>selectFilm(k);f.appendChild(b)})})()
+;(()=>{const c=document.getElementById('chapters');CHAPTERS.forEach(([t,n])=>{const b=document.createElement('button');b.innerHTML='<b>'+Math.floor(t/60)+':'+String(t%60).padStart(2,'0')+'</b><span>'+n+'</span>';b.onclick=()=>{if(matchMedia('(max-width:640px)').matches)openFilm(t);else if(FILM!==FILMS[0]){selectFilm(0);playFilm(t)}else playFilm(t)};c.appendChild(b)})})()
+
+/* ===== REFLEX × CORTEX : concept image ⇄ live demo loop ===== */
+document.querySelectorAll('[data-rc]').forEach(m=>{
+  const v=m.querySelector('video'),bs=m.querySelectorAll('.sw button');let user=false,timer=null
+  const set=on=>{m.classList.toggle('demo',on);bs.forEach(b=>b.classList.toggle('on',(b.dataset.m==='1')===on));if(on){v.preload='auto';v.play().catch(()=>{})}else v.pause()}
+  bs.forEach(b=>b.onclick=e=>{e.stopPropagation();user=true;clearTimeout(timer);set(b.dataset.m==='1')})
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){if(!user)timer=setTimeout(()=>set(true),2600)}
+    else{clearTimeout(timer);v.pause()}
+  }),{threshold:.45}).observe(m)
+})
+
 /* NAV */
 const nav=document.getElementById('nav')
 window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',window.scrollY>60))
@@ -760,7 +1214,7 @@ const co=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&!e.ta
   e.target.dataset.counted='1'
   const t=parseInt(e.target.dataset.target),sfx=e.target.dataset.suffix||''
   let c=0;const step=Math.max(1,Math.floor(t/35))
-  const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)};e.target.textContent=c+sfx},25)
+  const iv=setInterval(()=>{c+=step;if(c>=t){c=t;clearInterval(iv)};e.target.textContent=c.toLocaleString()+sfx},25)
 }})},{threshold:.5})
 document.querySelectorAll('.stat-num[data-target]').forEach(el=>co.observe(el))
 
