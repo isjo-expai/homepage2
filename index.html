@@ -461,8 +461,8 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
 #sidenav.dk button{background:rgba(255,255,255,.28)}#sidenav.dk button.on{background:#7DD3FC}
 #pbar{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--sky),var(--violet));z-index:101;width:0}
 
-@media(max-height:900px){.rf-cap,.cx-kpi{display:none}.sim .lead{display:none}.sim .sec-head{grid-template-columns:1fr}}
-@media(max-height:760px){.cx-learn{display:none}.sim-win{height:calc(100vh - 230px)}}
+@media(max-height:900px) and (min-width:1025px){.rf-cap,.cx-kpi{display:none}.sim .lead{display:none}.sim .sec-head{grid-template-columns:1fr}}
+@media(max-height:760px) and (min-width:1025px){.cx-learn{display:none}.sim-win{height:calc(100vh - 230px)}}
 
 /* modals */
 #film-modal,#email-modal{position:fixed;inset:0;z-index:200;background:rgba(3,5,10,.9);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:4vh 4vw}
@@ -484,7 +484,8 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
   .sec-head{grid-template-columns:1fr;gap:12px}
   .rc{grid-template-columns:1fr;gap:16px}.vs{display:none}
   .flds{grid-template-columns:1fr 1fr}
-  .rf-body,.cx-body{grid-template-columns:1fr}.rf-left,.cx-left{border-right:0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .rf-body,.cx-body{grid-template-columns:1fr}.rf-left,.cx-left{border-right:0;border-bottom:1px solid rgba(255,255,255,.08);overflow:visible}
+  .sim-win{height:auto;max-height:none}.rf-right,.cx-chat{overflow:visible}.cx-chat{min-height:440px}.vid{max-height:none}
   .ft{grid-template-columns:1fr 1fr}
   .ct .cards{grid-template-columns:1fr}
   .steps{position:static;width:100%;margin-top:14px}#ami{padding-bottom:84px}
@@ -504,7 +505,7 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
   .ct{padding:52px 22px;border-radius:20px}
   .ft{grid-template-columns:1fr}
   .film{gap:18px}.chap{max-height:none}
-  .hv .float{display:none}
+  .hv .float{display:none}.hv .stage{aspect-ratio:1/0.8}.mv{width:92px}.mv .al{padding:4px 7px 5px}.mv b{font-size:9.5px}.mv small{font-size:8px}
   .rcc .chips{grid-template-columns:1fr}
   .gap{grid-template-columns:40px 1fr}.gap .n{width:40px;height:40px}
   .tabs .note{display:none}
@@ -981,7 +982,7 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
 function brain3d(cv,o){
   const ctx=cv.getContext('2d');let W=0,H=0,S=1,last=0,run=false,yaw=0,mx=0,my=0,active=-1,t=0
   const dark=o.theme==='dark',mobile=matchMedia('(max-width:768px)').matches
-  const N=o.n||(mobile?1400:2600)
+  const N=o.n||(mobile?1000:2600)
   function rs(){const d=Math.min(devicePixelRatio||1,1.5);W=cv.clientWidth;H=cv.clientHeight;cv.width=W*d;cv.height=H*d;ctx.setTransform(d,0,0,d,0,0);S=Math.min(W,H)*(o.scale||.27)}
   rs();addEventListener('resize',rs)
   const rnd=Math.random
@@ -1059,7 +1060,7 @@ function brain3d(cv,o){
 }
 { // hero instance: DOM agent cards follow the orbs
   const rf=$('#ag-rf'),cx=$('#ag-cx'),st=$('#brain-hero')
-  if(st)window.__brainHero=brain3d(st,{theme:'light',cx:.52,cy:.5,scale:.31,onFrame:api=>{[rf,cx].forEach((el,i)=>{const[x,y,front,f]=api.agentPos[i];const dx=i?1:-1;el.style.transform=`translate(calc(-50% + ${x+dx*62}px),calc(-50% + ${y-6}px)) scale(${front?1:.86})`;el.style.opacity=front?1:.55;el.style.zIndex=front?4:2})}})
+  if(st)window.__brainHero=brain3d(st,{theme:'light',cx:.5,cy:.5,scale:matchMedia('(max-width:640px)').matches?.36:.31,onFrame:api=>{[rf,cx].forEach((el,i)=>{const[x,y,front,f]=api.agentPos[i];const dx=i?1:-1;el.style.transform=`translate(calc(-50% + ${x+dx*62}px),calc(-50% + ${y-6}px)) scale(${front?1:.86})`;el.style.opacity=front?1:.55;el.style.zIndex=front?4:2})}})
   const bd=$('#brain-dark');if(bd)window.__brainDark=brain3d(bd,{theme:'dark',cx:.52,cy:.5,scale:.3,onFrame:api=>{[$('#bd-rf'),$('#bd-cx')].forEach((el,i)=>{const[x,y,front]=api.agentPos[i];el.style.left=x+'px';el.style.top=(y-26)+'px';el.style.opacity=front?1:.5})}})
 }
 
@@ -1086,7 +1087,7 @@ function miner(cv,opts={}){
     ctx.lineWidth=2;ctx.lineJoin='round'
     for(let i=1;i<pts.length;i++){const a=pts[i-1],b=pts[i];const bad=Math.abs(b.y)>.36
       ctx.strokeStyle=bad?'#EF4444':'#38BDF8';ctx.beginPath();ctx.moveTo(a.x-off,mid-a.y*amp);ctx.lineTo(b.x-off,mid-b.y*amp);ctx.stroke()}
-    const D=opts.moments||[40,150,280],ML=labels
+    const D=(opts.moments||[40,150,280]).map(d=>d*Math.min(1,W/640)),ML=labels
     const yAt=gx=>{const i=Math.round((gx-pts[0].x)/STEP);const q=pts[Math.max(0,Math.min(pts.length-1,i))];return q?mid-q.y*amp:mid}
     for(const e of evs){const x=e.x-off;if(x<-360)continue
       const yTop=mid-band-16
@@ -1122,7 +1123,7 @@ function miner(cv,opts={}){
     onChunk:(i,e)=>{const m=mvs[i];m.classList.add('show','on');const v=m.querySelector('video');v.currentTime=0;v.play().catch(()=>{});setTimeout(()=>m.classList.remove('on'),2200)},
     onEpisode:id=>{epId.textContent='#'+id.toLocaleString();ep.classList.add('on');clearTimeout(tm);tm=setTimeout(()=>ep.classList.remove('on'),3200)},
     onFrame:(evs,off,W,D)=>{const e=evs[evs.length-1];if(!e){mvs.forEach(m=>m.classList.remove('show'));return}
-      const x=e.x-off;mvs.forEach((m,i)=>{const mx=x+D[i];if(mx>W-4||mx<-90){m.classList.remove('show');return}m.style.left=mx+'px';m.style.top=(8+i*10)+'px'})}})
+      const x=e.x-off;mvs.forEach((m,i)=>{const mx=x+D[i];if(mx>W-4||mx<-90){m.classList.remove('show');return}m.style.left=mx+'px';m.style.top=(8+i*(W<640?6:10))+'px'})}})
   onVisible($('#mining'),v=>{mvs.forEach(m=>{const vd=m.querySelector('video');if(v)vd.play().catch(()=>{});else vd.pause()})},.2)}
 
 /* ===== brain layers auto-cycle ===== */
