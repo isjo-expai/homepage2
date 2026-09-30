@@ -29,7 +29,7 @@
   --r:18px;--sh:0 24px 60px -28px rgba(15,23,42,.28),0 0 0 1px rgba(15,23,42,.05);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;scroll-padding-top:72px}
+html{scroll-behavior:smooth;scroll-padding-top:72px;overflow-x:hidden}
 body{word-break:keep-all;font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
 img,video{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -137,7 +137,8 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .layer .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .layer .chips span{font:600 11px var(--mono);padding:4px 9px;border-radius:7px;background:rgba(255,255,255,.06);color:#CBD5E1}
 .layer.on{background:rgba(255,255,255,.07);border-color:rgba(56,189,248,.5);transform:translateX(6px)}
-.bstage{position:relative;aspect-ratio:1/0.9;width:100%}
+.bstage{position:relative;aspect-ratio:1/0.9;width:100%;overflow:hidden}
+#brain,#mining,#rc,#ami,#problem,#why,#fields,#film{overflow:hidden}
 .bstage canvas{position:absolute;inset:0;width:100%;height:100%}
 .blab{position:absolute;display:inline-flex;align-items:center;gap:7px;font:600 10.5px var(--mono);letter-spacing:1.5px;color:#CBD5E1;background:rgba(11,18,32,.7);border:1px solid rgba(255,255,255,.12);padding:5px 9px;border-radius:7px;backdrop-filter:blur(6px);transition:opacity .3s,border-color .3s}
 .blab i{width:7px;height:7px;border-radius:50%}
@@ -156,12 +157,14 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .diagram g.L.on{opacity:1;filter:drop-shadow(0 0 10px rgba(56,189,248,.8))}
 
 /* ===== MINING ===== */
-.mine{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
-.pipe{display:grid;gap:10px}
-.pipe .st{display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:16px 18px;transition:border-color .4s,box-shadow .4s,transform .4s}
-.pipe .st .n{width:44px;height:44px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font:700 12px var(--mono);color:var(--mute);transition:background .4s,color .4s}
-.pipe .st b{display:block;font-size:16px}
-.pipe .st p{font-size:13.5px;color:var(--ink2)}
+.mine{display:grid;grid-template-columns:.9fr 1.1fr;gap:36px;align-items:center}
+#mining .sec-head{margin-bottom:26px}
+@media(max-height:900px) and (min-width:1025px){#mining .sec-head .lead{display:none}#mining .sec-head{grid-template-columns:1fr;margin-bottom:18px}.mine-vis{aspect-ratio:1/0.5}#mining{padding:70px 0 40px}}
+.pipe{display:grid;gap:8px}
+.pipe .st{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:12px 16px;transition:border-color .4s,box-shadow .4s,transform .4s}
+.pipe .st .n{width:40px;height:40px;border-radius:12px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font:700 12px var(--mono);color:var(--mute);transition:background .4s,color .4s}
+.pipe .st b{display:block;font-size:15px}
+.pipe .st p{font-size:12.5px;color:var(--ink2)}
 .pipe .st i{font:600 11px var(--mono);letter-spacing:1.5px;color:var(--mute);font-style:normal}
 .pipe .st.on{border-color:var(--sky);box-shadow:0 12px 30px -16px rgba(14,165,233,.5);transform:translateX(6px)}
 .pipe .st.on .n{background:var(--sky);color:#fff}
@@ -192,15 +195,15 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .mine-note{font-size:13.5px;color:var(--ink2);line-height:1.6;margin:0}.mine-note b{color:var(--ink)}
 .mine-vis canvas{position:absolute;inset:0;width:100%;height:100%}
 .mine-vis .cap{position:absolute;left:18px;top:16px;font:600 10.5px var(--mono);letter-spacing:1.5px;color:#94A3B8}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
-.epi{padding:18px 24px;position:relative;overflow:hidden}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:2px}
+.epi{padding:12px 16px 12px 18px;position:relative;overflow:hidden;display:flex;flex-direction:column;gap:2px}
 .epi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px}
 .epi.r::before{background:var(--rf)}.epi.c::before{background:var(--cx)}
-.epi small{display:block;font:600 11px var(--mono);letter-spacing:2px;margin-bottom:8px}
+.epi small{display:block;font:600 9.5px var(--mono);letter-spacing:1.5px;margin-bottom:4px}
 .epi.r small{color:var(--rf)}.epi.c small{color:var(--cx)}
-.epi b{font-size:20px;display:block;margin-bottom:8px}
-.epi p{font-size:14.5px;color:var(--ink2);line-height:1.65}
-.epi .to{display:inline-flex;align-items:center;gap:8px;margin-top:14px;font:700 12px var(--mono);letter-spacing:1px;padding:7px 12px;border-radius:9px}
+.epi b{font-size:15px;display:block;margin-bottom:2px}
+.epi p{font-size:12px;color:var(--ink2);line-height:1.5}
+.epi .to{display:inline-flex;align-items:center;gap:8px;margin-top:6px;font:700 10.5px var(--mono);letter-spacing:1px;padding:4px 9px;border-radius:7px;align-self:flex-start}
 .epi.r .to{background:#FFF7ED;color:var(--rf)}.epi.c .to{background:#EFF6FF;color:var(--cx)}
 
 /* ===== AMI ===== */
@@ -334,17 +337,17 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .cx-learn .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#38BDF8,#34D399);transition:width 1.2s cubic-bezier(.16,1,.3,1)}
 .cx-learn .row{display:flex;justify-content:space-between;font:600 11px var(--mono);color:#CBD5E1;margin-top:8px}
 .cx-learn .row b{color:#6EE7B7}
-.cx-chat{padding:16px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto;min-height:0;justify-content:flex-end;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
-.msg{max-width:90%;padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.6;animation:up .4s ease}
+.cx-chat{padding:16px 16px;display:flex;flex-direction:column;gap:10px;overflow:auto;overflow-x:hidden;min-height:0;justify-content:flex-end;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.15) transparent}
+.msg{max-width:92%;min-width:0;padding:11px 14px;overflow-wrap:anywhere;border-radius:14px;font-size:13.5px;line-height:1.6;animation:up .4s ease}
 @keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .msg.u{align-self:flex-end;background:var(--sky);color:#fff;border-bottom-right-radius:4px}
 .msg.a{align-self:flex-start;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);color:#E2E8F0;border-bottom-left-radius:4px}
 .msg.a b{color:#fff}.msg.a em{font-style:normal;color:#7DD3FC;font-weight:700}
 .msg .who{display:block;font:600 9.5px var(--mono);letter-spacing:2px;color:#7DD3FC;margin-bottom:5px}
 .msg .why{display:inline-flex;align-items:center;gap:6px;margin-top:8px;font:700 11px var(--mono);letter-spacing:1px;padding:6px 10px;border-radius:8px;background:rgba(56,189,248,.14);color:#7DD3FC;border:1px solid rgba(56,189,248,.35);cursor:pointer}
-.msg table{width:100%;border-collapse:collapse;margin-top:10px;font:500 11.5px var(--mono);display:none}
+.msg table{width:100%;border-collapse:collapse;margin-top:10px;font:500 11.5px var(--mono);display:none;table-layout:fixed}
 .msg.open table{display:table}
-.msg td{padding:5px 8px;border-top:1px solid rgba(255,255,255,.08);color:#CBD5E1}
+.msg td{padding:5px 8px;border-top:1px solid rgba(255,255,255,.08);color:#CBD5E1;overflow-wrap:anywhere}
 .msg td:last-child{text-align:right;color:#fff}
 .msg .req{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border-radius:9px;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.35);font-size:12.5px;color:#FCD34D}
 .msg .ok{display:flex;align-items:center;gap:8px;margin-top:8px;padding:8px 10px;border-radius:9px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.35);font-size:12.5px;color:#A7F3D0}
@@ -419,30 +422,31 @@ h2 em.rf{background:linear-gradient(120deg,#FDBA74,#F97316);-webkit-background-c
 .lock svg{flex:none;width:18px;height:18px}
 
 /* ===== CONTACT ===== */
-#contact{padding:80px 0 0;min-height:auto;display:block}
-.ct{position:relative;border-radius:28px;overflow:hidden;background:var(--dark);color:#fff;padding:72px 56px}
+#contact{padding:70px 0 0;min-height:auto;display:block}
+.ct{position:relative;border-radius:28px;overflow:hidden;background:var(--dark);color:#fff;padding:52px 48px}
 .ct img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.28}
 .ct::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(11,18,32,.3),rgba(11,18,32,.95) 70%)}
 .ct .in{position:relative;z-index:2;text-align:center}
 .ct h2{color:#fff}.ct .lead{color:#A5B4C8;margin:16px auto 0;max-width:720px}
-.ct .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px;text-align:left}
-.ct .cc{padding:22px 22px 18px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:8px;transition:transform .4s,border-color .3s}
+.ct .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px;text-align:left}
+.ct .cc{padding:18px 20px 16px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:8px;transition:transform .4s,border-color .3s}
 .ct .cc:hover{transform:translateY(-4px);border-color:rgba(56,189,248,.6)}
 .ct .cc .ic{width:40px;height:40px;border-radius:11px;background:rgba(56,189,248,.14);display:flex;align-items:center;justify-content:center}
 .ct .cc .ic svg{width:22px;height:22px}
 .ct .cc b{font-size:17px;margin-top:4px}.ct .cc span{font-size:13px;color:#A5B4C8;line-height:1.55}
 .ct .cc i{margin-top:auto;padding-top:8px;font:700 11px var(--mono);letter-spacing:2px;color:#7DD3FC;font-style:normal}
-.ct .foot{display:flex;justify-content:center;gap:28px;align-items:center;margin-top:30px;flex-wrap:wrap;font-size:13px;color:#A5B4C8}
+.ct .foot{display:flex;justify-content:center;gap:28px;align-items:center;margin-top:22px;flex-wrap:wrap;font-size:13px;color:#A5B4C8}
 .ct .foot b{color:#fff}
 .ct .foot a.m{font:600 14px var(--mono);color:#7DD3FC;border-bottom:1px solid rgba(125,211,252,.4)}
-footer{padding:40px 0 28px;position:relative;z-index:1}
-.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:28px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+footer{padding:28px 0 22px;position:relative;z-index:1}
+.ft{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:24px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .ft img{height:26px;margin-bottom:12px}
 .ft p{font-size:13px;color:var(--mute);line-height:1.7}
 .ft h5{font:600 10.5px var(--mono);letter-spacing:3px;color:var(--mute);margin-bottom:10px}
-.ft a{display:block;font-size:14px;color:var(--ink2);padding:3px 0}
+.ft a{display:block;font-size:13px;color:var(--ink2);padding:2px 0}
 .ft a:hover{color:var(--ink)}
-.copy{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:18px;font-size:12.5px;color:var(--mute)}
+.copy{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding-top:14px;font-size:12.5px;color:var(--mute)}
+@media(max-height:900px) and (min-width:1025px){.ct{padding:40px 44px}.ct .lead{display:none}.ct .cards{margin-top:22px}.ft{display:none}#contact{padding-top:60px}}
 
 /* ===== BACKGROUND NEURAL FIELD ===== */
 #bgnet{position:fixed;inset:0;z-index:0;pointer-events:none}
@@ -616,6 +620,10 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
         <div class="st card"><div class="n">02</div><div><b>이벤트 정의</b><p>정상 범주를 벗어난 순간 — 그리고 그때 전문가가 움직인 순간</p></div><i>EVENT</i></div>
         <div class="st card"><div class="n">03</div><div><b>전문가 행동 청크</b><p>조작 → 판단 → 조치, 전문가의 행동을 청크 단위로 묶습니다</p></div><i>CHUNK</i></div>
         <div class="st card"><div class="n">04</div><div><b>에피소드</b><p>다시 꺼내 쓰는 판단의 경험 — 처음부터 풀지 않습니다</p></div><i>EPISODE</i></div>
+        <div class="two">
+          <div class="epi card c"><small>ROUTINE EPISODE</small><b>루틴 에피소드</b><p>정상 범주 안의 반복 판단</p><span class="to">→ CORTEX</span></div>
+          <div class="epi card r"><small>EVENT EPISODE</small><b>이벤트 에피소드</b><p>범주를 벗어난 순간의 대응</p><span class="to">→ REFLEX</span></div>
+        </div>
       </div>
       <div class="mine-r rv" style="transition-delay:.1s">
         <div class="mine-vis"><canvas id="miner2"></canvas><div class="cap">RAW SIGNAL · NORMAL BAND · EVENT → 전문가 행동 시점</div>
@@ -629,11 +637,6 @@ footer{padding:40px 0 28px;position:relative;z-index:1}
         </div>
       </div>
     </div>
-    <div class="two">
-      <div class="epi card c rv"><small>ROUTINE EPISODE</small><b>루틴 에피소드</b><p>정상 범주 안에서 반복되는 판단. 계획 대비 실적, 재공, 품질 흐름을 읽는 방식이 쌓입니다.</p><span class="to">→ CORTEX의 판단 재료</span></div>
-      <div class="epi card r rv" style="transition-delay:.08s"><small>EVENT EPISODE</small><b>이벤트 에피소드</b><p>범주를 벗어난 순간의 대응. 어떤 신호를 보고 무엇을 먼저 점검했는지가 쌓입니다.</p><span class="to">→ REFLEX의 대응 재료</span></div>
-    </div>
-  </div>
 </section>
 
 <!-- ===== AMI ===== -->
@@ -965,7 +968,7 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
     dots.forEach((d,i)=>d.classList.toggle('on',i===k));const dk=secs[k].classList.contains('dark');sn.classList.toggle('dk',dk);window.__bgTheme&&window.__bgTheme(dk?1:0)
     pbar.style.width=(scrollY/Math.max(1,document.documentElement.scrollHeight-innerHeight)*100)+'%'}
   addEventListener('scroll',sync,{passive:true});sync()
-  function go(i){i=clamp(i,0,secs.length-1);lock=true;cur=i;scrollTo({top:secs[i].offsetTop,behavior:'smooth'});setTimeout(()=>{lock=false;unlockAt=performance.now()},950)}
+  function go(i){i=clamp(i,0,secs.length-1);lock=true;cur=i;const top=i===secs.length-1?document.documentElement.scrollHeight-innerHeight:secs[i].offsetTop;scrollTo({top,behavior:'smooth'});setTimeout(()=>{lock=false;unlockAt=performance.now()},950)}
   window.__go=go
   addEventListener('wheel',e=>{
     if(!snapOn())return
@@ -974,7 +977,7 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
     const sc=e.target.closest&&e.target.closest('.rf-right,.cx-chat,.cx-left,.chap');if(sc&&sc.scrollHeight>sc.clientHeight+2&&((dy>0&&sc.scrollTop+sc.clientHeight<sc.scrollHeight-2)||(dy<0&&sc.scrollTop>2)))return
     const s=secs[cur],top=s.offsetTop,bot=top+s.offsetHeight,y=scrollY,vh=innerHeight
     if(dy>0){if(bot-(y+vh)>6)return;if(cur<secs.length-1){e.preventDefault();go(cur+1)}}
-    else{if(y-top>6)return;if(cur>0){e.preventDefault();go(cur-1)}}
+    else{const atTop=cur===secs.length-1?(y-top<=6||document.documentElement.scrollHeight-innerHeight-y<=6):y-top<=6;if(!atTop)return;if(cur>0){e.preventDefault();go(cur-1)}}
   },{passive:false})
   addEventListener('keydown',e=>{if(!snapOn()||['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return
     const s=secs[cur],top=s.offsetTop,bot=top+s.offsetHeight,y=scrollY,vh=innerHeight
@@ -1044,14 +1047,15 @@ function brain3d(cv,o){
     for(let i=rings.length-1;i>=0;i--)if(rings[i].t>=1)rings.splice(i,1)
     // agents orbit
     fireT-=dt;if(fireT<0){fireT=2.4;agents[fireI].fire=1;fireI=1-fireI}
-    agents.forEach((ag,i)=>{const a=ag.a0+t*.35;const ox=Math.cos(a)*1.95,oz=Math.sin(a)*1.95,oy=.35+Math.sin(a*2)*.1
+    const OR=mobile?1.45:1.95
+    agents.forEach((ag,i)=>{const a=ag.a0+t*.35;const ox=Math.cos(a)*OR,oz=Math.sin(a)*OR,oy=.35+Math.sin(a*2)*.1
       const R=rot(ox,oy,oz);const[x,y,f,z]=proj(...R);const front=z>0;ag.fire=Math.max(0,ag.fire-dt*.9)
       const[c0,c1,c2]=ag.c
       // beam brain→agent
       if(ag.fire>0){const k=1-ag.fire;const bx=CX+(x-CX)*k,by=CY+(y-CY)*k;ctx.strokeStyle=`rgba(${c0},${c1},${c2},${.55*ag.fire})`;ctx.lineWidth=1.5;ctx.setLineDash([6,6]);ctx.beginPath();ctx.moveTo(CX,CY);ctx.lineTo(x,y);ctx.stroke();ctx.setLineDash([])
         const gb=ctx.createRadialGradient(bx,by,0,bx,by,10);gb.addColorStop(0,`rgba(255,255,255,.95)`);gb.addColorStop(.5,`rgba(${c0},${c1},${c2},.8)`);gb.addColorStop(1,`rgba(${c0},${c1},${c2},0)`);ctx.fillStyle=gb;ctx.fillRect(bx-10,by-10,20,20)}
       // orbit trail
-      ctx.strokeStyle=`rgba(${c0},${c1},${c2},${front?.22:.1})`;ctx.lineWidth=1;ctx.beginPath();for(let k=0;k<=24;k++){const aa=a-k*.05;const Rr=rot(Math.cos(aa)*1.95,.35+Math.sin(aa*2)*.1,Math.sin(aa)*1.95);const pp=proj(...Rr);k?ctx.lineTo(pp[0],pp[1]):ctx.moveTo(pp[0],pp[1])}ctx.stroke()
+      ctx.strokeStyle=`rgba(${c0},${c1},${c2},${front?.22:.1})`;ctx.lineWidth=1;ctx.beginPath();for(let k=0;k<=24;k++){const aa=a-k*.05;const Rr=rot(Math.cos(aa)*OR,.35+Math.sin(aa*2)*.1,Math.sin(aa)*OR);const pp=proj(...Rr);k?ctx.lineTo(pp[0],pp[1]):ctx.moveTo(pp[0],pp[1])}ctx.stroke()
       const r=(7+ag.fire*5)*f;const go=ctx.createRadialGradient(x,y,0,x,y,r*3.2);go.addColorStop(0,`rgba(${c0},${c1},${c2},${front?.55:.3})`);go.addColorStop(1,`rgba(${c0},${c1},${c2},0)`);ctx.fillStyle=go;ctx.fillRect(x-r*3.2,y-r*3.2,r*6.4,r*6.4)
       ctx.fillStyle=`rgba(${c0},${c1},${c2},${front?1:.6})`;ctx.beginPath();ctx.arc(x,y,r*.55,0,6.3);ctx.fill();ctx.fillStyle='rgba(255,255,255,.9)';ctx.beginPath();ctx.arc(x,y,r*.22,0,6.3);ctx.fill()
       api.agentPos[i]=[x,y,front,f]})
@@ -1064,8 +1068,8 @@ function brain3d(cv,o){
 }
 { // hero instance: DOM agent cards follow the orbs
   const rf=$('#ag-rf'),cx=$('#ag-cx'),st=$('#brain-hero')
-  if(st)window.__brainHero=brain3d(st,{theme:'light',cx:.5,cy:.5,scale:matchMedia('(max-width:640px)').matches?.36:.31,onFrame:api=>{[rf,cx].forEach((el,i)=>{const[x,y,front,f]=api.agentPos[i];const dx=i?1:-1;el.style.transform=`translate(calc(-50% + ${x+dx*62}px),calc(-50% + ${y-6}px)) scale(${front?1:.86})`;el.style.opacity=front?1:.55;el.style.zIndex=front?4:2})}})
-  const bd=$('#brain-dark');if(bd)window.__brainDark=brain3d(bd,{theme:'dark',cx:.52,cy:.5,scale:.3,onFrame:api=>{[$('#bd-rf'),$('#bd-cx')].forEach((el,i)=>{const[x,y,front]=api.agentPos[i];el.style.left=x+'px';el.style.top=(y-26)+'px';el.style.opacity=front?1:.5})}})
+  if(st)window.__brainHero=brain3d(st,{theme:'light',cx:.5,cy:.5,scale:matchMedia('(max-width:640px)').matches?.36:.31,onFrame:api=>{[rf,cx].forEach((el,i)=>{const[x,y,front,f]=api.agentPos[i];const dx=i?1:-1;const HW=st.clientWidth;const cx2=Math.max(90,Math.min(HW-90,x+dx*62));el.style.transform=`translate(calc(-50% + ${cx2}px),calc(-50% + ${y-6}px)) scale(${front?1:.86})`;el.style.opacity=front?1:.55;el.style.zIndex=front?4:2})}})
+  const bd=$('#brain-dark');if(bd)window.__brainDark=brain3d(bd,{theme:'dark',cx:.52,cy:.5,scale:.3,onFrame:api=>{const W=bd.clientWidth;[$('#bd-rf'),$('#bd-cx')].forEach((el,i)=>{const[x,y,front]=api.agentPos[i];el.style.left=Math.max(60,Math.min(W-60,x))+'px';el.style.top=(y-26)+'px';el.style.opacity=front?1:.5})}})
 }
 
 /* ===== 1. EPISODE MINER canvas ===== */
@@ -1159,7 +1163,7 @@ function miner(cv,opts={}){
     const noise=Math.sin(ph*97+c*13)*.02
     const rip=c===anomCyc&&ph>.58&&ph<.8?.42*Math.sin((ph-.58)*90)*Math.exp(-(ph-.58)*6)+.3:0
     return base+noise+rip}
-  function reset(){steps.forEach(s=>{s.classList.remove('on','done');const p=s.querySelector('p');p.innerHTML=p.dataset.idle});$('#rf-guide').innerHTML='';$('#rf-rep').textContent=''}
+  function reset(){steps.forEach(s=>{s.classList.remove('on','done');const p=s.querySelector('p');p.innerHTML=p.dataset.idle});$('#rf-guide').innerHTML='';$('#rf-rep').textContent='';const pn=steps[0].parentNode;pn.scrollTo({top:0,behavior:'smooth'})}
   reset()
   const S=[
     [0.3,0,()=>`사이클 <em>#${anomCyc.toLocaleString()}</em> — 정상 범주 이탈 · TORQUE_R_6 <em>+38%</em> (밴드 ±0.35 초과)`],
@@ -1178,8 +1182,8 @@ function miner(cv,opts={}){
       const ph=((off+W*.7)%CYC)/CYC;tqEl.textContent=wave(cycCur,ph).toFixed(2)
     }else{seqT+=dt
       while(si<S.length&&seqT>=S[si][0]){const [_,k,fn]=S[si];si++
-        if(k<0){playing=true;stEl.textContent='복구 완료 · 판정 재개';stEl.classList.remove('alert');stop.classList.remove('on');steps.forEach(s=>s.classList.remove('on'));anomCyc=cycCur+9+Math.floor(Math.random()*4);setTimeout(()=>{if(playing)stEl.textContent='판정 중 · 정상'},2500);break}
-        steps.forEach((s,j)=>{s.classList.toggle('on',j===k);if(j<k)s.classList.add('done')});steps[k].querySelector('p').innerHTML=fn()}}
+        if(k<0){playing=true;stEl.textContent='복구 완료 · 판정 재개';stEl.classList.remove('alert');stop.classList.remove('on');steps.forEach(s=>s.classList.remove('on'));setTimeout(()=>steps[0].parentNode.scrollTo({top:0,behavior:'smooth'}),1500);anomCyc=cycCur+9+Math.floor(Math.random()*4);setTimeout(()=>{if(playing)stEl.textContent='판정 중 · 정상'},2500);break}
+        steps.forEach((s,j)=>{s.classList.toggle('on',j===k);if(j<k)s.classList.add('done')});steps[k].querySelector('p').innerHTML=fn();const pn=steps[k].parentNode;requestAnimationFrame(()=>pn.scrollTo({top:Math.max(0,steps[k].offsetTop+steps[k].offsetHeight-pn.clientHeight+12),behavior:'smooth'}))}}
     if(W&&H)draw()
   }
   function draw(){
