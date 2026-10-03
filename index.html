@@ -482,6 +482,68 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
 #email-modal input:focus,#email-modal textarea:focus{border-color:var(--sky)}
 #email-modal .mx{background:var(--bg2);color:var(--ink);top:14px;right:14px;width:36px;height:36px;font-size:18px}
 
+/* ===== BENCHMARK ===== */
+.bn-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:22px;align-items:stretch}
+.bn-win{height:min(calc(100vh - 300px),650px);min-height:520px}
+#bench .sim-top .ttl{font:700 13px var(--sans);letter-spacing:.2px;color:#CBD5E1}
+.bn-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.bn-tabs button{all:unset;cursor:pointer;padding:9px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);transition:all .3s;position:relative;overflow:hidden}
+.bn-tabs button small{display:block;font:700 11.5px var(--sans);letter-spacing:.2px;color:#64748B}
+.bn-tabs button b{display:block;font-size:13px;color:#94A3B8;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bn-tabs button i{position:absolute;left:0;bottom:0;height:2px;width:0;background:currentColor}
+.bn-tabs button.on{border-color:rgba(255,255,255,.22);background:rgba(255,255,255,.06)}
+.bn-tabs button.on b{color:#fff}
+.bn-tabs button.t1.on{color:#94A3B8}.bn-tabs button.t2.on{color:#FDBA74}.bn-tabs button.t3.on{color:#7DD3FC;border-color:rgba(56,189,248,.55);background:rgba(3,105,161,.18)}
+.bn-tabs button.on small{color:currentColor}
+.bn-stage{flex:1;min-height:0;display:flex;flex-direction:column;gap:9px;padding:16px 18px;overflow:hidden;justify-content:flex-start}
+.bn-note{align-self:center;font:600 12px var(--sans);letter-spacing:.2px;color:#64748B;padding:6px 12px;border-radius:999px;border:1px dashed rgba(255,255,255,.15)}
+.bn-work{padding:11px 13px;border-radius:12px;background:rgba(255,255,255,.03);border:1px dashed rgba(255,255,255,.18);font:600 12.5px var(--sans);color:#CBD5E1;animation:up .4s ease}
+.bn-work .r{display:flex;justify-content:space-between;gap:10px}
+.bn-work .pb{height:6px;border-radius:3px;background:rgba(255,255,255,.08);margin:8px 0;overflow:hidden}
+.bn-work .pb i{display:block;height:100%;width:0;background:linear-gradient(90deg,#64748B,#EF4444)}
+.bn-work .rd{color:#FCA5A5;font-weight:700}
+.bn-work .ff{font-size:10px;padding:1px 6px;border-radius:5px;background:rgba(245,158,11,.16);color:#FCD34D;margin-left:6px}
+.bn-file{align-self:flex-end;display:flex;gap:10px;align-items:center;padding:9px 12px;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);font-size:12.5px;color:#E2E8F0;animation:up .4s ease}
+.bn-file i{font:700 10px var(--mono);font-style:normal;padding:6px 7px;border-radius:6px;background:#059669;color:#fff}
+.bn-warn{padding:9px 12px;border-radius:10px;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.4);font-size:12.5px;font-weight:700;color:#FCA5A5;animation:up .4s ease}
+.bn-al{padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-left:4px solid;font-size:13px;color:#E2E8F0;line-height:1.5;animation:up .4s ease}
+.bn-al .tg{display:inline-block;font:700 11px var(--sans);letter-spacing:.2px;padding:2px 7px;border-radius:5px;margin-right:6px;color:#fff}
+.bn-al small{display:block;font:600 11.5px var(--sans);color:#7DD3FC;margin-top:3px}
+.bn-ev{padding:11px 13px;border-radius:12px;background:rgba(3,105,161,.16);border:1px solid rgba(56,189,248,.4);font-size:12.5px;color:#E2E8F0;animation:up .4s ease}
+.bn-ev b{display:block;color:#7DD3FC;font-size:13px;margin-bottom:6px}
+.bn-ev div{display:grid;grid-template-columns:96px 1fr;gap:8px;padding:5px 0;border-top:1px solid rgba(255,255,255,.07)}
+.bn-ev div span:first-child{font:700 11.5px var(--sans);letter-spacing:.2px;color:#94A3B8}
+.bn-verdict{align-self:stretch;text-align:center;padding:10px 12px;border-radius:12px;font-size:14px;font-weight:800;animation:up .4s ease}
+.bn-verdict.bad{background:rgba(239,68,68,.14);color:#FCA5A5;border:1px solid rgba(239,68,68,.45)}
+.bn-verdict.mid{background:rgba(245,158,11,.12);color:#FCD34D;border:1px solid rgba(245,158,11,.4)}
+.bn-verdict.good{background:linear-gradient(90deg,#0369A1,#0EA5E9);color:#fff;box-shadow:0 10px 30px -10px rgba(14,165,233,.7)}
+.bn-side{display:flex;flex-direction:column;gap:12px;min-height:0}
+.bn-tbl{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);background:#0E1729}
+.bn-tbl table{width:100%;border-collapse:collapse;table-layout:fixed}
+.bn-tbl th,.bn-tbl td{padding:9px 10px;font-size:13px;text-align:center;border-top:1px solid rgba(255,255,255,.06);color:#CBD5E1}
+.bn-tbl th{font:700 11.5px var(--sans);letter-spacing:.2px;color:#94A3B8;border-top:0;background:rgba(255,255,255,.03);line-height:1.35}
+.bn-tbl td:first-child,.bn-tbl th:first-child{text-align:left;width:31%;color:#E2E8F0;font-weight:600}
+.bn-tbl .c3{background:rgba(3,105,161,.22);color:#7DD3FC;font-weight:800;font-size:14px}
+.bn-tbl th.c3{background:#0369A1;color:#fff}
+.bn-tbl .x{color:#FCA5A5}.bn-tbl .m{color:#FCD34D}
+.bn-bars{padding:14px 16px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:#0E1729}
+.bn-bars h5{font:700 12px var(--sans);letter-spacing:.3px;color:#94A3B8;margin-bottom:10px}
+.bn-bar{display:grid;grid-template-columns:118px 1fr 64px;gap:10px;align-items:center;margin:7px 0;font-size:12.5px;color:#CBD5E1}
+.bn-bar .tr{height:10px;border-radius:5px;background:rgba(255,255,255,.06);overflow:hidden}
+.bn-bar .tr i{display:block;height:100%;width:0;border-radius:5px;transition:width 1.6s cubic-bezier(.16,1,.3,1)}
+.bn-bar b{text-align:right;font:700 13px var(--mono)}
+.bn-foot{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.bn-foot p{font-size:11.5px;color:#64748B;line-height:1.5;flex:1;min-width:220px}
+.bn-play{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border-radius:12px;background:#fff;color:var(--ink);font-weight:700;font-size:13.5px;box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}
+.bn-play svg{width:14px;height:14px}
+#bnModal{position:fixed;inset:0;z-index:200;background:rgba(2,6,23,.86);display:none;align-items:center;justify-content:center;padding:24px}
+#bnModal.on{display:flex}
+#bnModal video{width:min(1200px,100%);max-height:86vh;border-radius:14px;background:#000;box-shadow:0 40px 120px -30px rgba(0,0,0,.9)}
+#bnModal button{all:unset;cursor:pointer;position:absolute;top:18px;right:22px;color:#fff;font-size:30px;line-height:1}
+@media(max-height:900px) and (min-width:1025px){#bench .lead{display:none}#bench .sec-head{grid-template-columns:1fr}.bn-bars{display:none}}
+@media(max-width:1024px){.bn-grid{grid-template-columns:1fr}.bn-win{height:auto;max-height:none;min-height:0}.bn-stage{min-height:460px}}
+@media(max-width:640px){.bn-tabs button b{display:none}.bn-tabs button small{font-size:12px}.bn-tabs button{padding:10px 8px}.bn-tbl th,.bn-tbl td{padding:8px 6px;font-size:11.5px}.bn-tbl .c3{font-size:12.5px}.bn-bar{grid-template-columns:92px 1fr 54px}}
+
 /* ===== RESPONSIVE ===== */
 @media(max-width:1024px){
   .hero,.prob,.brain-grid,.mine,.ami,.why,.film{grid-template-columns:1fr}
@@ -528,6 +590,7 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
       <li><a href="#ami">AMI</a></li>
       <li><a href="#rc">Reflex × Cortex</a></li>
       <li><a href="#reflex-live">Live Demo</a></li>
+      <li><a href="#bench">Benchmark</a></li>
       <li><a href="#film">Film</a></li>
       <li><a href="#fields">Fields</a></li>
       <li><a href="#contact" class="cta">문의하기</a></li>
@@ -536,7 +599,7 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
   </div>
 </nav>
 <div id="mnav" onclick="this.classList.remove('open')">
-  <a href="#brain">Digital Brain</a><a href="#ami">AMI</a><a href="#rc">Reflex × Cortex</a><a href="#reflex-live">Live Demo</a><a href="#film">Film</a><a href="#fields">Fields</a><a href="#contact">문의하기</a>
+  <a href="#brain">Digital Brain</a><a href="#ami">AMI</a><a href="#rc">Reflex × Cortex</a><a href="#reflex-live">Live Demo</a><a href="#bench">Benchmark</a><a href="#film">Film</a><a href="#fields">Fields</a><a href="#contact">문의하기</a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -775,12 +838,55 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
   </div>
 </section>
 
+<!-- ===== BENCHMARK ===== -->
+<section id="bench" class="dark sim">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="kick cx rv">BENCHMARK · 실측 비교</div><h2 class="rv" style="transition-delay:.06s">같은 데이터, 같은 질문 —<br><em>구조</em>가 결과를 바꿉니다</h2></div>
+      <p class="lead rv" style="transition-delay:.12s">실제 제조 현장 MES 작업이력 <b>60,189행(10일)</b>과 실제로 발생한 이슈 3건을 세 가지 방식으로 처리했습니다. 최고급 AI 모델도 <b>'어디를 봐야 하는지'</b>는 모릅니다 — 그 '어디'를 먼저 아는 것이 Digital Brain입니다.</p>
+    </div>
+    <div class="bn-grid">
+      <div class="sim-win bn-win rv" style="transition-delay:.1s">
+        <div class="sim-top"><span class="d" style="background:#EF4444"></span><span class="d" style="background:#F59E0B"></span><span class="d" style="background:#10B981"></span><span class="ttl" id="bn-ttl">SERVICE SIMULATION · 실측 결과 재현</span><span class="st" id="bn-st">WAITING</span></div>
+        <div class="bn-tabs" id="bn-tabs">
+          <button class="t1"><small>① P사식 온톨로지</small><b>+ 온프레미스 LLM</b><i></i></button>
+          <button class="t2"><small>② A사 최상위 LLM</small><b>+ 온톨로지 (외부 API)</b><i></i></button>
+          <button class="t3"><small>③ EXPAI</small><b>Digital Brain</b><i></i></button>
+        </div>
+        <div class="bn-stage" id="bn-stage"></div>
+      </div>
+      <div class="bn-side rv" style="transition-delay:.16s">
+        <div class="bn-tbl"><table>
+          <tr><th>같은 항목</th><th>① P사식<br>온톨로지</th><th>② 최상위 LLM<br>+ 온톨로지</th><th class="c3">③ EXPAI<br>Digital Brain</th></tr>
+          <tr><td>질문 없이 먼저 감지</td><td class="x">✕</td><td class="x">✕</td><td class="c3">✓ 자동 보고</td></tr>
+          <tr><td>핵심 이슈 1순위 지목</td><td class="x">0%</td><td class="m">22%</td><td class="c3">100%</td></tr>
+          <tr><td>질문 1건 응답</td><td class="x">81분</td><td class="m">9~14분</td><td class="c3">16초</td></tr>
+          <tr><td>질문 1건 입력 토큰</td><td class="x">652만</td><td class="m">약 34만</td><td class="c3">1.2만</td></tr>
+          <tr><td>근거(원본 행) 되짚기</td><td class="x">✕</td><td class="m">△ 3/9</td><td class="c3">✓ 3/3</td></tr>
+          <tr><td>공장 밖 데이터 반출</td><td>0</td><td class="x">작업이력 전체</td><td class="c3">0</td></tr>
+        </table></div>
+        <div class="bn-bars" id="bn-bars">
+          <h5>질문 1건 응답 시간</h5>
+          <div class="bn-bar"><span>① P사식 온톨로지</span><div class="tr"><i data-w="100" style="background:#EF4444"></i></div><b style="color:#FCA5A5">81분</b></div>
+          <div class="bn-bar"><span>② 최상위 LLM</span><div class="tr"><i data-w="15" style="background:#F59E0B"></i></div><b style="color:#FCD34D">~12분</b></div>
+          <div class="bn-bar"><span>③ Digital Brain</span><div class="tr"><i data-w="1.2" style="background:#38BDF8;min-width:6px"></i></div><b style="color:#7DD3FC">16초</b></div>
+        </div>
+        <div class="bn-foot">
+          <p>2026-10 실측(운영 서버와 격리 · 식별 정보 익명화). P사식 = 글로벌 데이터 플랫폼 P사의 객체·관계 온톨로지 개념을 재현한 조건(특정 제품 시험 아님). A사 최상위 LLM = 글로벌 AI 기업 A사의 플래그십 모델.</p>
+          <button class="bn-play" onclick="bnOpen()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>1분 30초 영상으로 보기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div id="bnModal" onclick="if(event.target===this)bnClose()"><button onclick="bnClose()" aria-label="닫기">×</button><video id="bnVid" src="media/bench_compare.mp4" poster="media/bench_compare_poster.jpg" controls playsinline preload="none"></video></div>
+
 <!-- ===== FILM ===== -->
 <section id="film">
   <div class="wrap">
     <div class="sec-head">
-      <div><div class="kick rv">COMPANY FILM</div><h2 class="rv" style="transition-delay:.06s">5분으로 보는 <em>EXPAI</em></h2></div>
-      <p class="lead rv" style="transition-delay:.12s">베테랑의 판단이 사라지는 문제부터 디지털 두뇌와 AMI, 현장에서 일하는 Reflex · Cortex 에이전트까지 — 소개 영상으로 한 번에 확인하세요.</p>
+      <div><div class="kick rv">COMPANY FILM</div><h2 class="rv" style="transition-delay:.06s">6분으로 보는 <em>EXPAI</em></h2></div>
+      <p class="lead rv" style="transition-delay:.12s">베테랑의 판단이 사라지는 문제부터 디지털 두뇌와 AMI, 현장에서 일하는 Reflex · Cortex 에이전트, 그리고 실측 비교까지 — 소개 영상으로 한 번에 확인하세요.</p>
     </div>
     <div class="film">
       <div class="player rv" id="player" onclick="playFilm()">
@@ -959,7 +1065,7 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
 /* ===== PAGE SNAP (wheel = one section) + side nav ===== */
 {
   const secs=$$('section'),sn=$('#sidenav'),pbar=$('#pbar')
-  const names={top:'HOME',problem:'PROBLEM',brain:'DIGITAL BRAIN',mining:'EPISODE MINING',ami:'AMI',rc:'REFLEX × CORTEX','reflex-live':'REFLEX LIVE','cortex-live':'CORTEX LIVE',film:'FILM',fields:'FIELDS',why:'WHY EXPAI',contact:'CONTACT'}
+  const names={top:'HOME',problem:'PROBLEM',brain:'DIGITAL BRAIN',mining:'EPISODE MINING',ami:'AMI',rc:'REFLEX × CORTEX','reflex-live':'REFLEX LIVE','cortex-live':'CORTEX LIVE',bench:'BENCHMARK',film:'FILM',fields:'FIELDS',why:'WHY EXPAI',contact:'CONTACT'}
   secs.forEach((s,i)=>{const b=document.createElement('button');b.innerHTML='<span>'+(names[s.id]||s.id)+'</span>';b.onclick=()=>go(i);sn.appendChild(b)})
   const dots=$$('#sidenav button')
   let cur=0,lock=false,unlockAt=0
@@ -974,7 +1080,7 @@ $$('.sim video').forEach(v=>onVisible(v,on=>{if(on&&!reduced)v.play().catch(()=>
     if(!snapOn())return
     if(lock){e.preventDefault();return}
     const dy=e.deltaY;if(Math.abs(dy)<(performance.now()-unlockAt<400?60:10))return
-    const sc=e.target.closest&&e.target.closest('.rf-right,.cx-chat,.cx-left,.chap');if(sc&&sc.scrollHeight>sc.clientHeight+2&&((dy>0&&sc.scrollTop+sc.clientHeight<sc.scrollHeight-2)||(dy<0&&sc.scrollTop>2)))return
+    const sc=e.target.closest&&e.target.closest('.rf-right,.cx-chat,.cx-left,.chap,.bn-stage');if(sc&&sc.scrollHeight>sc.clientHeight+2&&((dy>0&&sc.scrollTop+sc.clientHeight<sc.scrollHeight-2)||(dy<0&&sc.scrollTop>2)))return
     const s=secs[cur],top=s.offsetTop,bot=top+s.offsetHeight,y=scrollY,vh=innerHeight
     if(dy>0){if(bot-(y+vh)>6)return;if(cur<secs.length-1){e.preventDefault();go(cur+1)}}
     else{const atTop=cur===secs.length-1?(y-top<=6||document.documentElement.scrollHeight-innerHeight-y<=6):y-top<=6;if(!atTop)return;if(cur>0){e.preventDefault();go(cur-1)}}
@@ -1240,6 +1346,53 @@ function miner(cv,opts={}){
     run(id)
   }
   onVisible($('#cortex-live'),v=>{if(v&&!running){running=true;run(++loopId)}else if(!v&&running){running=false;loopId++}})
+}
+
+/* ===== BENCHMARK ===== */
+{
+  const stage=$('#bn-stage'),tabs=$$('#bn-tabs button'),st=$('#bn-st'),ttl=$('#bn-ttl')
+  const wait=ms=>new Promise(r=>setTimeout(r,ms))
+  let running=false,loopId=0,cur=0
+  const add=(html,cls)=>{const d=document.createElement('div');d.className=cls;d.innerHTML=html;stage.appendChild(d);while(stage.children.length>9)stage.firstChild.remove();return d}
+  const msg=(html,cls)=>add(html,'msg '+cls)
+  async function typing(ms){const d=add('<i></i><i></i><i></i>','typing');await wait(ms);d.remove()}
+  async function user(t,id){const d=msg('','u');for(let i=1;i<=t.length;i++){if(id!==loopId)return;d.textContent=t.slice(0,i);await wait(28)}await wait(450)}
+  function count(el,to,ms,fmt){const t0=performance.now();return new Promise(r=>{const f=now=>{const p=Math.min(1,(now-t0)/ms),k=1-Math.pow(1-p,3);el.textContent=fmt(to*k);p<1?requestAnimationFrame(f):r()};requestAnimationFrame(f)})}
+  const n0=v=>Math.round(v).toLocaleString('en-US')
+  function prog(t,ms){const w=add('<div class="r"><span>'+t+'</span><span class="ck"></span></div><div class="pb"><i></i></div><div class="r"><span>⏱ <span class="rd tm">0</span><span class="ff">⏩ 시간 압축</span></span><span>토큰 <span class="rd tk">0</span></span></div>','bn-work');const bar=w.querySelector('.pb i');bar.style.transition='width '+ms+'ms linear';requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width='100%'));return w}
+  function setTab(k){cur=k;tabs.forEach((b,i)=>{b.classList.toggle('on',i===k);const bar=b.querySelector('i');bar.style.transition='none';bar.style.width='0'})}
+  function tabTimer(ms){const bar=tabs[cur].querySelector('i');requestAnimationFrame(()=>{bar.style.transition='width '+ms+'ms linear';bar.style.width='100%'})}
+  const SCN=[
+    async id=>{st.textContent='WAITING';ttl.textContent='① P사식 온톨로지 + 온프레미스 LLM';tabTimer(15500)
+      add('대기 중 — 질문이 있어야 시작합니다','bn-note');await wait(1100);if(id!==loopId)return
+      await user('10일치 작업이력에 생산 이슈가 있나요?',id);if(id!==loopId)return
+      st.textContent='SCANNING';const w=prog('원본 행 처음부터 재탐색 · 청크 <b class="ch">0</b>/224',4200)
+      await Promise.all([count(w.querySelector('.ch'),224,4200,n0),count(w.querySelector('.tm'),81,4200,v=>Math.round(v)+'분'),count(w.querySelector('.tk'),6520863,4200,n0)]);if(id!==loopId)return
+      await typing(700);msg('<span class="who">ONTOLOGY QA</span>가장 중요한 이슈는 <b>외단R가공(정삭) LOT …0115의 약 45시간 지연</b>입니다. 표준시간 <b>#VALUE!</b> 데이터 오류도 확인됩니다.','a')
+      await wait(1300);if(id!==loopId)return;st.textContent='DONE';add('✕ 실제 이슈 3건 중 0건 · 최근 데이터만 봐도 0 / 3','bn-verdict bad');await wait(3600)},
+    async id=>{st.textContent='WAITING';ttl.textContent='② A사 최상위 LLM + 온톨로지 · 외부 API';tabTimer(15000)
+      add('<i>XLSX</i><span>작업이력_이슈발생일.xlsx · 8,583행 · 약 34만 토큰</span>','bn-file');await wait(900);if(id!==loopId)return
+      add('⚠ 공장 작업이력 전체가 외부 서버로 전송됩니다','bn-warn');await wait(1100);if(id!==loopId)return
+      await user('이 데이터에 생산 이슈가 있나요?',id);if(id!==loopId)return
+      st.textContent='REASONING';const w=prog('추론 중 · 회당 약 $3.5',2800)
+      await Promise.all([count(w.querySelector('.tm'),12,2800,v=>Math.round(v)+'분'),count(w.querySelector('.tk'),337000,2800,n0)]);if(id!==loopId)return
+      await typing(600);msg('<span class="who">LLM</span>있습니다. 가장 중요한 이슈는 <b>제품 B 폴리싱(정삭)의 대량·반복 재작업</b>입니다. 하루 40행 중 39행이 재작업이며…','a')
+      await wait(1300);if(id!==loopId)return;st.textContent='DONE';add('△ 가장 큰 패턴만 지목 · 공정 중단·납기 위험 놓침 · 핵심 이슈 1순위 2 / 9','bn-verdict mid');await wait(3600)},
+    async id=>{st.textContent='AUTO BRIEF';ttl.textContent='③ EXPAI Digital Brain · 온프레미스 35B-MoE';tabTimer(21000)
+      add('07:30 자동 브리핑 · 10일치 60,189행 → 이벤트 3,048건 정리 완료 · 질문 없음','bn-note');await wait(900);if(id!==loopId)return
+      add('<span class="tg" style="background:#DC2626">공정 중단</span><b>제품 C 기준홀 가공</b> — LOT …0013 Terminated<small>근거: 이벤트 EV-000007 · 원본 행 1665</small>','bn-al').style.borderLeftColor='#DC2626';await wait(700);if(id!==loopId)return
+      add('<span class="tg" style="background:#EA580C">납기 위험</span><b>제품 A 세정</b> — 678분 체류 (정상 중앙값 30분)<small>근거: 이벤트 EV-000108 · 원본 행 3595</small>','bn-al').style.borderLeftColor='#EA580C';await wait(700);if(id!==loopId)return
+      add('<span class="tg" style="background:#7C3AED">반복 재작업</span><b>제품 B 폴리싱(정삭)</b> CMP-03 — 재작업 127 LOT<small>과거 사례 연결 · 신뢰도 0.79</small>','bn-al').style.borderLeftColor='#7C3AED';await wait(1300);if(id!==loopId)return
+      await user('반복 재작업 근거 보여줘',id);if(id!==loopId)return
+      await typing(500);add('<b>근거 — 제품 B 폴리싱(정삭) · Evidence Fusion 0.79</b><div><span>원본 행</span><span>행 2569 · 9/7 10:32→10:34 · CMP-03 · 재작업 Y</span></div><div><span>정상 범주</span><span>중앙값 56분 ~ p90 273분 · 재작업 47회 반복</span></div><div><span>과거 사례</span><span>EP-CMTX-001 — 소재불량·셋팅미흡 → 정삭 반복 보정</span></div>','bn-ev')
+      await wait(1100);if(id!==loopId)return;st.textContent='ON-PREMISE';add('✓ 묻기 전에 3 / 3 · 판단 16초 · 공장 밖 반출 0','bn-verdict good');await wait(7500)}]
+  async function run(id,k){while(id===loopId){setTab(k);stage.innerHTML='';await SCN[k](id);if(id!==loopId)return;k=(k+1)%3}}
+  tabs.forEach((b,i)=>b.onclick=()=>{loopId++;running=true;run(loopId,i)})
+  const bars=$$('#bn-bars .tr i')
+  onVisible($('#bench'),v=>{if(v){bars.forEach(b=>b.style.width=b.dataset.w+'%');if(!running){running=true;run(++loopId,0)}}else if(running){running=false;loopId++}})
+  window.bnOpen=()=>{$('#bnModal').classList.add('on');const v=$('#bnVid');v.currentTime=0;v.play().catch(()=>{})}
+  window.bnClose=()=>{$('#bnModal').classList.remove('on');$('#bnVid').pause()}
+  addEventListener('keydown',e=>{if(e.key==='Escape')bnClose()})
 }
 
 /* ===== FILM ===== */
