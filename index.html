@@ -549,7 +549,7 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
       <p class="lead rv" style="transition-delay:.12s">베테랑이 떠나면 공장의 판단력도 함께 떠납니다. EXPAI는 전문가의 판단을 <b>에피소드</b>로 축적하고, 담당자별 <b>AMI</b>에 <b style="color:var(--rf)">Reflex</b>와 <b style="color:var(--cx)">Cortex</b> 두 에이전트를 배치해 현장을 지킵니다.</p>
       <div class="cta rv" style="transition-delay:.18s">
         <a class="btn btn-p" href="#reflex-live">라이브 데모 보기</a>
-        <a class="btn btn-s" href="#film" onclick="openFilm(0);return false"><span class="pl"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span>소개 영상 4:53</a>
+        <a class="btn btn-s" href="#film" onclick="openFilm(0);return false"><span class="pl"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></span>소개 영상 6:36</a>
       </div>
       <div class="proof rv" style="transition-delay:.26s">
         <div><b class="cnt" data-t="10000" data-s="+">0</b><span>검증된 경험 Episode</span></div>
@@ -786,7 +786,7 @@ footer{padding:28px 0 22px;position:relative;z-index:1}
       <div class="player rv" id="player" onclick="playFilm()">
         <img id="poster" src="media/expai_intro_poster.jpg" alt="EXPAI 소개 영상" loading="lazy"/>
         <div class="play"><svg viewBox="0 0 24 24" fill="#fff"><path d="M6 4l14 8-14 8z"/></svg></div>
-        <div class="dur" id="fdur">04:53</div>
+        <div class="dur" id="fdur">06:36</div>
       </div>
       <div class="rv" style="transition-delay:.1s">
         <div class="films" id="films"></div>
@@ -1244,10 +1244,10 @@ function miner(cv,opts={}){
 
 /* ===== FILM ===== */
 const FILMS=[
-  {id:'k3R9LSfCK3s',tag:'COMPANY FILM',title:'EXPAI 소개 영상 — AMI · Reflex × Cortex',dur:'4:53',poster:'media/expai_intro_poster.jpg',chapters:true},
+  {id:'PCKRhGRBE00',tag:'COMPANY FILM',title:'EXPAI 소개 영상 — AMI · Reflex × Cortex · 실측 비교',dur:'6:36',poster:'media/expai_intro_poster.jpg',chapters:true},
   {id:'6nwvR5Ltu_o',tag:'CONCEPT FILM',title:'공장의 판단을 Digital Brain으로',dur:'1:16'},
   {id:'yXDZXKTTtik',tag:'BRAND FILM',title:'함께 배우는 하루 — 나만의 제조 AI 에이전트',dur:'1:16'}]
-const CH=[[0,'인트로 — EXPAI'],[11,'베테랑이 떠나면'],[30,'디지털 두뇌'],[49,'에피소드 채굴'],[63,'정상 범주와 두 가지 에피소드'],[81,'AMI — Artificial My Intelligence'],[109,'Reflex와 Cortex, 쉽게 이해하기'],[141,'Reflex Agent 현장 데모'],[169,'Cortex Agent 현장 데모'],[200,'현장 검증과 인정'],[221,'엑스파이만의 차별점'],[246,'성장하는 AMI'],[280,'클로징']]
+const CH=[[0,'인트로 — EXPAI'],[12,'베테랑이 떠나면'],[31,'디지털 두뇌'],[52,'에피소드 채굴'],[67,'정상 범주와 두 가지 에피소드'],[86,'AMI — Artificial My Intelligence'],[116,'Reflex와 Cortex, 쉽게 이해하기'],[149,'Reflex Agent 현장 데모'],[178,'Cortex Agent 현장 데모'],[211,'현장 검증과 인정'],[233,'엑스파이만의 차별점'],[259,'실제 서비스 비교 — Digital Brain'],[349,'성장하는 AMI'],[383,'클로징']]
 let FILM=FILMS[0]
 const yt=(id,t,auto)=>{const f=document.createElement('iframe');f.allow='autoplay; encrypted-media; picture-in-picture; fullscreen';f.allowFullscreen=true;f.src='https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&playsinline=1&start='+Math.floor(t||0)+(auto?'&autoplay=1':'');return f}
 function playFilm(t){const p=$('#player');p.querySelector('iframe')?.remove();p.classList.add('on');p.appendChild(yt(FILM.id,t,true));$$('#chap button').forEach(b=>b.classList.toggle('cur',+b.dataset.t===(t||0)))}
